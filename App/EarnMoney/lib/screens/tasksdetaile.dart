@@ -20,7 +20,7 @@ class _TasksDetailsState extends State<TasksDetails> {
   void initState() {
     super.initState();
     BannerAd(
-      adUnitId: 'ca-app-pub-6690747295108713/1024392773',
+      adUnitId: 'ca-app-pub-3946644332709876/6246084818',
       size: AdSize.banner,
       request: AdRequest(),
       listener: BannerAdListener(
@@ -47,41 +47,31 @@ class _TasksDetailsState extends State<TasksDetails> {
         children: [
           GFButton(
             onPressed: () async {
-              MyAnalytic!.put(DateTime.now().toString(), 'ClaimTask');
-              if (user?.get(0)['phonenumber'] == 'Phone Number') {
-                {
-                  showMessage(context,
-                      'Please complete your account information first');
-                }
+              SetAnalytic('DownloadTask');
 
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => AccountSetting()),
-                );
+              http.Response response = await http.post(
+                  Uri.parse(
+                      'https://www.nextonebox.com/earnmoney/NotGetUrls/AppTaskSharePage'),
+                  body: {
+                    'full_name': user?.get(0)['name'].toString(),
+                    'mobile_no': user?.get(0)['phonenumber'].toString(),
+                    'email': user?.get(0)['email'].toString(),
+                    'image': widget.task_name['image'].toString(),
+                    'product': widget.task_name['name'].toString(),
+                    'refercode': user?.get(0)['Refercode'].toString(),
+                    'city': 'non'
+                  });
+
+              String url = widget.task_name['referlink'];
+              var urllaunchable =
+                  await canLaunch(url); //canLaunch is from url_launcher package
+              if (urllaunchable) {
+                await launch(
+                    url); //launch is from url_launcher package to launch URL
               } else {
-                http.Response response = await http.post(
-                    Uri.parse(
-                        'https://www.nextonebox.com/earnmoney/NotGetUrls/AppTaskSharePage'),
-                    body: {
-                      'full_name': user?.get(0)['name'],
-                      'mobile_no': user?.get(0)['phonenumber'],
-                      'email': user?.get(0)['email'],
-                      'image': widget.task_name['image'],
-                      'product': widget.task_name['name'],
-                      'refercode': code,
-                      'city': 'non'
-                    });
-
-                String url = widget.task_name['referlink'];
-                var urllaunchable = await canLaunch(
-                    url); //canLaunch is from url_launcher package
-                if (urllaunchable) {
-                  await launch(
-                      url); //launch is from url_launcher package to launch URL
-                } else {
-                  print("URL can't be launched.");
-                }
+                print("URL can't be launched.");
               }
+
               ;
             },
             text: '  Download Now   ',
@@ -90,32 +80,21 @@ class _TasksDetailsState extends State<TasksDetails> {
           ),
           GFButton(
             onPressed: () async {
-              MyAnalytic!.put(DateTime.now().toString(), 'ShareTask');
-              if (user?.get(0)['phonenumber'] == 'Phone Number') {
-                {
-                  showMessage(context,
-                      'Please complete your account information first');
-                }
+              SetAnalytic('ShareTask');
 
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => AccountSetting()),
-                );
-              } else {
-                await Share.share(
-                    '  ${widget.task_name['name'].toString().toUpperCase()} '
-                    '\n \n'
-                    '${widget.task_name['benifits'].toString().replaceAll(',', '\n \n')} '
-                    ' \n \n Complete your account opening process with in 30 days to earn lucky win .📲💰 \n \n'
-                    'For any help contact our verified earnmoney adviser '
-                    ' \n Name :'
-                    ' ${user?.get(0)['name'].toString().toUpperCase()} '
-                    '\n'
-                    '  Email id :  ${user?.get(0)['email']}  '
-                    '\n \n ➡️ Use Promo code/refer code. or  \n '
-                    '➡️ Use this link to Open account \n \n'
-                    'https://www.nextonebox.com/earnmoney/t?id=${widget.task_name['name']}+$code');
-              }
+              await Share.share(
+                  '  ${widget.task_name['name'].toString().toUpperCase()} '
+                  '\n \n'
+                  '${widget.task_name['benifits'].toString().replaceAll(',', '\n \n')} '
+                  ' \n \n Complete your account opening process with in 30 days to earn lucky win .📲💰 \n \n'
+                  'For any help contact our verified earnmoney adviser '
+                  ' \n Name :'
+                  ' ${user?.get(0)['name'].toString().toUpperCase()} '
+                  '\n'
+                  '  Email id :  ${user?.get(0)['email']}  '
+                  '\n \n ➡️ Use Promo code/refer code. or  \n '
+                  '➡️ Use this link to Open account \n \n'
+                  'https://www.nextonebox.com/earnmoney/t?id=${widget.task_name['name']}+$code');
             },
             text: "  Share    ",
             color: Colors.black,
@@ -189,11 +168,11 @@ class _TasksDetailsState extends State<TasksDetails> {
                           avatar: GFAvatar(
                             backgroundColor: Color.fromARGB(255, 247, 247, 250),
                             child: Icon(
-                              Icons.currency_rupee_sharp,
-                              color: Colors.black,
+                              FontAwesomeIcons.indianRupeeSign,
+                              color: Colors.yellow[900],
                             ),
                           ),
-                          titleText: '${widget.task_name['price']}',
+                          titleText: '${widget.task_name['price']} ₹',
                           subTitleText: '${widget.task_name['description']}',
                         ),
                         Divider(
@@ -205,7 +184,7 @@ class _TasksDetailsState extends State<TasksDetails> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              Text('Tracking : 1days'),
+                              Text('Tracking : 3days'),
                               Text('Confirm  : 7days'),
                             ],
                           ),

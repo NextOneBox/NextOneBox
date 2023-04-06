@@ -1,3 +1,4 @@
+import 'package:earnmoney/screens/getphone.dart';
 import 'package:http/http.dart' as http;
 import '../otherfiles/widgets.dart';
 
@@ -24,62 +25,72 @@ class _LoginScrState extends State<LoginScr> {
         if (reslut == null) {
           return;
         }
+        {
+          showMessage(context, 'Please wait');
+        }
 
         http.Response response = await http.post(
             Uri.parse(
-                'https://www.nextonebox.com/earnmoney/NotGetUrls/AppCreateAccount'),
+                'https://www.nextonebox.com/earnmoney/NotGetUrls/AppCreateAccountNew'),
             body: {
-              'email': reslut.email,
+              'email': reslut.email.toString(),
+              'name': reslut.displayName.toString(),
               'otp': 'googleotplogin',
             });
-        if (response.body == 'Login') {
-          dynamic dat = {
-            'email': reslut.email,
-            'name': reslut.displayName,
-            'Ballance': '0',
-            'Refercode': '....',
-          };
 
+        if (response.body == 'Login') {
+          
+          dynamic dat = {
+            'email': reslut.email.toString(),
+            'name': reslut.displayName.toString(),
+            'Ballance': '0',
+            'Refercode': '..',
+          };
+          await localballance!.put(0, 0);
           await user.add(dat);
           await adsbox!.put(4, {'clicks': 0});
           await adsbox!.put(3, {'lastclick': DateTime.now()});
+          await adsbox!.put(10, {'dailygift': DateTime.now()});
           Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(builder: (context) => BottomNavigation()),
             (Route<dynamic> route) => false,
           );
+            Ontimecall();
+          Timer(Duration(seconds: 25), () async {
+            SystemNavigator.pop();
+          });
         }
 
         if (response.body == 'account created') {
+        
           dynamic dat = {
-            'email': reslut.email,
-            'name': reslut.displayName,
+            'email': reslut.email.toString(),
+            'name': reslut.displayName.toString(),
             'Ballance': '0',
-            'Refercode': '....',
+            'Refercode': '..',
           };
+          await localballance!.put(0, 0);
           await user.add(dat);
           await adsbox!.put(4, {'clicks': 0});
           await adsbox!.put(3, {'lastclick': DateTime.now()});
+          await adsbox!.put(10, {'dailygift': DateTime.now()});
+
           Navigator.pushAndRemoveUntil(
             context,
-            MaterialPageRoute(builder: (context) => BottomNavigation()),
+            MaterialPageRoute(builder: (context) => GetPhone()),
             (Route<dynamic> route) => false,
           );
-        }
-        {
-          showMessage(context, response.body);
+            Ontimecall();
+           Timer(Duration(seconds: 25), () async {
+            SystemNavigator.pop();
+          });
         }
       } catch (error) {
         {
           showMessage(context, '$error');
         }
       }
-      GetRequest(
-          'https://www.nextonebox.com/earnmoney/NotGetUrls/LeaderBoardReq',
-          leadboard!);
-      GetRequest(
-          'https://www.nextonebox.com/earnmoney/NotGetUrls/AppGlobalMessages',
-          globalmessage!);
     }
 
     return FutureBuilder(
@@ -155,15 +166,16 @@ class _LoginScrState extends State<LoginScr> {
                                   r'^.+@[a-zA-Z]+\.{1}[a-zA-Z]+(\.{0,1}[a-zA-Z]+)$')
                               .hasMatch(emailCont.text)) {
                             {
-                              showMessage(context, 'Please wait . ..');
+                              showMessage(context, 'Please wait');
                             }
 
                             http.Response response = await http.post(
                                 Uri.parse(
-                                    'https://www.nextonebox.com/earnmoney/NotGetUrls/AppCreateAccount'),
+                                    'https://www.nextonebox.com/earnmoney/NotGetUrls/AppCreateAccountNew'),
                                 body: {
                                   'email': emailCont.text,
                                   'otp': '',
+                                  'name': 'user'
                                 });
 
                             print(response.body);

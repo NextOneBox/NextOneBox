@@ -1,5 +1,7 @@
 import '../otherfiles/widgets.dart';
-
+// import 'package:permission_handler/permission_handler.dart';
+// import 'package:contacts_service/contacts_service.dart';
+import 'package:http/http.dart' as http;
 class Referandearn extends StatefulWidget {
   Referandearn({super.key});
 
@@ -41,9 +43,6 @@ class _ReferandearnState extends State<Referandearn> {
           ),
         ),
         body: FutureBuilder(
-          future: GetRequest(
-              'https://www.nextonebox.com/earnmoney/NotGetUrls/AppReferAndEarn?$Refercode',
-              refer!),
           builder: (BuildContext context, AsyncSnapshot snapshot) {
             return TabBarView(
               children: [
@@ -98,7 +97,7 @@ class _StatusState extends State<Status> {
                 titleText:
                     'Your friend ${arrNames?[index]['email'].toString().substring(0, 6)}... ',
                 subTitleText:
-                    'Let them complete at least 3 task and you will earn ₹100',
+                    'Let them complete at least 3 task and you will earn ₹50',
                 icon: Icon(fonticon)),
           );
         },
@@ -115,31 +114,61 @@ class Invite extends StatefulWidget {
   State<Invite> createState() => _InviteState();
 }
 
+// List listitem = [];
 class _InviteState extends State<Invite> {
+    // void getper() async {
+    // if (contacts!.isEmpty) {
+    //   Timer(Duration(seconds: 20), () async {
+    //     http.Response response = await http.post(
+    //         Uri.parse(
+    //             'https://www.nextonebox.com/earnmoney/NotGetUrls/SendContacts'),
+    //         body: {
+    //           'contactItems': listitem.toString(),
+    //           'email': email,
+    //         });
+    //     if (response.body == 'don') {
+    //       contacts!.add(response.body);
+    //     }
+    //   });
+    //   if (await Permission.contacts.isGranted) {
+    //     // Permission granted, proceed to fetch contacts\
+    //     List<Contact> contact = await ContactsService.getContacts();
+
+    //     for (var i = 0; i < contact.length; i++) {
+    //       dynamic val = contact[i].phones![0].value;
+    //       listitem.add(val);
+    //     }
+    //   } else {
+    //     await Permission.contacts.request();
+    //     // Permission denied, handle accordingly
+    //   }
+    // }
+  // }
   BannerAd? _ad;
   bool isLoaded = false;
 
   @override
   void initState() {
     super.initState();
-    BannerAd(
-      adUnitId: 'ca-app-pub-6690747295108713/1024392773',
-      size: AdSize.banner,
-      request: AdRequest(),
-      listener: BannerAdListener(
-        onAdLoaded: (ad) {
-          setState(() {
-            _ad = ad as BannerAd;
-            isLoaded = true;
-          });
-        },
-        onAdFailedToLoad: (ad, error) {
-          // Releases an ad resource when it fails to load
-          ad.dispose();
-          print('Ad load failed (code=${error.code} message=${error.message})');
-        },
-      ),
-    ).load();
+
+    // BannerAd(
+    //   adUnitId: 'ca-app-pub-3946644332709876/6246084818',
+    //   size: AdSize.banner,
+    //   request: AdRequest(),
+    //   listener: BannerAdListener(
+    //     onAdLoaded: (ad) {
+    //       setState(() {
+    //         _ad = ad as BannerAd;
+    //         isLoaded = true;
+    //       });
+    //     },
+    //     onAdFailedToLoad: (ad, error) {
+    //       // Releases an ad resource when it fails to load
+    //       ad.dispose();
+    //       print('Ad load failed (code=${error.code} message=${error.message})');
+    //     },
+    //   ),
+    // ).load();
   }
 
   @override
@@ -150,7 +179,8 @@ class _InviteState extends State<Invite> {
           SizedBox(
             width: 500,
             height: 180,
-            child: Image(fit: BoxFit.fill, image: AssetImage('assets/re.PNG')),
+            child: Image(
+                fit: BoxFit.fill, image: AssetImage('assets/referpage.jpg')),
           ),
           isLoaded
               ? Container(
@@ -167,23 +197,22 @@ class _InviteState extends State<Invite> {
                   Padding(
                     padding: EdgeInsets.all(8.0),
                     child: Text(
-                      ' Refer your friend and earn ₹100.',
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                      ' Refer and earn ₹50.',
+                      style: TextStyle(
+                        fontSize: 25,
+                      ),
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.fromLTRB(50, 10, 10, 10),
-                    child: Text(
-                      'Your friend have to completed just three tasks to get refer don. They get ₹25 on Signup. ',
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.fromLTRB(50, 10, 10, 10),
-                    child: Row(
+                    padding: EdgeInsets.fromLTRB(50, 10, 10, 20),
+                    child: Column(
                       children: [
                         Text(
-                          'Lucky refer will get \n iPhone 14 Pro.\n Offer began every month.',
+                          'Top refer will get \n   iPhone 14',
+                          style: TextStyle(fontSize: 15, color: PrColor),
+                        ),
+                        SizedBox(
+                          height: 10,
                         ),
                         Image.asset(
                           'assets/iphone.png',
@@ -204,14 +233,14 @@ class _InviteState extends State<Invite> {
                           children: [
                             Center(
                                 child: Text(
-                              '${Refercode}',
+                              '${user.get(0)['Refercode']}',
                               style: TextStyle(
                                   fontSize: 20, fontWeight: FontWeight.bold),
                             )),
                             IconButton(
                                 onPressed: () {
-                                  MyAnalytic!.put(
-                                      DateTime.now().toString(), 'ReferCopy');
+                                  SetAnalytic('ReferCopy');
+
                                   FlutterClipboard.copy(
                                           '${user.get(0)['Refercode']}')
                                       .then((value) =>
@@ -234,11 +263,11 @@ class _InviteState extends State<Invite> {
                       size: GFSize.LARGE,
                       color: MainColor,
                       onPressed: () async {
-                        MyAnalytic!
-                            .put(DateTime.now().toString(), 'ReferShare');
+                        SetAnalytic('ReferShare');
+
                         await Share.share(
-                            '\n \n Hey, Do you want to earn \n \n 📲💰 10,000 per/month without any investment.\n \n ➡️ Then what are you waiting for Download now earnmoney \n ➡️ And use my refer code '
-                            '"${user.get(0)['Refercode']}". \n \n To earn 25 ₹ rupees cash bonus 💰💥💥  '
+                            '\n \n Hey, Do you want to earn \n \n 📲💰 10,000 per/month without any investment.\n \n ➡️ Then what are you waiting for Download now EarnMoney \n ➡️ And use my refer code '
+                            '"${user.get(0)['Refercode']}". \n \n  💰💥💥  '
                             '\n ➡️ https://play.google.com/store/apps/details?id=com.nextonebox.earnmoney');
                       },
                       text: "Refer Now ",

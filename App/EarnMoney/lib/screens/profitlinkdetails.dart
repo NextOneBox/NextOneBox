@@ -62,7 +62,7 @@ class _ProfitDetilsState extends State<ProfitDetils> {
                 ),
                 InkWell(
                   onTap: () {
-                    MyAnalytic!.put(DateTime.now().toString(), 'Profit Link');
+                   SetAnalytic('ProfitLink'); 
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => Web()),
@@ -86,8 +86,8 @@ class _ProfitDetilsState extends State<ProfitDetils> {
                             )),
                             IconButton(
                                 onPressed: () {
-                                  MyAnalytic!.put(
-                                      DateTime.now().toString(), 'Profit Link');
+                                  SetAnalytic('ProfitLink');
+                           
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(

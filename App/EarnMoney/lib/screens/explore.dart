@@ -18,7 +18,7 @@ class _ExploreState extends State<Explore> {
     super.initState();
     if (Platform.isAndroid) WebView.platform = AndroidWebView();
     BannerAd(
-      adUnitId: 'ca-app-pub-6690747295108713/1024392773',
+      adUnitId: 'ca-app-pub-3946644332709876/6246084818',
       size: AdSize.banner,
       request: AdRequest(),
       listener: BannerAdListener(

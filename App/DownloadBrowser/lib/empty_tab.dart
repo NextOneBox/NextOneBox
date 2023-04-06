@@ -3,7 +3,7 @@ import 'package:downloadbrowser/web.dart';
 import 'package:downloadbrowser/webview_tab.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:provider/provider.dart';
-
+import 'package:url_launcher/url_launcher.dart';
 import 'models/browser_model.dart';
 import 'models/webview_model.dart';
 
@@ -124,7 +124,7 @@ class _EmptyTabState extends State<EmptyTab> {
                         ),
                       ),
                       InkWell(
-                        onTap: () {
+                        onTap: () async {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -194,12 +194,14 @@ class _EmptyTabState extends State<EmptyTab> {
                         ),
                       ),
                       InkWell(
-                        onTap: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  WebPage(data: 'https://share.myjosh.in/')),
-                        ),
+                        onTap: () async {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    WebPage(data: 'https://share.myjosh.in/')),
+                          );
+                        },
                         child: Container(
                           width: boxsize,
                           height: boxsize,
@@ -215,7 +217,7 @@ class _EmptyTabState extends State<EmptyTab> {
                         ),
                       ),
                       InkWell(
-                        onTap: () {
+                        onTap: () async {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -238,7 +240,7 @@ class _EmptyTabState extends State<EmptyTab> {
                         ),
                       ),
                       InkWell(
-                        onTap: () {
+                        onTap: () async {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -285,15 +287,12 @@ class _EmptyTabState extends State<EmptyTab> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                     
                       InkWell(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => WebPage(
-                                    data: 'https://en.savefrom.net/379/')),
-                          );
+                        onTap: () async {
+                          var url = 'https://en.savefrom.net/379/';
+                          if (await canLaunch(url)) {
+                            await launch(url);
+                          }
                         },
                         child: Container(
                           width: boxsize,
@@ -310,13 +309,11 @@ class _EmptyTabState extends State<EmptyTab> {
                         ),
                       ),
                       InkWell(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    WebPage(data: 'https://snapinsta.app/')),
-                          );
+                        onTap: () async {
+                          var url = 'https://snapinsta.app/';
+                          if (await canLaunch(url)) {
+                            await launch(url);
+                          }
                         },
                         child: Container(
                           width: boxsize,
@@ -333,13 +330,11 @@ class _EmptyTabState extends State<EmptyTab> {
                         ),
                       ),
                       InkWell(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    WebPage(data: 'https://igram.io/')),
-                          );
+                        onTap: () async {
+                          var url = 'https://igram.io/';
+                          if (await canLaunch(url)) {
+                            await launch(url);
+                          }
                         },
                         child: Container(
                           width: boxsize,
@@ -380,13 +375,11 @@ class _EmptyTabState extends State<EmptyTab> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       InkWell(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    WebPage(data: 'https://vegamovies.page/')),
-                          );
+                        onTap: () async {
+                          var url = 'https://www.google.com/search?q=vagamoves';
+                          if (await canLaunch(url)) {
+                            await launch(url);
+                          }
                         },
                         child: Container(
                           width: boxsize,
@@ -403,13 +396,12 @@ class _EmptyTabState extends State<EmptyTab> {
                         ),
                       ),
                       InkWell(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => WebPage(
-                                    data: 'https://themoviezflix.co.com/')),
-                          );
+                        onTap: () async {
+                          var url =
+                              'https://www.google.com/search?q=movesflix&oq=movesflix&aqs';
+                          if (await canLaunch(url)) {
+                            await launch(url);
+                          }
                         },
                         child: Container(
                           width: boxsize,
@@ -426,13 +418,11 @@ class _EmptyTabState extends State<EmptyTab> {
                         ),
                       ),
                       InkWell(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    WebPage(data: 'https://ww1.flixtor.life/')),
-                          );
+                        onTap: () async {
+                          var url = 'https://ww1.flixtor.life/';
+                          if (await canLaunch(url)) {
+                            await launch(url);
+                          }
                         },
                         child: Container(
                           width: boxsize,

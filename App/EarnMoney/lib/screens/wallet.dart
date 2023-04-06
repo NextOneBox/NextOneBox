@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:http/http.dart' as http;
 import '../otherfiles/widgets.dart';
 
@@ -45,9 +47,6 @@ class _WalletState extends State<Wallet> {
           toolbarHeight: 50,
         ),
         body: FutureBuilder(
-          future: GetRequest(
-              'https://www.nextonebox.com/earnmoney/NotGetUrls/AppWidrawStatus?$email',
-              widrawstaus!),
           builder: (BuildContext context, AsyncSnapshot snapshot) {
             return TabBarView(
               children: [
@@ -106,7 +105,7 @@ class _StatusState extends State<Status> {
                   titleText:
                       'Your withdraw request for amount ₹${arrNames?[index]['amount']} ',
                   description: Text(
-                    ' Date     ${arrNames?[index]['date']}',
+                    ' Date     ${arrNames?[index]['date'].substring(0, 10)}',
                     style: TextStyle(fontSize: 10, height: 3),
                   ),
                   icon: Icon(fonticon)),
@@ -136,7 +135,7 @@ class _InviteState extends State<Invite> {
   void initState() {
     super.initState();
     BannerAd(
-      adUnitId: 'ca-app-pub-6690747295108713/1024392773',
+      adUnitId: 'ca-app-pub-3946644332709876/6246084818',
       size: AdSize.banner,
       request: AdRequest(),
       listener: BannerAdListener(
@@ -157,168 +156,149 @@ class _InviteState extends State<Invite> {
 
   @override
   Widget build(BuildContext context) {
-    if (Ballance == null) {
-      ballance = 0;
-    } else {
-      ballance = Ballance;
-    }
     return SingleChildScrollView(
       child: Padding(
         padding: EdgeInsets.fromLTRB(10, 80, 10, 10),
         child: Center(
           child: Column(
             children: [
-              Container(
-                width: 400,
-                height: 500,
-                child: Padding(
-                  padding: EdgeInsets.only(top: 20),
-                  child: Column(
-                    children: [
-                      Container(
-                        margin: EdgeInsets.all(10),
-                        width: 500,
-                        child: Padding(
-                          padding: EdgeInsets.all(15),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Padding(
-                                padding: EdgeInsets.all(8.0),
-                                child: Row(
-                                  children: [
-                                    Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          'Current Ballance',
-                                          style: TextStyle(
-                                              fontSize: 30, color: PrColor),
-                                        ),
-                                        Text(
-                                          '₹${user.get(0)['Ballance']}.0',
-                                          style: TextStyle(
-                                              fontSize: 30,
-                                              color: MainColor,
-                                              fontWeight: FontWeight.bold),
-                                        )
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Container(
-                                width: 10,
-                                color: Colors.black,
-                              ),
-                            ],
+              Column(
+                children: [
+                  Container(
+                    margin: EdgeInsets.all(10),
+                    width: 500,
+                    child: Padding(
+                      padding: EdgeInsets.all(15),
+                      child: Column(
+                        children: [
+                          Text(
+                            'Ballance(₹)',
+                            style: TextStyle(fontSize: 20, color: PrColor),
                           ),
-                        ),
-                      ),
-                      isLoaded
-                          ? Container(
-                              height: 50,
-                              alignment: Alignment.center,
-                              child: AdWidget(ad: _ad!),
-                            )
-                          : const SizedBox(),
-                      Container(
-                        margin:
-                            EdgeInsets.symmetric(vertical: 50, horizontal: 20),
-                        child: TextFormField(
-                          keyboardType: TextInputType.number,
-                          controller: amount,
-                          textInputAction: TextInputAction.done,
-                          decoration: InputDecoration(
-                            floatingLabelStyle: TextStyle(color: MainColor),
-                            focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                              color: MainColor,
-                            )),
-                            border: OutlineInputBorder(),
-                            hintText: "Enter amount",
-                            prefixIcon: Padding(
-                              padding: EdgeInsets.all(8),
-                              child: Icon(
-                                Icons.currency_rupee,
-                                color: MainColor,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Container(
-                        width: 250,
-                        height: 45,
-                        margin: EdgeInsets.fromLTRB(20, 50, 20, 2),
-                        child: GFButton(
-                          fullWidthButton: true,
-                          shape: GFButtonShape.pills,
-                          size: GFSize.LARGE,
-                          color: MainColor,
-                          child: Text(
-                            'Withdraw',
+                          Text(
+                            '${localballance!.get(0).toString()}.0₹',
                             style: TextStyle(
-                                fontWeight: FontWeight.bold,
                                 fontSize: 20,
-                                fontFamily: 'RobotoMono'),
+                                color: MainColor,
+                                fontWeight: FontWeight.bold),
                           ),
-                          onPressed: () async {
-                            // MyAnalytic!
-                            //     .put(DateTime.now().toString(), 'Withdraw');
-                            int ammount = int.parse(amount.text);
-                            int ball = int.parse(Ballance);
+                        ],
+                      ),
+                    ),
+                  ),
+                  isLoaded
+                      ? Container(
+                          height: 50,
+                          alignment: Alignment.center,
+                          child: AdWidget(ad: _ad!),
+                        )
+                      : const SizedBox(),
+                  Container(
+                    margin: EdgeInsets.symmetric(vertical: 50, horizontal: 20),
+                    child: TextFormField(
+                      keyboardType: TextInputType.number,
+                      controller: amount,
+                      textInputAction: TextInputAction.done,
+                      decoration: InputDecoration(
+                        floatingLabelStyle: TextStyle(color: MainColor),
+                        focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                          color: MainColor,
+                        )),
+                        border: OutlineInputBorder(),
+                        hintText: "Enter amount",
+                        prefixIcon: Padding(
+                          padding: EdgeInsets.all(8),
+                          child: Icon(
+                            Icons.currency_rupee,
+                            color: MainColor,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Container(
+                    width: 250,
+                    height: 45,
+                    margin: EdgeInsets.fromLTRB(20, 50, 20, 2),
+                    child: GFButton(
+                      fullWidthButton: true,
+                      shape: GFButtonShape.pills,
+                      size: GFSize.LARGE,
+                      color: MainColor,
+                      child: Text(
+                        'Withdraw',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                            fontFamily: 'RobotoMono'),
+                      ),
+                      onPressed: () async {
+                        if (user.get(0)['Account'] == 'UPI id /paytm number' ||
+                            user.get(0)['Account'] == null) {
+                          {
+                            showMessage(context,
+                                'Please complete your account information first');
+                          }
 
-                            if (498 < ammount && ammount < ball) {
-                              if (user.get(0)['completed'] == 'true') {
-                                http.Response response = await http.post(
-                                    Uri.parse(
-                                        'https://www.nextonebox.com/earnmoney/NotGetUrls/AppWidrawRequest'),
-                                    body: {
-                                      'amount': amount.text,
-                                      'email': email.toString(),
-                                      'ballance': Ballance.toString()
-                                    });
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => AccountSetting()),
+                          );
+                        } else {
+                          MyAnalytic!
+                              .put(DateTime.now().toString(), 'Withdraw');
+                          int ammount = int.parse(amount.text);
+                          int ball = (localballance!.get(0));
 
-                                if (response.body == 'Request accepted') {
-                                  dynamic dat = {
-                                    'email': email,
-                                    'password': ammount,
-                                  };
-                                  {
-                                    showMessage(context, ' Request accepted');
-                                  }
+                          if (9 < ammount && ammount < ball) {
+                            http.Response response = await http.post(
+                                Uri.parse(
+                                    'https://www.nextonebox.com/earnmoney/NotGetUrls/AppWidrawRequest'),
+                                body: {
+                                  'amount': amount.text,
+                                  'email': email.toString(),
+                                  'ballance': ball.toString()
+                                });
 
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            BottomNavigation()),
-                                  );
-                                } else {
-                                  {
-                                    showMessage(context, response.body);
-                                  }
-                                }
-                              } else {
-                                {
-                                  showMessage(context,
-                                      'You must have to complete at least 3 tasks to Withdraw ballance');
-                                }
+                            if (response.body == 'Request accepted') {
+                              dynamic dat = {
+                                'email': email,
+                                'password': ammount,
+                              };
+                              {
+                                showMessage(context, ' Request accepted');
                               }
+
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => BottomNavigation()),
+                              );
                             } else {
                               {
-                                showMessage(context,
-                                    "Due to High Withdraw request.\n You must need at least 500₹ wallet ballance to Withdraw. ");
+                                showMessage(context, response.body);
                               }
                             }
-                          },
-                        ),
-                      ),
-                    ],
+                          } else {
+                            {
+                              showMessage(context,
+                                  "* You must need min 10₹ ballance  ");
+                            }
+                          }
+                        }
+                      },
+                    ),
                   ),
-                ),
+                  Padding(
+                    padding: const EdgeInsets.all(30),
+                    child: Text(
+                      'Requirement \n* Minimum ballance 10₹ \n ',
+                      style: TextStyle(fontSize: 11),
+                    ),
+                  )
+                ],
               ),
             ],
           ),

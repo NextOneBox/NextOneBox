@@ -1,9 +1,10 @@
 import 'dart:ffi';
-
+import 'package:earnmoney/screens/quiz.dart';
 import 'package:earnmoney/screens/referandearn.dart';
-
+import 'package:earnmoney/screens/spin.dart';
 import 'package:http/http.dart' as http;
-import 'package:unity_ads_plugin/unity_ads.dart';
+// import 'package:unity_ads_plugin/unity_ads.dart';
+import 'package:workmanager/workmanager.dart';
 import '../otherfiles/webpage.dart';
 import '../otherfiles/widgets.dart';
 
@@ -20,93 +21,92 @@ var myname;
 
 var tasklength;
 
+
 class Screehome extends State<Home> {
+
+
   BannerAd? _ad;
   bool isLoaded = false;
-
   int _numRewardedLoadAttempts = 0;
-
   RewardedAd? _rewardedAd;
   //this function is for load ad
-
-  unityloadad() {
+  unityloadad(double getammount) async {
     int clicks = adsbox!.get(4)['clicks'];
-    int Ballance = int.parse(user.get(0)['Ballance']);
-    int a = 1;
-    int newBall = Ballance + a;
-    UnityAds.showVideoAd(
-      placementId: 'Rewarded_Android',
-      listener: (state, args) async {
-        if (state == UnityAdState.complete) {
-          http.Response resp = await http.post(
-              Uri.parse(
-                  'https://www.nextonebox.com/earnmoney/NotGetUrls/UpdateBallance'),
-              body: {
-                'email': email.toString(),
-                'Ballance': newBall.toString(),
-              });
-          adsbox!.put(4, {'clicks': clicks + 1});
-          adsbox!.put(3, {'lastclick': DateTime.now()});
-          Timer(Duration(seconds: 3), () {
-            setState(() {
-              {
-                showMessage(context,
-                    'You have earned 1₹ \n It takes time to update ballance');
-              }
-            });
-          });
-        } else if (state == UnityAdState.skipped) {
-          print('User cancel video.');
+    double Ballance = double.parse(localballance!.get(0));
+    double newBall = (Ballance + getammount);
+    localballance!.put(0, newBall);
+    http.Response resp = await http.post(
+        Uri.parse(
+            'https://www.nextonebox.com/earnmoney/NotGetUrls/UpdateBallanceNew'),
+        body: {
+          'email': email.toString(),
+          'Ballance': getammount.toString(),
+        });
+    adsbox!.put(4, {'clicks': clicks + 1});
+    adsbox!.put(3, {'lastclick': DateTime.now()});
+    Timer(Duration(seconds: 2), () {
+      setState(() {
+        {
+          showMessage(context, 'You have earned your reward');
         }
-      },
-    );
+      });
+    });
+    // UnityAds.showVideoAd(
+    //   placementId: 'Rewarded_Android',
+    //   listener: (state, args) async {
+    //     if (state == UnityAdState.complete) {
+    //     } else if (state == UnityAdState.skipped) {
+    //       print('User cancel video.');
+    //     }
+    //   },
+    // );
   }
 
-  loadad() {
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        duration: Duration(seconds: 4),
-        backgroundColor: Colors.transparent,
-        content: Center(
-            child: CircularProgressIndicator(
-          color: Colors.white,
-          backgroundColor: MainColor,
-        ))));
-    RewardedAd.load(
-        adUnitId: 'ca-app-pub-6690747295108713/7663719675',
-        request: AdRequest(),
-        rewardedAdLoadCallback: RewardedAdLoadCallback(onAdLoaded: (ad) {
-          _rewardedAd = ad;
-          _rewardedAd?.show(onUserEarnedReward: (ad, reward) async {
-            int newBall = int.parse(user.get(0)['Ballance']) + 1;
-            _rewardedAd?.fullScreenContentCallback = FullScreenContentCallback(
-                onAdFailedToShowFullScreenContent: (ad, err) {
-              unityloadad();
-              ad.dispose();
-            }, onAdDismissedFullScreenContent: (ad) {
-              ad.dispose();
-            });
-            int clicks = adsbox!.get(4)['clicks'];
-            http.Response resp = await http.post(
-                Uri.parse(
-                    'https://www.nextonebox.com/earnmoney/NotGetUrls/UpdateBallance'),
-                body: {
-                  'email': email.toString(),
-                  'Ballance': newBall.toString(),
-                });
-            adsbox!.put(4, {'clicks': clicks + 1});
-            adsbox!.put(3, {'lastclick': DateTime.now()});
-            {
-              showMessage(context,
-                  'You have earned 1₹ \n It takes time to update ballance');
-            }
-            Timer(Duration(seconds: 40), () {
-              setState(() {});
-            });
-          });
-        }, onAdFailedToLoad: (LoadAdError error) {
-          unityloadad();
-        }));
-  }
+  // loadad() {
+  //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+  //       duration: Duration(seconds: 4),
+  //       backgroundColor: Colors.transparent,
+  //       content: Center(
+  //           child: CircularProgressIndicator(
+  //         color: Colors.white,
+  //         backgroundColor: MainColor,
+  //       ))));
+  //   RewardedAd.load(
+  //       adUnitId: 'ca-app-pub-6690747295108713/7663719675',
+  //       request: AdRequest(),
+  //       rewardedAdLoadCallback: RewardedAdLoadCallback(onAdLoaded: (ad) {
+  //         _rewardedAd = ad;
+  //         _rewardedAd?.show(onUserEarnedReward: (ad, reward) async {
+  //           int newBall = int.parse(localballance!.get(0)) + 1;
+  //           _rewardedAd?.fullScreenContentCallback = FullScreenContentCallback(
+  //               onAdFailedToShowFullScreenContent: (ad, err) {
+  //             unityloadad();
+  //             ad.dispose();
+  //           }, onAdDismissedFullScreenContent: (ad) {
+  //             ad.dispose();
+  //           });
+  //           int clicks = adsbox!.get(4)['clicks'];
+  //           localballance!.put(0, newBall);
+  //           http.Response resp = await http.post(
+  //               Uri.parse(
+  //                   'https://www.nextonebox.com/earnmoney/NotGetUrls/UpdateBallanceNew'),
+  //               body: {
+  //                 'email': email.toString(),
+  //                 'Ballance': newBall.toString(),
+  //               });
+  //           adsbox!.put(4, {'clicks': clicks + 1});
+  //           adsbox!.put(3, {'lastclick': DateTime.now()});
+  //           {
+  //             showMessage(context, 'You have earned your reward');
+  //           }
+  //           Timer(Duration(seconds: 40), () {
+  //             setState(() {});
+  //           });
+  //         });
+  //       }, onAdFailedToLoad: (LoadAdError error) {
+  //         unityloadad();
+  //       }));
+  // }
 
   Color bgcolor = Colors.blueAccent;
   var txt = "home";
@@ -117,12 +117,13 @@ class Screehome extends State<Home> {
   @override
   void initState() {
     super.initState();
-    UnityAds.init(
-      gameId: '5107227',
-    );
+
+    // UnityAds.init(
+    //   gameId: '5180629',
+    // );
 
     BannerAd(
-      adUnitId: 'ca-app-pub-6690747295108713/1024392773',
+      adUnitId: 'ca-app-pub-3946644332709876/6246084818',
       size: AdSize.banner,
       request: AdRequest(),
       listener: BannerAdListener(
@@ -148,9 +149,6 @@ class Screehome extends State<Home> {
 //                     child: AdWidget(ad: _ad!),
 //                   ),
 
-    GetRequest(
-        'https://www.nextonebox.com/earnmoney/NotGetUrls/AppEarnMoneyAccount?${email}',
-        user);
     FirebaseMessaging.instance.getInitialMessage().then(
       (message) {
         if (message != null) {
@@ -186,7 +184,7 @@ class Screehome extends State<Home> {
     Timer(Duration(seconds: 3), () {
       setState(() {
         print('intializing state');
-        print(user.get(0)['Ballance']);
+        print(localballance!.get(0));
       });
     });
   }
@@ -205,7 +203,24 @@ class Screehome extends State<Home> {
   //}
 
   var arrlength;
-
+  List imagelist = [
+    'https://asset20.ckassets.com/resources/image/stores/flipkart.png',
+    'https://asset20.ckassets.com/resources/image/stores/amazon-store-exclusive-1602774183.png',
+    'https://asset20.ckassets.com/resources/image/stores/myntra-1614060175.png',
+    'https://asset20.ckassets.com/resources/image/stores/boat-store-1607926097.png',
+    'https://asset20.ckassets.com/resources/image/stores/mama-earth-coupons-1561467924.png',
+    'https://asset20.ckassets.com/resources/image/stores/nykaabeauty-1658489934.jpg'
+  ];
+  List linklist = [
+    'https://ekaro.in/enkr20230301s21885146',
+    'https://amzn.to/3kChPbP',
+    'https://ekaro.in/enkr20230301s21885250',
+    'https://ekaro.in/enkr20230301s21885277',
+    'https://ekaro.in/enkr20230301s21885315',
+    'https://ekaro.in/enkr20230301s21885399'
+  ];
+  dynamic listTrandign =
+      task?.values.where((tet) => tet['favorite'] == 'yes').toList();
   @override
   Widget build(BuildContext context) {
     if (arrNames!.isEmpty) {
@@ -216,9 +231,6 @@ class Screehome extends State<Home> {
     return Scaffold(
       body: FutureBuilder(
         initialData: {tasklength = 0, myname = 'Hi'},
-        // future: GetRequest(
-        //     'https://www.nextonebox.com/earnmoney/NotGetUrls/AppEarnMoneyAccount?${email}',
-        //     user),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           tasklength = tasklist?.length;
           var showad;
@@ -259,72 +271,225 @@ class Screehome extends State<Home> {
                       ),
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          'Gift Box  ',
-                          style: texSty,
-                        ),
-                        Text('Get upto ₹500    '),
-                        IconButton(
-                          onPressed: () {
-                            showFlash(
-                              context: context,
-                              duration: Duration(seconds: 2),
-                              builder: (_, c) {
-                                return Flash.bar(
-                                  barrierDismissible: true,
-                                  controller: c,
-                                  backgroundColor:
-                                      Color.fromARGB(255, 247, 247, 250),
-                                  position: FlashPosition.bottom,
-                                  margin: EdgeInsets.all(50),
-                                  borderRadius: BorderRadius.circular(20),
-                                  child: FlashBar(
-                                    padding: EdgeInsets.all(40),
-                                    title: Text(
-                                      "Claim",
-                                      style: texSty,
-                                    ),
-                                    content: Text(
-                                      "Claim your reward every day",
-                                      style: texSty,
-                                    ),
-                                    actions: [
-                                      TextButton(
-                                        onPressed: () {
-                                      
-                                        
-                                          
-                                      
-                                        },
-                                        child: Text(
-                                          'Logout',
-                                          style: TextStyle(color: Colors.red),
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                );
-                              },
-                            );
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        width: 70,
+                        height: 50,
+                        margin: EdgeInsets.all(5),
+                        decoration: UseBorder,
+                        child: GFListTile(
+                          onTap: () async {
+                            SetAnalytic('Facebook');
+
+                            var url = 'https://www.facebook.com/nextonebox';
+                            if (await canLaunch(url)) {
+                              await launch(url);
+                            }
                           },
-                          icon: Icon(
-                            FontAwesomeIcons.gift,
-                            size: 35,
-                            color: Colors.red,
+                          listItemTextColor: Color.fromARGB(255, 119, 121, 123),
+                          avatar: Icon(
+                            FontAwesomeIcons.facebook,
+                            size: 20,
+                            color: PrColor,
                           ),
-                        )
-                      ],
-                    ),
+                        ),
+                      ),
+                      Container(
+                        width: 70,
+                        height: 50,
+                        margin: EdgeInsets.all(5),
+                        decoration: UseBorder,
+                        child: GFListTile(
+                          onTap: () async {
+                            SetAnalytic('Youtube');
+
+                            var url = 'https://www.youtube.com/@nextonebox';
+                            if (await canLaunch(url)) {
+                              await launch(url);
+                            }
+                          },
+                          listItemTextColor: Color.fromARGB(255, 119, 121, 123),
+                          avatar: Icon(
+                            FontAwesomeIcons.youtube,
+                            size: 20,
+                            color: PrColor,
+                          ),
+                        ),
+                      ),
+                      Container(
+                        width: 70,
+                        height: 50,
+                        margin: EdgeInsets.all(5),
+                        decoration: UseBorder,
+                        child: GFListTile(
+                          onTap: () async {
+                      
+                  
+
+                            SetAnalytic('instagram');
+
+                            var url = 'https://www.instagram.com/nextonebox/';
+                            if (await canLaunch(url)) {
+                              await launch(url);
+                            }
+                          },
+                          listItemTextColor: Color.fromARGB(255, 119, 121, 123),
+                          avatar: Icon(
+                            FontAwesomeIcons.instagram,
+                            size: 20,
+                            color: PrColor,
+                          ),
+                        ),
+                      ),
+                      Container(
+                        width: 70,
+                        height: 50,
+                        margin: EdgeInsets.all(5),
+                        decoration: UseBorder,
+                        child: GFListTile(
+                          onTap: () async {
+                            SetAnalytic('twitter');
+
+                            var url = 'https://twitter.com/NextOneBox';
+                            if (await canLaunch(url)) {
+                              await launch(url);
+                            }
+                          },
+                          listItemTextColor: Color.fromARGB(255, 119, 121, 123),
+                          avatar: Icon(
+                            FontAwesomeIcons.twitter,
+                            size: 20,
+                            color: PrColor,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
+                  // Padding(
+                  //   padding: const EdgeInsets.all(10),
+                  //   child: Row(
+                  //     mainAxisAlignment: MainAxisAlignment.center,
+                  //     children: [
+                  //       Text(
+                  //         'Daily Rewards',
+                  //         style: texSty,
+                  //       ),
+                  //       IconButton(
+                  //         onPressed: () {
+                  //           Workmanager().registerPeriodicTask(
+                  //             "periodic-task-identifier",
+                  //             "You daily reward is ready to claim.",
+                  //             frequency: Duration(hours: 24),
+                  //           );
+
+                  //           dynamic dailygift = adsbox!.get(10)['dailygift'];
+                  //           DateTime presenttime = DateTime.now();
+                  //           Duration difference =
+                  //               presenttime.difference(dailygift);
+                  //           if (difference.inHours > 24) {
+                  //             showDialog(
+                  //                 context: context,
+                  //                 builder: (context) {
+                  //                   return Container(
+                  //                     child: AlertDialog(
+                  //                       actions: [
+                  //                         SizedBox(height: 10),
+                  //                         Center(
+                  //                             child: Text('Congratulation..!',
+                  //                                 style: TextStyle(
+                  //                                     fontSize: 30,
+                  //                                     fontWeight:
+                  //                                         FontWeight.w300,
+                  //                                     color: MainColor))),
+                  //                         Center(
+                  //                           child: Image(
+                  //                               image: AssetImage(
+                  //                                   'assets/giftopen.png')),
+                  //                         ),
+                  //                         Center(
+                  //                           child: Text('You Win : 1₹',
+                  //                               style: texSty),
+                  //                         ),
+                  //                         SizedBox(
+                  //                           height: 20,
+                  //                         ),
+                  //                         Center(
+                  //                             child: MaterialButton(
+                  //                                 onPressed: () async {
+                  //                                   await adsbox!.put(10, {
+                  //                                     'dailygift':
+                  //                                         DateTime.now()
+                  //                                   });
+                  //                                 },
+                  //                                 height: 50,
+                  //                                 minWidth: 120,
+                  //                                 color: MainColor,
+                  //                                 shape: RoundedRectangleBorder(
+                  //                                     borderRadius:
+                  //                                         BorderRadius.circular(
+                  //                                             50)),
+                  //                                 child: TextButton(
+                  //                                   onPressed: () {
+                  //                                     Navigator.pop(context);
+                  //                                     unityloadad(1);
+                  //                                   },
+                  //                                   child: Text('CLAIM',
+                  //                                       style: TextStyle(
+                  //                                           color:
+                  //                                               Colors.white)),
+                  //                                 ))),
+                  //                         SizedBox(
+                  //                           height: 10,
+                  //                         ),
+                  //                       ],
+                  //                     ),
+                  //                   );
+                  //                 });
+                  //           } else {
+                  //             showDialog(
+                  //                 context: context,
+                  //                 builder: (context) {
+                  //                   return Container(
+                  //                     child: AlertDialog(
+                  //                       actions: [
+                  //                         SizedBox(height: 10),
+                  //                         Center(
+                  //                             child: Text(
+                  //                                 'Claim your reward \nevery day and earn',
+                  //                                 style: TextStyle(
+                  //                                     color: Colors.green))),
+                  //                         Center(
+                  //                           child: Image(
+                  //                               image: AssetImage(
+                  //                                   'assets/giftclose.png')),
+                  //                         ),
+                  //                         Center(
+                  //                           child: Text(
+                  //                               'Time to open  ${24 - difference.inHours} Hours ${difference.inMinutes - 60} Minutes',
+                  //                               style: TextStyle(
+                  //                                   color: Colors.green)),
+                  //                         ),
+                  //                         SizedBox(
+                  //                           height: 10,
+                  //                         ),
+                  //                       ],
+                  //                     ),
+                  //                   );
+                  //                 });
+                  //           }
+                  //         },
+                  //         icon: Image.asset('assets/giftclose.png'),
+                  //         iconSize: 50,
+                  //       )
+                  //     ],
+                  //   ),
+                  // ),
                   GFListTile(
                     color: BackColor,
                     onTap: () {
-                      MyAnalytic!.put(DateTime.now().toString(), 'AccSetting');
+                      SetAnalytic('AccSetting');
                       Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -345,7 +510,7 @@ class Screehome extends State<Home> {
                   Container(
                     child: GFListTile(
                       onTap: () {
-                        MyAnalytic!.put(DateTime.now().toString(), 'Wallet');
+                        SetAnalytic('Wallet');
                         Navigator.push(
                           context,
                           MaterialPageRoute(builder: (context) => Wallet()),
@@ -353,7 +518,7 @@ class Screehome extends State<Home> {
                       },
                       padding: EdgeInsets.all(10),
                       titleText: 'Current Ballance',
-                      subTitleText: '${user.get(0)['Ballance']}.0',
+                      subTitleText: '${localballance!.get(0)} Coins',
                       icon: Icon(
                         FontAwesomeIcons.wallet,
                         color: MainColor,
@@ -367,7 +532,7 @@ class Screehome extends State<Home> {
                     margin: EdgeInsets.only(right: 40, left: 40),
                     child: Center(
                         child: Text(
-                      '25 tasks * 10 friends it become 50,000₹ \n Earn more with more shares No limit',
+                      'Share tasks with friends and family \nThey do task you earn',
                       style: TextStyle(color: Colors.black),
                     )),
                   ),
@@ -375,16 +540,16 @@ class Screehome extends State<Home> {
                       margin: EdgeInsets.all(6),
                       height: 150,
                       child: ListView.builder(
-                        itemCount: 9,
+                        itemCount: listTrandign.length,
                         scrollDirection: Axis.horizontal,
                         itemBuilder: (context, index) {
                           return InkWell(
                             onTap: () {
-                              MyAnalytic!.put(DateTime.now().toString(), 'All');
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => Task(val: '')),
+                                    builder: (context) => TasksDetails(
+                                        task_name: listTrandign?[index])),
                               );
                             },
                             child: Card(
@@ -404,7 +569,7 @@ class Screehome extends State<Home> {
                                     ),
                                     child: Center(
                                         child: Text(
-                                      ' Earn ₹${tasklist?[index]['price']}',
+                                      ' Earn ${listTrandign?[index]['price']}',
                                       style: TextStyle(color: Colors.white),
                                     )),
                                   ),
@@ -414,13 +579,13 @@ class Screehome extends State<Home> {
                                     decoration: BoxDecoration(
                                       image: DecorationImage(
                                         image: NetworkImage(
-                                            'https://nextonebox.com/media/${tasklist?[index]['image']}'),
+                                            'https://nextonebox.com/media/${listTrandign?[index]['image']}'),
                                         fit: BoxFit.fill,
                                       ),
                                     ),
                                   ),
                                   Text(
-                                    tasklist?[index]['name'],
+                                    listTrandign?[index]['name'],
                                     style: TextStyle(
                                         color:
                                             Color.fromARGB(255, 110, 114, 116),
@@ -432,6 +597,10 @@ class Screehome extends State<Home> {
                           );
                         },
                       )),
+                  // UnityBannerAd(
+                  //   placementId: 'Banner_Android',
+                  //   size: BannerSize.standard,
+                  // ),
                   isLoaded
                       ? Container(
                           height: 50,
@@ -439,47 +608,49 @@ class Screehome extends State<Home> {
                           child: AdWidget(ad: _ad!),
                         )
                       : const SizedBox(
-                          height: 20,
+                          height: 5,
                         ),
                   Container(
                     margin: EdgeInsets.all(10),
                     child: Column(
                       children: [
-                        GFListTile(
-                          listItemTextColor: Color.fromARGB(255, 119, 121, 123),
-                          avatar: Icon(
-                            size: 40.0,
-                            Icons.card_giftcard_sharp,
-                            color: MainColor,
+                        Container(
+                          width: 500,
+                          height: 100,
+                          child: Image.asset(
+                            'assets/comtask.png',
                           ),
-                          titleText: '     Watch Video And Earn',
                         ),
                         InkWell(
                           onTap: () {
                             setState(() {
-                              dynamic lastclick = adsbox!.get(3)['lastclick'];
-                              DateTime presenttime = DateTime.now();
-                              Duration difference =
-                                  presenttime.difference(lastclick);
-                              int clicks = adsbox!.get(4)['clicks'];
+                              SetAnalytic('tasks');
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => Task(val: '')),
+                              );
 
-                              if (clicks == 20) {
-                                if (difference.inHours > 3) {
-                                  loadad();
-                                  adsbox!.put(4, {'clicks': 0});
-                                  adsbox!.put(3, {'lastclick': DateTime.now()});
-                                } else {
-                                  {
-                                    showMessage(context,
-                                        'You have exceed your ad limit. Please try after ${2 - difference.inHours} Hours ${60 - difference.inMinutes} Minutes');
-                                  }
-                                }
-                              } else {
-                                loadad();
-                              }
+                              // dynamic lastclick = adsbox!.get(3)['lastclick'];
+                              // DateTime presenttime = DateTime.now();
+                              // Duration difference =
+                              //     presenttime.difference(lastclick);
+                              // int clicks = adsbox!.get(4)['clicks'];
 
-                              MyAnalytic!
-                                  .put(DateTime.now().toString(), 'Watch ad');
+                              // if (clicks == 20) {
+                              //   if (difference.inHours > 3) {
+                              //     loadad();
+                              //     adsbox!.put(4, {'clicks': 0});
+                              //     adsbox!.put(3, {'lastclick': DateTime.now()});
+                              //   } else {
+                              //     {
+                              //       showMessage(context,
+                              //           'You have exceed your ad limit. Please try after ${2 - difference.inHours} Hours ${60 - difference.inMinutes} Minutes');
+                              //     }
+                              //   }
+                              // } else {
+                              //   loadad();
+                              // }
                             });
                           },
                           child: Card(
@@ -495,7 +666,7 @@ class Screehome extends State<Home> {
                                 children: [
                                   Center(
                                       child: Text(
-                                    'Watch ad',
+                                    'Complete Task and earn',
                                     style: TextStyle(
                                         fontSize: 20,
                                         color: PrColor,
@@ -512,365 +683,334 @@ class Screehome extends State<Home> {
                       ],
                     ),
                   ),
-                  Container(
-                      child: InkWell(
-                    onTap: () {
-                      MyAnalytic!.put(DateTime.now().toString(), 'tasks');
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => Task(val: '')),
-                      );
-                    },
-                    child: Container(
-                      margin: EdgeInsets.all(10),
-                      child: Column(
-                        children: [
-                          GFListTile(
-                            padding: EdgeInsets.all(5),
-                            margin: EdgeInsets.all(5),
-                            avatar: Image.asset(
-                                width: 50, height: 50, 'assets/comtask.png'),
-                            titleText: 'Complete Task and earn',
-                          ),
-                          Container(
-                            decoration: BoxDecoration(
-                              color: MainColor,
-                              border: Border.all(color: MainColor),
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10)),
-                            ),
-                            height: 30,
-                            margin: EdgeInsets.only(
-                                left: 40, right: 40, bottom: 20),
-                            child: Card(
-                              elevation: 100,
-                              color: MainColor,
-                              child: Center(
-                                  child: Text(
-                                ' Check Now',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontFamily: 'Roboto',
-                                    fontWeight: FontWeight.bold),
-                              )),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  )),
+                  // Container(
+                  //     child: InkWell(
+                  //   onTap: () {
+                  //     SetAnalytic('tasks');
+                  //     Navigator.push(
+                  //       context,
+                  //       MaterialPageRoute(builder: (context) => Task(val: '')),
+                  //     );
+                  //   },
+                  //   child: Container(
+                  //     margin: EdgeInsets.all(10),
+                  //     child: Column(
+                  //       children: [
+                  //         GFListTile(
+                  //           padding: EdgeInsets.all(5),
+                  //           margin: EdgeInsets.all(5),
+                  //           avatar: Image.asset(
+                  //               width: 50, height: 50, 'assets/comtask.png'),
+                  //           titleText: 'Complete Task and earn',
+                  //         ),
+                  //         Container(
+                  //           decoration: BoxDecoration(
+                  //             color: MainColor,
+                  //             border: Border.all(color: MainColor),
+                  //             borderRadius:
+                  //                 BorderRadius.all(Radius.circular(10)),
+                  //           ),
+                  //           height: 30,
+                  //           margin: EdgeInsets.only(
+                  //               left: 40, right: 40, bottom: 20),
+                  //           child: Card(
+                  //             elevation: 100,
+                  //             color: MainColor,
+                  //             child: Center(
+                  //                 child: Text(
+                  //               ' Check Now',
+                  //               style: TextStyle(
+                  //                   color: Colors.white,
+                  //                   fontFamily: 'Roboto',
+                  //                   fontWeight: FontWeight.bold),
+                  //             )),
+                  //           ),
+                  //         ),
+                  //       ],
+                  //     ),
+                  //   ),
+                  // )),
                   Center(
                     child: Container(
                       margin: EdgeInsets.all(6),
                       height: 150,
                       child: Row(
                         children: [
-                          Card(
-                            color: BackColor,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                Container(
-                                  margin: EdgeInsets.only(left: 50),
-                                  width: 100,
-                                  height: 25,
-                                  decoration: BoxDecoration(
-                                    color: MainColor,
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(20)),
+                          InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => Referandearn()),
+                              );
+                            },
+                            child: Card(
+                              color: BackColor,
+                              child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Container(
+                                    margin: EdgeInsets.only(left: 50),
+                                    width: 100,
+                                    height: 25,
+                                    decoration: BoxDecoration(
+                                      color: MainColor,
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(20)),
+                                    ),
+                                    child: Center(
+                                        child: Text(
+                                      'Refer & Earn',
+                                      style: TextStyle(color: Colors.white),
+                                    )),
                                   ),
-                                  child: Center(
-                                      child: Text(
-                                    'Refer & Earn',
-                                    style: TextStyle(color: Colors.white),
-                                  )),
-                                ),
-                                Image(
-                                  image: AssetImage('assets/po.png'),
-                                  width: 50,
-                                  height: 50,
-                                ),
-                                Text(
-                                  'Share and earn ₹100',
-                                  style: TextStyle(
-                                      color: Color.fromARGB(255, 110, 114, 116),
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ],
+                                  Image(
+                                    width: 90,
+                                    height: 90,
+                                    image: AssetImage('assets/refercard.png'),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
-                          Card(
-                            color: BackColor,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                Container(
-                                  margin: EdgeInsets.only(left: 50),
-                                  width: 100,
-                                  height: 25,
-                                  decoration: BoxDecoration(
-                                    color: MainColor,
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(20)),
-                                  ),
-                                  child: Center(
-                                      child: Text(
-                                    ' Play quiz',
-                                    style: TextStyle(color: Colors.white),
-                                  )),
-                                ),
-                                Container(
-                                  width: 50,
-                                  height: 50,
-                                  decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                      image: NetworkImage(
-                                          'https://nextonebox.com/media'),
-                                      fit: BoxFit.fill,
+                          InkWell(
+                            onTap: () async {
+                              var url = 'https://1174.set.qureka.com/intro';
+                              if (await canLaunch(url)) {
+                                await launch(url);
+                              }
+                              // Navigator.push(
+                              //   context,
+                              //   MaterialPageRoute(builder: (context) => Quiz()),
+                              // );
+                            },
+                            child: Card(
+                              color: BackColor,
+                              child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Container(
+                                    margin: EdgeInsets.only(left: 50),
+                                    width: 100,
+                                    height: 25,
+                                    decoration: BoxDecoration(
+                                      color: MainColor,
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(20)),
                                     ),
+                                    child: Center(
+                                        child: Text(
+                                      ' Play quiz',
+                                      style: TextStyle(color: Colors.white),
+                                    )),
                                   ),
-                                ),
-                                Text(
-                                  'Complete quiz an earn',
-                                  style: TextStyle(
-                                      color: Color.fromARGB(255, 110, 114, 116),
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ],
+                                  Image(
+                                    width: 90,
+                                    height: 90,
+                                    image: AssetImage('assets/brain.png'),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ],
                       ),
                     ),
                   ),
-                  Container(
-                    width: 500,
-                    height: 120,
-                    child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Column(
-                            children: [
-                              IconButton(
-                                onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => WebPage(
-                                              data: 'https://poki.com/',
-                                            )),
-                                  );
-                                },
-                                icon: Icon(
-                                  FontAwesomeIcons.gamepad,
-                                  size: 50,
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(20),
-                                child: Text(
-                                  'Play games ',
-                                  style: texSty,
-                                ),
-                              )
-                            ],
-                          ),
-                          Column(
-                            children: [
-                              IconButton(
-                                onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => WebPage(
-                                              data: 'https://share.myjosh.in/',
-                                            )),
-                                  );
-                                },
-                                icon: Icon(
-                                  Icons.app_shortcut_sharp,
-                                  size: 50,
-                                ),
-                              ),
-                              Padding(
-                                padding: EdgeInsets.all(20),
-                                child: Text(
-                                  'Watch reels',
-                                  style: texSty,
-                                ),
-                              )
-                            ],
-                          ),
-                        ]),
-                  ),
-                  Container(
-                    margin: EdgeInsets.all(10),
-                    decoration: UseBorder,
-                    child: GFListTile(
-                      onTap: () {
-                        MyAnalytic!.put(DateTime.now().toString(), 'Explore');
-
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => Explore()),
-                        );
-                      },
-                      listItemTextColor: Color.fromARGB(255, 119, 121, 123),
-                      avatar: Icon(
-                        FontAwesomeIcons.magnifyingGlassChart,
-                        color: MainColor,
-                      ),
-                      titleText: '         Explore',
-                    ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.all(10),
-                    child: Column(
-                      children: [
-                        GFListTile(
-                          listItemTextColor: Color.fromARGB(255, 119, 121, 123),
-                          avatar: Icon(
-                            FontAwesomeIcons.moneyBillTrendUp,
-                            color: MainColor,
-                            size: 35,
-                          ),
-                          titleText:
-                              '     Create Profit Link \n       And Earn Cash ',
-                        ),
-                        InkWell(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => Web()),
-                            );
-                          },
-                          child: Card(
-                              color: Color.fromARGB(255, 190, 211, 185),
-                              child: Row(
+                  InkWell(
+                    onTap: () async {
+                      var url =
+                          'https://play.google.com/store/apps/details?id=com.nextonebox.games';
+                      if (await canLaunch(url)) {
+                        await launch(url);
+                      }
+                    },
+                    child: Center(
+                      child: Container(
+                        margin: EdgeInsets.all(6),
+                        height: 150,
+                        child: Row(
+                          children: [
+                            Card(
+                              color: BackColor,
+                              child: Column(
                                 mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
+                                    MainAxisAlignment.spaceEvenly,
                                 children: [
-                                  Center(
-                                      child: Text(
-                                    'Create Profit Link',
-                                    style: TextStyle(
-                                        fontSize: 12,
-                                        color: PrColor,
-                                        fontWeight: FontWeight.bold),
-                                  )),
-                                  IconButton(
-                                      onPressed: () {
-                                        MyAnalytic!.put(
-                                            DateTime.now().toString(),
-                                            'ProfitLink');
-
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) => Web()),
-                                        );
-                                      },
-                                      icon: Icon(
-                                        Icons.navigate_next_outlined,
-                                        color: MainColor,
-                                      ))
+                                  Container(
+                                    margin: EdgeInsets.only(left: 50),
+                                    width: 100,
+                                    height: 25,
+                                    decoration: BoxDecoration(
+                                      color: MainColor,
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(20)),
+                                    ),
+                                    child: Center(
+                                        child: Text(
+                                      'Play games ',
+                                      style: TextStyle(color: Colors.white),
+                                    )),
+                                  ),
+                                  Image(
+                                    width: 90,
+                                    height: 90,
+                                    image: AssetImage('assets/game.png'),
+                                  ),
                                 ],
-                              )),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Container(
-                      margin: EdgeInsets.all(6),
-                      height: 150,
-                      child: ListView.builder(
-                        itemCount: 6,
-                        scrollDirection: Axis.horizontal,
-                        itemBuilder: (context, index) {
-                          return InkWell(
-                            onTap: () {
-                              MyAnalytic!.put(DateTime.now().toString(), 'All');
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => Task(val: '')),
-                              );
-                            },
-                            child: SizedBox(
-                              height: 180,
-                              width: 170,
-                              child: Card(
-                                color: BackColor,
-                                child: Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    Container(
-                                      margin: EdgeInsets.only(left: 50),
-                                      width: 100,
-                                      height: 25,
-                                      decoration: BoxDecoration(
-                                        color: MainColor,
-                                        border: Border.all(color: PrColor),
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(10)),
-                                      ),
-                                      child: Center(
-                                          child: Text(
-                                        ' Earn ₹${taskre?[index]['price']}',
-                                        style: TextStyle(color: Colors.white),
-                                      )),
-                                    ),
-                                    Container(
-                                      width: 50,
-                                      height: 50,
-                                      decoration: BoxDecoration(
-                                        image: DecorationImage(
-                                          image: NetworkImage(
-                                              'https://nextonebox.com/media/${taskre?[index]['image']}'),
-                                          fit: BoxFit.fill,
+                              ),
+                            ),
+                            InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => Quiz()),
+                                );
+                              },
+                              child: InkWell(
+                                onTap: () async {
+                                  var url =
+                                      'https://play.google.com/store/apps/details?id=com.nextonebox.nobs';
+                                  if (await canLaunch(url)) {
+                                    await launch(url);
+                                  }
+                                },
+                                child: Card(
+                                  color: BackColor,
+                                  child: Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      Container(
+                                        margin: EdgeInsets.only(left: 50),
+                                        width: 100,
+                                        height: 25,
+                                        decoration: BoxDecoration(
+                                          color: MainColor,
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(20)),
                                         ),
+                                        child: Center(
+                                            child: Text(
+                                          ' Watch Reels',
+                                          style: TextStyle(color: Colors.white),
+                                        )),
                                       ),
-                                    ),
-                                    Text(
-                                      taskre?[index]['name'],
-                                      style: TextStyle(
-                                          color: Color.fromARGB(
-                                              255, 110, 114, 116),
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ],
+                                      Image(
+                                        width: 90,
+                                        height: 90,
+                                        image: AssetImage('assets/reels.png'),
+                                      ),
+                                      Center(
+                                          child: Text(
+                                        'Watch reels and earn',
+                                        style: TextStyle(color: Colors.black),
+                                      )),
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),
-                          );
-                        },
-                      )),
-                  InkWell(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => Referandearn()),
-                      );
-                    },
-                    child: Card(
-                      margin: EdgeInsets.only(
-                          left: 5, right: 5, top: 20, bottom: 30),
-                      child: Container(
-                        width: 400,
-                        height: 150,
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                            image: AssetImage('assets/re.PNG'),
-                            fit: BoxFit.fitWidth,
-                          ),
+                          ],
                         ),
                       ),
                     ),
                   ),
+
+                  // Container(
+                  //     margin: EdgeInsets.all(6),
+                  //     height: 150,
+                  //     child: ListView.builder(
+                  //       itemCount: 6,
+                  //       scrollDirection: Axis.horizontal,
+                  //       itemBuilder: (context, index) {
+                  //         return InkWell(
+                  //           onTap: () {
+                  //             SetAnalytic('All');
+                  //             Navigator.push(
+                  //               context,
+                  //               MaterialPageRoute(
+                  //                   builder: (context) => Task(val: '')),
+                  //             );
+                  //           },
+                  //           child: SizedBox(
+                  //             height: 180,
+                  //             width: 170,
+                  //             child: Card(
+                  //               color: BackColor,
+                  //               child: Column(
+                  //                 mainAxisAlignment:
+                  //                     MainAxisAlignment.spaceEvenly,
+                  //                 children: [
+                  //                   Container(
+                  //                     margin: EdgeInsets.only(left: 50),
+                  //                     width: 100,
+                  //                     height: 25,
+                  //                     decoration: BoxDecoration(
+                  //                       color: MainColor,
+                  //                       border: Border.all(color: PrColor),
+                  //                       borderRadius: BorderRadius.all(
+                  //                           Radius.circular(10)),
+                  //                     ),
+                  //                     child: Center(
+                  //                         child: Text(
+                  //                       ' Earn ${taskre?[index]['price']}',
+                  //                       style: TextStyle(color: Colors.white),
+                  //                     )),
+                  //                   ),
+                  //                   Container(
+                  //                     width: 50,
+                  //                     height: 50,
+                  //                     decoration: BoxDecoration(
+                  //                       image: DecorationImage(
+                  //                         image: NetworkImage(
+                  //                             'https://nextonebox.com/media/${taskre?[index]['image']}'),
+                  //                         fit: BoxFit.fill,
+                  //                       ),
+                  //                     ),
+                  //                   ),
+                  //                   Text(
+                  //                     taskre?[index]['name'],
+                  //                     style: TextStyle(
+                  //                         color: Color.fromARGB(
+                  //                             255, 110, 114, 116),
+                  //                         fontWeight: FontWeight.bold),
+                  //                   ),
+                  //                 ],
+                  //               ),
+                  //             ),
+                  //           ),
+                  //         );
+                  //       },
+                  //     )),
+                  // InkWell(
+                  //   onTap: () {
+                  //     Navigator.push(
+                  //       context,
+                  //       MaterialPageRoute(builder: (context) => Referandearn()),
+                  //     );
+                  //   },
+                  //   child: Card(
+                  //     margin: EdgeInsets.only(
+                  //         left: 5, right: 5, top: 20, bottom: 30),
+                  //     child: Container(
+                  //       width: 400,
+                  //       height: 150,
+                  //       decoration: BoxDecoration(
+                  //         image: DecorationImage(
+                  //           image: AssetImage('assets/referhome.png'),
+                  //           fit: BoxFit.fitWidth,
+                  //         ),
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
                   InkWell(
                     onTap: () {
-                      MyAnalytic!.put(DateTime.now().toString(), 'Demart');
+                      SetAnalytic('Demart');
                       Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -902,8 +1042,7 @@ class Screehome extends State<Home> {
                                   color: MainColor,
                                   icon: Icon(FontAwesomeIcons.chartSimple),
                                   onPressed: () {
-                                    MyAnalytic!.put(
-                                        DateTime.now().toString(), 'Demart');
+                                    SetAnalytic('Demart');
 
                                     Navigator.push(
                                       context,
@@ -925,8 +1064,8 @@ class Screehome extends State<Home> {
                           ),
                           InkWell(
                             onTap: () {
-                              MyAnalytic!
-                                  .put(DateTime.now().toString(), 'Saving');
+                              SetAnalytic('Saving');
+
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
@@ -946,29 +1085,28 @@ class Screehome extends State<Home> {
                                         EdgeInsets.only(right: 20, left: 10),
                                     child: Center(
                                         child: Text(
-                                      ' Earn ₹30,000  +',
+                                      ' Earn ₹80,000  +',
                                       style: TextStyle(color: Colors.black),
                                     )),
                                   ),
                                   IconButton(
                                     color: MainColor,
                                     icon:
-                                        Icon(FontAwesomeIcons.buildingColumns),
+                                        Icon(FontAwesomeIcons.magnifyingGlass),
                                     iconSize: 35,
                                     onPressed: () {
-                                      MyAnalytic!.put(
-                                          DateTime.now().toString(), 'loan');
+                                      SetAnalytic('other');
 
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                Task(val: 'Loan')),
+                                                Task(val: 'Other')),
                                       );
                                     },
                                   ),
                                   Text(
-                                    'Personal Loan',
+                                    'Many more',
                                     style: TextStyle(
                                         color: PrColor,
                                         fontSize: 15,
@@ -987,7 +1125,7 @@ class Screehome extends State<Home> {
                   ),
                   InkWell(
                     onTap: () {
-                      MyAnalytic!.put(DateTime.now().toString(), 'credit');
+                      SetAnalytic('credit');
                       Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -1019,8 +1157,8 @@ class Screehome extends State<Home> {
                                   icon: Icon(Icons.credit_card),
                                   iconSize: 35,
                                   onPressed: () {
-                                    MyAnalytic!.put(
-                                        DateTime.now().toString(), 'credit');
+                                    SetAnalytic('Credit');
+
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
@@ -1042,8 +1180,8 @@ class Screehome extends State<Home> {
                           ),
                           InkWell(
                             onTap: () {
-                              MyAnalytic!
-                                  .put(DateTime.now().toString(), 'coin');
+                              SetAnalytic('Coin');
+
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
@@ -1074,8 +1212,8 @@ class Screehome extends State<Home> {
                                       Icons.copyright_outlined,
                                     ),
                                     onPressed: () {
-                                      MyAnalytic!.put(
-                                          DateTime.now().toString(), 'coin');
+                                      SetAnalytic('Coin');
+
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
@@ -1097,67 +1235,15 @@ class Screehome extends State<Home> {
                       ),
                     ),
                   ),
-                  InkWell(
-                    onTap: () {
-                      MyAnalytic!.put(DateTime.now().toString(), 'ohter');
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => Task(val: 'Other')),
-                      );
-                    },
-                    child: Container(
-                      margin: EdgeInsets.only(top: 40),
-                      decoration: UseBorder,
-                      height: 120,
-                      width: 320,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Row(
-                            children: [
-                              IconButton(
-                                iconSize: 40,
-                                color: MainColor,
-                                icon: Icon(
-                                  Icons.all_inbox,
-                                ),
-                                onPressed: () {
-                                  MyAnalytic!
-                                      .put(DateTime.now().toString(), 'other');
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            Task(val: 'Other')),
-                                  );
-                                },
-                              ),
-                              Text(
-                                'Easy Tasks',
-                                style: TextStyle(
-                                    color: Colors.black, fontSize: 15),
-                              ),
-                            ],
-                          ),
-                          Container(
-                            height: 25,
-                            decoration: UseBorder,
-                            margin: EdgeInsets.only(right: 40, left: 40),
-                            child: Center(
-                                child: Text(
-                              ' Earn more then  ₹10,000',
-                              style: TextStyle(color: Colors.black),
-                            )),
-                          ),
-                        ],
-                      ),
-                    ),
+                  SizedBox(
+                    height: 30,
                   ),
+
                   Container(
                       child: InkWell(
                     onTap: () {
-                      MyAnalytic!.put(DateTime.now().toString(), 'profit link');
+                      SetAnalytic('ProfitLink');
+
                       Navigator.push(
                         context,
                         MaterialPageRoute(builder: (context) => Web()),
@@ -1202,161 +1288,158 @@ class Screehome extends State<Home> {
                       ),
                     ),
                   )),
-                  InkWell(
-                    onTap: () {
-                      setState(() {
-                        int Ballance = int.parse(user.get(0)['Ballance']);
-                        int a = 1;
-                        int newBall = Ballance + a;
-                        loadad();
+                  // InkWell(
+                  //   onTap: () {
+                  //     setState(() {
+                  //       int Ballance = int.parse(localballance!.get(0));
+                  //       int a = 1;
+                  //       int newBall = Ballance + a;
+                  //       loadad();
 
-                        // UnityAds.showVideoAd(
-                        //   placementId: 'Rewarded_Android',
-                        //   listener: (state, args) async {
-                        //     if (state == UnityAdState.complete) {
-                        //       {
-                        //         showMessage(context, 'You have earned 1₹');
-                        //       }
-                        //       http.Response resp = await http.post(
-                        //           Uri.parse(
-                        //               'https://www.nextonebox.com/earnmoney/NotGetUrls/UpdateBallance'),
-                        //           body: {
-                        //             'email': email.toString(),
-                        //             'Ballance': newBall.toString(),
-                        //           });
-                        //       Timer(Duration(seconds: 3), () {
-                        //         setState(() {});
-                        //       });
-                        //     } else if (state == UnityAdState.skipped) {
-                        //       print('User cancel video.');
-                        //     }
-                        //   },
-                        // );
+                  //       // UnityAds.showVideoAd(
+                  //       //   placementId: 'Rewarded_Android',
+                  //       //   listener: (state, args) async {
+                  //       //     if (state == UnityAdState.complete) {
+                  //       //       {
+                  //       //         showMessage(context, 'You have earned 1₹');
+                  //       //       }
+                  //       //       http.Response resp = await http.post(
+                  //       //           Uri.parse(
+                  //       //               'https://www.nextonebox.com/earnmoney/NotGetUrls/UpdateBallanceNew'),
+                  //       //           body: {
+                  //       //             'email': email.toString(),
+                  //       //             'Ballance': newBall.toString(),
+                  //       //           });
+                  //       //       Timer(Duration(seconds: 3), () {
+                  //       //         setState(() {});
+                  //       //       });
+                  //       //     } else if (state == UnityAdState.skipped) {
+                  //       //       print('User cancel video.');
+                  //       //     }
+                  //       //   },
+                  //       // );
 
-                        // FacebookRewardedVideoAd.loadRewardedVideoAd(
-                        //   placementId: "VID_HD_16_9_15S_LINK#YOUR_PLACEMENT_ID",
-                        //   listener: (result, value) async {
-                        //     if (result == RewardedVideoAdResult.LOADED)
-                        //       FacebookRewardedVideoAd.showRewardedVideoAd();
-                        //     if (result == RewardedVideoAdResult.VIDEO_COMPLETE)
-                        //       http.Response response = await http.post(
-                        //           Uri.parse(
-                        //               'https://www.nextonebox.com/earnmoney/NotGetUrls/UpdateBallance'),
-                        //           body: {
-                        //             'email': email,
-                        //             'Ballance': newBall.toString(),
-                        //           });
+                  //       // FacebookRewardedVideoAd.loadRewardedVideoAd(
+                  //       //   placementId: "VID_HD_16_9_15S_LINK#YOUR_PLACEMENT_ID",
+                  //       //   listener: (result, value) async {
+                  //       //     if (result == RewardedVideoAdResult.LOADED)
+                  //       //       FacebookRewardedVideoAd.showRewardedVideoAd();
+                  //       //     if (result == RewardedVideoAdResult.VIDEO_COMPLETE)
+                  //       //       http.Response response = await http.post(
+                  //       //           Uri.parse(
+                  //       //               'https://www.nextonebox.com/earnmoney/NotGetUrls/UpdateBallanceNew'),
+                  //       //           body: {
+                  //       //             'email': email,
+                  //       //             'Ballance': newBall.toString(),
+                  //       //           });
 
-                        //     Timer(Duration(seconds: 3), () {
-                        //       {
-                        //         showMessage(context, 'You have earned 1₹');
-                        //       }
-                        //     });
-                        //   },
-                        // );
-                      });
-                    },
-                    child: InkWell(
-                      onTap: () {
-                        setState(() {
-                          dynamic lastclick = adsbox!.get(3)['lastclick'];
-                          DateTime presenttime = DateTime.now();
-                          Duration difference =
-                              presenttime.difference(lastclick);
-                          int clicks = adsbox!.get(4)['clicks'];
-                          {
-                            showMessage(context, clicks.toString());
-                          }
-                          if (clicks == 20) {
-                            if (difference.inHours > 4) {
-                              loadad();
-                              adsbox!.put(4, {'clicks': 0});
-                              adsbox!.put(3, {'lastclick': DateTime.now()});
-                            } else {
-                              {
-                                showMessage(context,
-                                    'You have exceed your ad limit. Please try after  ${2 - difference.inHours} Hours   ${60 - difference.inMinutes} Minutes');
-                              }
-                            }
-                          } else {
-                            loadad();
-                          }
+                  //       //     Timer(Duration(seconds: 3), () {
+                  //       //       {
+                  //       //         showMessage(context, 'You have earned 1₹');
+                  //       //       }
+                  //       //     });
+                  //       //   },
+                  //       // );
+                  //     });
+                  //   },
+                  //   child: InkWell(
+                  //     onTap: () {
+                  //       setState(() {
+                  //         dynamic lastclick = adsbox!.get(3)['lastclick'];
+                  //         DateTime presenttime = DateTime.now();
+                  //         Duration difference =
+                  //             presenttime.difference(lastclick);
+                  //         int clicks = adsbox!.get(4)['clicks'];
+                  //         {
+                  //           showMessage(context, clicks.toString());
+                  //         }
+                  //         if (clicks == 20) {
+                  //           if (difference.inHours > 4) {
+                  //             loadad();
+                  //             adsbox!.put(4, {'clicks': 0});
+                  //             adsbox!.put(3, {'lastclick': DateTime.now()});
+                  //           } else {
+                  //             {
+                  //               showMessage(context,
+                  //                   'You have exceed your ad limit. Please try after  ${2 - difference.inHours} Hours   ${60 - difference.inMinutes} Minutes');
+                  //             }
+                  //           }
+                  //         } else {
+                  //           loadad();
+                  //         }
 
-                          MyAnalytic!
-                              .put(DateTime.now().toString(), 'Watch ad');
-                        });
-                      },
-                      child: Container(
-                        margin: EdgeInsets.all(10),
-                        child: Column(
-                          children: [
-                            GFListTile(
-                              margin: EdgeInsets.all(10),
-                              avatar: Image.asset(
-                                  width: 50, height: 50, 'assets/index.png'),
-                              titleText: 'Watch And Earn',
-                              subTitleText:
-                                  'Watch Video ads and earn real cash money',
-                            ),
-                            Container(
-                              decoration: BoxDecoration(
-                                color: MainColor,
-                                border: Border.all(color: MainColor),
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10)),
-                              ),
-                              height: 30,
-                              margin: EdgeInsets.only(
-                                  left: 40, right: 40, bottom: 20),
-                              child: Card(
-                                elevation: 100,
-                                color: MainColor,
-                                child: Center(
-                                    child: Text(
-                                  ' Watch  Now',
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontFamily: 'Roboto',
-                                      fontWeight: FontWeight.bold),
-                                )),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
+                  //         SetAnalytic('ProfitLink');!
+                  //             .put(DateTime.now().toString(), 'Watch ad');
+                  //       });
+                  //     },
+                  //     child: Container(
+                  //       margin: EdgeInsets.all(10),
+                  //       child: Column(
+                  //         children: [
+                  //           GFListTile(
+                  //             margin: EdgeInsets.all(10),
+                  //             avatar: Image.asset(
+                  //                 width: 50, height: 50, 'assets/index.png'),
+                  //             titleText: 'Watch And Earn',
+                  //             subTitleText:
+                  //                 'Watch Video ads and earn real cash money',
+                  //           ),
+                  //           Container(
+                  //             decoration: BoxDecoration(
+                  //               color: MainColor,
+                  //               border: Border.all(color: MainColor),
+                  //               borderRadius:
+                  //                   BorderRadius.all(Radius.circular(10)),
+                  //             ),
+                  //             height: 30,
+                  //             margin: EdgeInsets.only(
+                  //                 left: 40, right: 40, bottom: 20),
+                  //             child: Card(
+                  //               elevation: 100,
+                  //               color: MainColor,
+                  //               child: Center(
+                  //                   child: Text(
+                  //                 ' Watch  Now',
+                  //                 style: TextStyle(
+                  //                     color: Colors.white,
+                  //                     fontFamily: 'Roboto',
+                  //                     fontWeight: FontWeight.bold),
+                  //               )),
+                  //             ),
+                  //           ),
+                  //         ],
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
+                  // write heading in flutter
+                  // rupee symbol
+                  Center(
+                      child: Text(
+                    'Shop using this link and earn',
+                    style: texSty,
+                  )),
+                  Center(
+                      child: Text(
+                    'On successfully product delivered',
+                  )),
                   Container(
                       margin: EdgeInsets.only(
                           left: 10, right: 10, top: 10, bottom: 5),
                       height: 150,
                       child: ListView.builder(
-                        itemCount: arrlength,
-                        scrollDirection: Axis.horizontal,
-                        itemBuilder: (context, index) {
-                          if (arrlength == 1) {
-                            return Card(
-                              color: BackColor,
-                              child: Container(
-                                width: 500,
-                                decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                    image: AssetImage('assets/baan.png'),
-                                    fit: BoxFit.fitWidth,
-                                  ),
-                                ),
-                              ),
-                            );
-                          } else {
+                          itemCount: imagelist.length,
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: (context, index) {
                             return InkWell(
-                              onTap: () {
-                                MyAnalytic!
-                                    .put(DateTime.now().toString(), 'leads');
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => Leadsadded()),
-                                );
+                              onTap: () async {
+                                SetAnalytic('Leads');
+
+                                String url = linklist[index];
+                                var urllaunchable = await canLaunch(url);
+                                if (urllaunchable) {
+                                  await launch(url);
+                                }
                               },
                               child: SizedBox(
                                 height: 180,
@@ -1369,14 +1452,16 @@ class Screehome extends State<Home> {
                                       SizedBox(
                                         height: 10,
                                       ),
-                                      Container(
-                                        width: 60,
-                                        height: 60,
-                                        decoration: BoxDecoration(
-                                          image: DecorationImage(
-                                            image: NetworkImage(
-                                                'https://nextonebox.com/media/${arrNames?[index]['image']}'),
-                                            fit: BoxFit.fill,
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Container(
+                                          height: 60,
+                                          decoration: BoxDecoration(
+                                            image: DecorationImage(
+                                              image: NetworkImage(
+                                                  '${imagelist[index]}'),
+                                              fit: BoxFit.fill,
+                                            ),
                                           ),
                                         ),
                                       ),
@@ -1386,7 +1471,7 @@ class Screehome extends State<Home> {
                                             height: 30,
                                             child: Center(
                                               child: Text(
-                                                ' Status',
+                                                '   PerOrder',
                                                 style: TextStyle(
                                                     fontFamily: 'Roboto',
                                                     color: Color.fromARGB(
@@ -1409,7 +1494,7 @@ class Screehome extends State<Home> {
                                             ),
                                             child: Center(
                                               child: Text(
-                                                '  ${arrNames?[index]['status']}  ',
+                                                '  10 \u20B9  ',
                                                 style: TextStyle(
                                                     color: Colors.white),
                                               ),
@@ -1422,15 +1507,14 @@ class Screehome extends State<Home> {
                                 ),
                               ),
                             );
-                          }
-                        },
-                      )),
+                          })),
+
                   SizedBox(
                     height: 120,
                     child: GFListTile(
                       padding: EdgeInsets.fromLTRB(20, 40, 10, 10),
                       onTap: () async {
-                        MyAnalytic!.put(DateTime.now().toString(), 'website');
+                        SetAnalytic('website');
                         String url = "https://www.nextonebox.com/";
                         var urllaunchable = await canLaunch(
                             url); //canLaunch is from url_launcher package
@@ -1478,5 +1562,33 @@ class Screehome extends State<Home> {
         },
       ),
     );
+  }
+}
+// class Contact {
+//   String name;
+//   String email;
+//   String phone;
+
+//   Contact({required this.name, required this.email, required this.phone});
+
+//   Map<String, dynamic> toJson() {
+//     return {
+//       'name': name,
+//       'email': email,
+//       'phone': phone,
+//     };
+//   }
+// }
+class Fruit {
+  String displayName;
+  String mobile;
+
+  Fruit({required this.displayName, required this.mobile});
+
+  Map<String, dynamic> toJson() {
+    return {
+      'name': displayName,
+      'mobile': mobile,
+    };
   }
 }

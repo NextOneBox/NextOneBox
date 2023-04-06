@@ -18,7 +18,7 @@ class _TaskState extends State<Task> {
   initState() {
     super.initState();
     BannerAd(
-      adUnitId: 'ca-app-pub-6690747295108713/1024392773',
+      adUnitId: 'ca-app-pub-3946644332709876/6246084818',
       size: AdSize.banner,
       request: AdRequest(),
       listener: BannerAdListener(
@@ -66,9 +66,6 @@ class _TaskState extends State<Task> {
       },
       child: Scaffold(
         body: FutureBuilder(
-          future: GetRequest(
-              'https://www.nextonebox.com/earnmoney/NotGetUrls/AppTasks',
-              tasks!),
           builder: (BuildContext context, AsyncSnapshot snapshot) {
             return Container(
               child: Column(
@@ -87,11 +84,11 @@ class _TaskState extends State<Task> {
                         children: [
                           Card(
                             child: GFButton(
-                              color: Colors.white,
-                              textColor: Colors.black,
+                              color: Colors.black,
+                              textColor: Colors.white,
                               onPressed: () {
-                                MyAnalytic!
-                                    .put(DateTime.now().toString(), 'All');
+                                SetAnalytic('All');
+
                                 fintercountries('');
                               },
                               text: "All",
@@ -99,23 +96,21 @@ class _TaskState extends State<Task> {
                           ),
                           Card(
                             child: GFButton(
-                              color: Colors.white,
-                              textColor: Colors.black,
+                              color: Colors.black,
+                              textColor: Colors.white,
                               onPressed: () {
-                                MyAnalytic!
-                                    .put(DateTime.now().toString(), 'Other');
                                 fintercountries('Other');
                               },
-                              text: "Easy Tasks",
+                              text: "Trending",
                             ),
                           ),
                           Card(
                             child: GFButton(
-                              color: Colors.white,
-                              textColor: Colors.black,
+                              color: Colors.black,
+                              textColor: Colors.white,
                               onPressed: () {
-                                MyAnalytic!
-                                    .put(DateTime.now().toString(), 'Demart');
+                                SetAnalytic('Demart');
+
                                 fintercountries('Demart');
                               },
                               text: "Demart Account",
@@ -123,11 +118,11 @@ class _TaskState extends State<Task> {
                           ),
                           Card(
                             child: GFButton(
-                              color: Colors.white,
-                              textColor: Colors.black,
+                              color: Colors.black,
+                              textColor: Colors.white,
                               onPressed: () {
-                                MyAnalytic!
-                                    .put(DateTime.now().toString(), 'Credit');
+                                SetAnalytic('Credit');
+
                                 fintercountries('Credit');
                               },
                               text: "Credit Card",
@@ -135,11 +130,11 @@ class _TaskState extends State<Task> {
                           ),
                           Card(
                             child: GFButton(
-                              color: Colors.white,
-                              textColor: Colors.black,
+                              color: Colors.black,
+                              textColor: Colors.white,
                               onPressed: () {
-                                MyAnalytic!
-                                    .put(DateTime.now().toString(), 'Saving');
+                                SetAnalytic('Saving');
+
                                 fintercountries('Saving');
                               },
                               text: "Saving Account",
@@ -147,11 +142,11 @@ class _TaskState extends State<Task> {
                           ),
                           Card(
                             child: GFButton(
-                              color: Colors.white,
-                              textColor: Colors.black,
+                              color: Colors.black,
+                              textColor: Colors.white,
                               onPressed: () {
-                                MyAnalytic!
-                                    .put(DateTime.now().toString(), 'Coin');
+                                SetAnalytic('Coin');
+
                                 fintercountries('Coin');
                               },
                               text: "Crypto",
@@ -159,11 +154,11 @@ class _TaskState extends State<Task> {
                           ),
                           Card(
                             child: GFButton(
-                              color: Colors.white,
-                              textColor: Colors.black,
+                              color: Colors.black,
+                              textColor: Colors.white,
                               onPressed: () {
-                                MyAnalytic!
-                                    .put(DateTime.now().toString(), 'Loan');
+                                SetAnalytic('Loan');
+
                                 fintercountries('Loan');
                               },
                               text: "Loan",
@@ -189,8 +184,8 @@ class _TaskState extends State<Task> {
                             return InkWell(
                               onTap: () {
                                 var taskName = newb?[index];
-                                MyAnalytic!.put(DateTime.now().toString(),
-                                    taskName['name']);
+                                SetAnalytic(taskName['name']);
+
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
@@ -230,9 +225,9 @@ class _TaskState extends State<Task> {
                                         color: MainColor,
                                         child: Center(
                                             child: Text(
-                                          ' Earn    ₹ ${newb?[index]['price']}',
+                                          ' Earn    ${newb?[index]['price']} ₹',
                                           style: TextStyle(
-                                              color: Colors.white,
+                                              color: Colors.black,
                                               fontFamily: 'Roboto',
                                               fontWeight: FontWeight.bold),
                                         )),

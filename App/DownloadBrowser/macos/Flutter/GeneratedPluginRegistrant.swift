@@ -8,7 +8,7 @@ import Foundation
 import dynamic_color
 import flutter_inappwebview
 import package_info_plus
-import path_provider_macos
+import path_provider_foundation
 import share_plus
 import shared_preferences_foundation
 import url_launcher_macos

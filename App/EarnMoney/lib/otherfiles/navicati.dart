@@ -6,14 +6,13 @@ import 'package:earnmoney/screens/home.dart';
 import 'package:earnmoney/screens/leads.dart';
 import 'package:earnmoney/screens/referandearn.dart';
 import '../screens/account.dart';
-
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
-
 import 'widgets.dart';
+
 
 class BottomNavigation extends StatefulWidget {
   const BottomNavigation({
@@ -41,9 +40,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
 
   @override
   Widget build(BuildContext context) {
-    GetRequest(
-        'https://www.nextonebox.com/earnmoney/NotGetUrls/AppEarnMoneyAccount?${email}',
-        user);
+   
     return Scaffold(
       body: screens[currentindex],
       bottomNavigationBar: BottomNavigationBar(

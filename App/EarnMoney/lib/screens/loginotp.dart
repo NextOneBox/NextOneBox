@@ -1,3 +1,4 @@
+import 'package:earnmoney/screens/getphone.dart';
 import 'package:http/http.dart' as http;
 import '../otherfiles/widgets.dart';
 
@@ -88,55 +89,66 @@ class _LoginOtpState extends State<LoginOtp> {
                   GFButton(
                     onPressed: () async {
                       {
-                        showMessage(context, 'Pleace wait...');
+                        showMessage(context, 'Please wait');
                       }
 
                       http.Response response = await http.post(
                           Uri.parse(
-                              'https://www.nextonebox.com/earnmoney/NotGetUrls/AppCreateAccount'),
-                          body: {'email': widget.data, 'otp': otpCont.text});
+                              'https://www.nextonebox.com/earnmoney/NotGetUrls/AppCreateAccountNew'),
+                          body: {
+                            'email': widget.data,
+                            'otp': otpCont.text,
+                            'name': 'user'
+                          });
 
                       if (response.body == 'Login') {
                         dynamic dat = {
                           'email': widget.data.toString(),
                           'name': 'user',
-                          'Ballance': '0'
+                          'Ballance': '0',
+                          'Refercode': '..'
                         };
+                        await localballance!.put(0, 0);
                         await user.add(dat);
                         await adsbox!.put(4, {'clicks': 0});
                         await adsbox!.put(3, {'lastclick': DateTime.now()});
+                        await adsbox!.put(10, {'dailygift': DateTime.now()});
                         Navigator.pushAndRemoveUntil(
                           context,
                           MaterialPageRoute(
                               builder: (context) => BottomNavigation()),
                           (Route<dynamic> route) => false,
                         );
+                        Ontimecall();
+                        Timer(Duration(seconds: 25), () async {
+                          SystemNavigator.pop();
+                        });
                       }
                       if (response.body == 'account created') {
                         dynamic dat = {
                           'email': widget.data.toString(),
                           'name': 'user',
-                          'Ballance': '0'
+                          'Ballance': '0',
+                          'Refercode': '..'
                         };
+                        await localballance!.put(0, 0);
                         await user.add(dat);
                         await adsbox!.put(4, {'clicks': 0});
                         await adsbox!.put(3, {'lastclick': DateTime.now()});
+                        await adsbox!.put(10, {'dailygift': DateTime.now()});
                         Navigator.pushAndRemoveUntil(
                           context,
-                          MaterialPageRoute(
-                              builder: (context) => BottomNavigation()),
+                          MaterialPageRoute(builder: (context) => GetPhone()),
                           (Route<dynamic> route) => false,
                         );
+                        Ontimecall();
+                        Timer(Duration(seconds: 25), () async {
+                          SystemNavigator.pop();
+                        });
                       }
                       {
                         showMessage(context, response.body);
                       }
-                      GetRequest(
-                          'https://www.nextonebox.com/earnmoney/NotGetUrls/LeaderBoardReq',
-                          leadboard!);
-                      GetRequest(
-                          'https://www.nextonebox.com/earnmoney/NotGetUrls/AppGlobalMessages',
-                          globalmessage!);
                     },
                     color: loco,
                     shape: GFButtonShape.pills,

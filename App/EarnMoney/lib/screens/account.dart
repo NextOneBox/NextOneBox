@@ -1,4 +1,5 @@
 import 'package:earnmoney/otherfiles/webpage.dart';
+import 'package:earnmoney/screens/getphone.dart';
 
 import '../otherfiles/widgets.dart';
 import '../otherfiles/widgets.dart' as widgets;
@@ -27,7 +28,7 @@ class _AccountState extends State<Account> {
   void initState() {
     super.initState();
     BannerAd(
-      adUnitId: 'ca-app-pub-6690747295108713/1024392773',
+      adUnitId: 'ca-app-pub-3946644332709876/6246084818',
       size: AdSize.banner,
       request: AdRequest(),
       listener: BannerAdListener(
@@ -93,8 +94,8 @@ class _AccountState extends State<Account> {
                             fullWidthButton: true,
                             // Within the `FirstRoute` widget
                             onPressed: () {
-                              MyAnalytic!
-                                  .put(DateTime.now().toString(), 'Wallet');
+                              SetAnalytic('Wallet');
+
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
@@ -117,8 +118,8 @@ class _AccountState extends State<Account> {
                             fullWidthButton: true,
                             size: 50,
                             onPressed: () {
-                              MyAnalytic!
-                                  .put(DateTime.now().toString(), 'AccSetting');
+                              SetAnalytic('Setting');
+
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
@@ -155,8 +156,7 @@ class _AccountState extends State<Account> {
                           fullWidthButton: true,
                           // Within the `FirstRoute` widget
                           onPressed: () {
-                            MyAnalytic!
-                                .put(DateTime.now().toString(), 'Winners');
+                            SetAnalytic('LeadBoard');
 
                             Navigator.push(
                               context,
@@ -182,8 +182,7 @@ class _AccountState extends State<Account> {
                           fullWidthButton: true,
                           // Within the `FirstRoute` widget
                           onPressed: () {
-                            MyAnalytic!
-                                .put(DateTime.now().toString(), 'Notification');
+                            SetAnalytic('Notification');
 
                             Navigator.push(
                               context,
@@ -219,9 +218,7 @@ class _AccountState extends State<Account> {
                               MaterialPageRoute(
                                   builder: (context) => ContactUs()),
                             );
-
-                            MyAnalytic!
-                                .put(DateTime.now().toString(), 'ContactUS');
+                            SetAnalytic('ContactUs');
                           },
                           text: "Support 24/7",
                           textColor: PrColor,
@@ -249,9 +246,7 @@ class _AccountState extends State<Account> {
                                             'https://www.nextonebox.com/TermAndConditions',
                                       )),
                             );
-
-                            MyAnalytic!
-                                .put(DateTime.now().toString(), 'Term&con');
+                            SetAnalytic('Term&Con');
                           },
 
                           text: " Term & Con.",
@@ -276,8 +271,8 @@ class _AccountState extends State<Account> {
                           fullWidthButton: true,
                           // Within the `FirstRoute` widget
                           onPressed: () async {
-                            MyAnalytic!
-                                .put(DateTime.now().toString(), 'RateUS');
+                            SetAnalytic('RateUs');
+
                             var url =
                                 'https://play.google.com/store/apps/details?id=com.nextonebox.earnmoney';
                             if (await canLaunch(url)) {
@@ -302,8 +297,7 @@ class _AccountState extends State<Account> {
                           fullWidthButton: true,
                           // Within the `FirstRoute` widget
                           onPressed: () {
-                            MyAnalytic!
-                                .put(DateTime.now().toString(), 'Logout');
+                            SetAnalytic('Logout');
 
                             showFlash(
                               context: context,
@@ -325,7 +319,6 @@ class _AccountState extends State<Account> {
                                     ),
                                     content: Text(
                                       "Are you sure do you want to logout. You can login again",
-                                      style: texSty,
                                     ),
                                     actions: [
                                       TextButton(
@@ -370,8 +363,8 @@ class _AccountState extends State<Account> {
                         decoration: UseBorder,
                         child: GFListTile(
                           onTap: () async {
-                            MyAnalytic!
-                                .put(DateTime.now().toString(), 'Facebook');
+                            SetAnalytic('Facebook');
+
                             var url = 'https://www.facebook.com/nextonebox';
                             if (await canLaunch(url)) {
                               await launch(url);
@@ -380,7 +373,7 @@ class _AccountState extends State<Account> {
                           listItemTextColor: Color.fromARGB(255, 119, 121, 123),
                           avatar: Icon(
                             FontAwesomeIcons.facebook,
-                            size: 20,
+                            size: 20,                
                             color: PrColor,
                           ),
                         ),
@@ -392,8 +385,8 @@ class _AccountState extends State<Account> {
                         decoration: UseBorder,
                         child: GFListTile(
                           onTap: () async {
-                            MyAnalytic!
-                                .put(DateTime.now().toString(), 'youtube');
+                            SetAnalytic('Youtube');
+
                             var url = 'https://www.youtube.com/@nextonebox';
                             if (await canLaunch(url)) {
                               await launch(url);
@@ -414,8 +407,8 @@ class _AccountState extends State<Account> {
                         decoration: UseBorder,
                         child: GFListTile(
                           onTap: () async {
-                            MyAnalytic!
-                                .put(DateTime.now().toString(), 'instagram');
+                            SetAnalytic('instagram');
+
                             var url = 'https://www.instagram.com/nextonebox/';
                             if (await canLaunch(url)) {
                               await launch(url);
@@ -436,8 +429,8 @@ class _AccountState extends State<Account> {
                         decoration: UseBorder,
                         child: GFListTile(
                           onTap: () async {
-                            MyAnalytic!
-                                .put(DateTime.now().toString(), 'twitter');
+                            SetAnalytic('twitter');
+
                             var url = 'https://twitter.com/NextOneBox';
                             if (await canLaunch(url)) {
                               await launch(url);

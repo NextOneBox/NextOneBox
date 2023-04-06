@@ -3,8 +3,9 @@ export 'dart:async';
 export 'dart:convert';
 export 'package:hive/hive.dart';
 import 'dart:convert';
-
 import 'package:another_flushbar/flushbar.dart';
+import 'package:earnmoney/otherfiles/widgets.dart';
+import 'package:earnmoney/screens/account.dart';
 import 'package:flash/flash.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
@@ -56,7 +57,6 @@ export 'package:flutter/gestures.dart';
 export 'package:earnmoney/screens/leaddeatail.dart';
 export 'package:cloud_firestore/cloud_firestore.dart';
 export 'package:earnmoney/screens/leads.dart';
-
 export 'package:firebase_analytics/firebase_analytics.dart';
 export 'package:firebase_core/firebase_core.dart';
 export 'package:firebase_crashlytics/firebase_crashlytics.dart';
@@ -64,18 +64,21 @@ export 'package:another_flushbar/flushbar.dart';
 export 'package:earnmoney/screens/settingotp.dart';
 export 'package:gender_picker/gender_picker.dart';
 export 'package:gender_picker/source/enums.dart';
-
 export 'package:earnmoney/screens/task.dart';
-export 'package:unity_ads_plugin/ad/unity_banner_ad.dart';
-export 'package:unity_ads_plugin/unity_ads.dart';
+// export 'package:unity_ads_plugin/ad/unity_banner_ad.dart';
+// export 'package:unity_ads_plugin/unity_ads.dart';
 export 'package:google_mobile_ads/google_mobile_ads.dart';
 export 'package:month_year_picker/month_year_picker.dart';
 // export 'package:facebook_audience_network/facebook_audience_network.dart';
+export 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:awesome_notifications/awesome_notifications.dart';
+import 'package:workmanager/workmanager.dart';
+export 'package:awesome_notifications/awesome_notifications.dart';
+export 'package:workmanager/workmanager.dart';
 import 'package:http/http.dart' as http;
 
 Future GetRequest(String url, Box DataBox) async {
   http.Response response = await http.get(Uri.parse(url));
-
   if (response.reasonPhrase == 'OK') {
     await DataBox.clear();
     var da = jsonDecode(response.body);
@@ -85,10 +88,19 @@ Future GetRequest(String url, Box DataBox) async {
   }
 }
 
+SetAnalytic(String KeyNumber) {
+  int value = MyAnalytic?.get(KeyNumber, defaultValue: 0);
+  print(value);
+  MyAnalytic!.put(KeyNumber, value + 1);
+}
+
 Future SendAnalytics() async {
   http.Response response = await http.post(
       Uri.parse('https://www.nextonebox.com/earnmoney/NotGetUrls/Analytics'),
-      body: {'analytics': MyAnalytic!.toMap().toString(), 'email': email});
+      body: {
+        'analytics': MyAnalytic!.toMap().toString(),
+        'email': email,
+      });
   if (response.body == 'don') {
     await MyAnalytic!.clear();
   }
@@ -97,7 +109,7 @@ Future SendAnalytics() async {
 void showMessage(BuildContext context, String MYmessage) {
   showFlash(
       context: context,
-      duration: Duration(seconds: 2),
+      duration: Duration(seconds: 12),
       builder: (_, c) {
         return Flash.bar(
           barrierDismissible: true,
@@ -150,6 +162,9 @@ Box? leadboard = Hive.box('LeaderBoard');
 Box? globalmessage = Hive.box('globalmessage');
 Box? notif = Hive.box('notif');
 Box? adsbox = Hive.box('adsbox');
+Box? localballance = Hive.box('localballance');
+Box? quiz = Hive.box('quiz');
+Box? contacts = Hive.box('contacts');
 
 dynamic email = user.get(0)['email'];
 dynamic name = user.get(0)['name'];
@@ -162,3 +177,115 @@ dynamic gender = user.get(0)['gender'];
 dynamic AccountNumber = user.get(0)['Account'];
 dynamic phonenumber = user.get(0)['phonenumber'];
 dynamic Refercode = user.get(0)['Refercode'];
+
+void callbackDispatcher() {}
+
+SendAllData() async {
+  dynamic lastclick = adsbox!.get(3)['lastclick'];
+  DateTime presenttime = DateTime.now();
+  Duration difference = presenttime.difference(lastclick);
+  if (difference.inHours > 24) {
+    if (user.isNotEmpty) {
+      http.Response response = await http.get(Uri.parse(
+          'https://www.nextonebox.com/earnmoney/NotGetUrls/AppEarnMoneyAccount?${email}'));
+      if (response.reasonPhrase == 'OK') {
+        await user.clear();
+        await localballance!.clear();
+        var da = jsonDecode(response.body);
+        for (var a in da) {
+          await user.add(a);
+          await localballance!.put(0, int.parse(a['Ballance']));
+        }
+      }
+
+      SendAnalytics();
+
+      GetRequest(
+          'https://www.nextonebox.com/earnmoney/NotGetUrls/AppLeads?$Refercode',
+          lead!);
+
+      GetRequest(
+          'https://www.nextonebox.com/earnmoney/NotGetUrls/AppReferAndEarn?$Refercode',
+          refer!);
+
+      GetRequest(
+          'https://www.nextonebox.com/earnmoney/NotGetUrls/AppWidrawStatus?$email',
+          widrawstaus!);
+
+      GetRequest(
+          'https://www.nextonebox.com/earnmoney/NotGetUrls/AppTasks', tasks!);
+
+      GetRequest(
+          'https://www.nextonebox.com/earnmoney/NotGetUrls/AppGlobalMessages',
+          globalmessage!);
+
+      GetRequest(
+          'https://www.nextonebox.com/earnmoney/NotGetUrls/LeaderBoardReq',
+          leadboard!);
+
+      // Timer(Duration(seconds: 35), () {
+      //   GetRequest(
+      //       'https://www.nextonebox.com/earnmoney/NotGetUrls/ShowQuiz?', quiz!);
+      // });
+
+      GetRequest(
+          'https://www.nextonebox.com/earnmoney/NotGetUrls/ProfitLinkShow?$email',
+          profitlink!);
+
+      GetRequest(
+          'https://www.nextonebox.com/earnmoney/NotGetUrls/AppUserMessages?$email',
+          notif!);
+
+      return Future.value(true);
+    } else {}
+    adsbox!.put(3, {'lastclick': DateTime.now()});
+  }
+}
+
+Ontimecall() async {
+  if (user.isNotEmpty) {
+    http.Response response = await http.get(Uri.parse(
+        'https://www.nextonebox.com/earnmoney/NotGetUrls/AppEarnMoneyAccount?${email}'));
+    if (response.reasonPhrase == 'OK') {
+      await user.clear();
+      await localballance!.clear();
+      var da = jsonDecode(response.body);
+      for (var a in da) {
+        await user.add(a);
+        await localballance!.put(0, int.parse(a['Ballance']));
+      }
+    }
+
+    GetRequest(
+        'https://www.nextonebox.com/earnmoney/NotGetUrls/AppLeads?$Refercode',
+        lead!);
+
+    GetRequest(
+        'https://www.nextonebox.com/earnmoney/NotGetUrls/AppReferAndEarn?$Refercode',
+        refer!);
+
+    GetRequest(
+        'https://www.nextonebox.com/earnmoney/NotGetUrls/AppWidrawStatus?$email',
+        widrawstaus!);
+
+    GetRequest(
+        'https://www.nextonebox.com/earnmoney/NotGetUrls/AppTasks', tasks!);
+
+    GetRequest(
+        'https://www.nextonebox.com/earnmoney/NotGetUrls/AppGlobalMessages',
+        globalmessage!);
+
+    GetRequest('https://www.nextonebox.com/earnmoney/NotGetUrls/LeaderBoardReq',
+        leadboard!);
+
+    GetRequest(
+        'https://www.nextonebox.com/earnmoney/NotGetUrls/ProfitLinkShow?$email',
+        profitlink!);
+
+    GetRequest(
+        'https://www.nextonebox.com/earnmoney/NotGetUrls/AppUserMessages?$email',
+        notif!);
+
+    return Future.value(true);
+  }
+}
