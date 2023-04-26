@@ -15,7 +15,7 @@ class _ContactUsState extends State<ContactUs> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 255, 255, 255),
+        backgroundColor:BackColor,
         centerTitle: true,
         elevation: 0,
         title: Text(

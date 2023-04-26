@@ -1,6 +1,8 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:MyChatAi/App/home.dart';
+import 'package:MyChatAi/App/image.dart';
+import 'package:MyChatAi/App/voic.dart';
 import 'package:MyChatAi/OtherFiles/referandearn.dart';
 import '../App/chat.dart';
 
@@ -18,12 +20,10 @@ class BottomNavigation extends StatefulWidget {
 }
 
 class _BottomNavigationState extends State<BottomNavigation> {
-
-
-  int currentindex = 1;
+  int currentindex = 2;
 
   final screens = [
-    Referandearn(),
+    ImageGenerate(),
     VoiceScreen(),
     Home(),
     ChatPage(),
@@ -52,7 +52,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
             // ignore: prefer_const_literals_to_create_immutables
             items: [
               BottomNavigationBarItem(
-                  icon: Icon(FontAwesomeIcons.bullhorn), label: 'Refer&earn'),
+                  icon: Icon(FontAwesomeIcons.image), label: 'Image'),
               BottomNavigationBarItem(icon: Icon(Icons.mic), label: 'Voice'),
               BottomNavigationBarItem(
                   icon: Icon(FontAwesomeIcons.house), label: 'Home'),

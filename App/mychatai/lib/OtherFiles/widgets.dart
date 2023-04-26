@@ -37,7 +37,7 @@ export 'package:flash/flash.dart';
 export 'package:flutter/material.dart';
 export 'package:getwidget/getwidget.dart';
 export 'package:MyChatAi/OtherFiles/loginopen.dart';
-export '../OtherFiles/navicati.dart';
+export 'package:MyChatAi/OtherFiles/navicati.dart';
 export 'package:clipboard/clipboard.dart';
 export 'package:share_plus/share_plus.dart';
 
@@ -54,7 +54,7 @@ export 'package:webview_cookie_manager/webview_cookie_manager.dart';
 export 'package:MyChatAi/OtherFiles/loginotp.dart';
 export 'package:flutter/gestures.dart';
 export 'package:cloud_firestore/cloud_firestore.dart';
-
+export 'package:awesome_dialog/awesome_dialog.dart';
 export 'package:firebase_core/firebase_core.dart';
 export 'package:another_flushbar/flushbar.dart';
 export 'package:gender_picker/gender_picker.dart';
@@ -69,7 +69,7 @@ import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:workmanager/workmanager.dart';
 export 'package:awesome_notifications/awesome_notifications.dart';
 export 'package:workmanager/workmanager.dart';
-export 'package:razorpay_flutter/razorpay_flutter.dart';
+// export 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:http/http.dart' as http;
 export 'package:flutter_tts/flutter_tts.dart';
 
@@ -101,34 +101,13 @@ Future SendAnalytics() async {
     await MyAnalytic!.clear();
   }
 }
-
-
-
-
 void showMessage(BuildContext context, String MYmessage) {
-  showFlash(
-      context: context,
-      duration: Duration(seconds: 3),
-      builder: (_, c) {
-        return Flash.bar(
-          barrierDismissible: true,
-          controller: c,
-          backgroundColor: Colors.black,
-          position: FlashPosition.top,
-          margin: EdgeInsets.all(50),
-          borderRadius: BorderRadius.circular(20),
-          child: FlashBar(
-            padding: EdgeInsets.all(20),
-            content: Text(
-              MYmessage,
-              style: TextStyle(fontSize: 16, color: Colors.white),
-            ),
-          ),
-        );
-      });
+  final snackBar = SnackBar(
+    backgroundColor: Colors.green,
+    content: Text(MYmessage),
+  );
+  ScaffoldMessenger.of(context).showSnackBar(snackBar);
 }
-
-
 
 
 final UseBorder = BoxDecoration(
@@ -157,7 +136,7 @@ Box adtime = Hive.box('adtime');
 Box history = Hive.box('history');
 Box? MyAnalytic = Hive.box('MyAnalytic');
 Box? contacts = Hive.box('contacts');
-// Box? getmyads = Hive.box('getmyads');
+Box? apikey = Hive.box('apikey');
 
 dynamic email = account.get(0)['email'];
 dynamic name = account.get(0)['name'];
@@ -176,7 +155,7 @@ SendAllData() async {
   if (difference.inHours > 24) {
     if (account.isNotEmpty) {
       SendAnalytics();
-      // callmyadsnow();
+      getkey();
       Ontimecall();
       adtime!.put(3, {'lastclick': DateTime.now()});
       return Future.value(true);
@@ -200,24 +179,14 @@ Ontimecall() async {
   }
 }
 
-// callmyadsnow() async {
-//   http.Response getads =
-//       await http.get(Uri.parse('https://www.nextonebox.com/MyAds'));
-//   if (getads.reasonPhrase == 'OK') {
-//     await getmyads?.clear();
+getkey() async {
+  http.Response getads =
+      await http.get(Uri.parse('http://nextonebox.com/earnmoney/apikey'));
 
-//     var da = jsonDecode(getads.body);
-//     for (var a in da) {
-//       await getmyads?.add(a);
-//     }
-//   }
-// }
-
-
-
-//write for loop and reset at 5 
-
-
-
-
-
+  if (getads.reasonPhrase == 'OK') {
+    await apikey?.clear();
+    var da = jsonDecode(getads.body);
+    await apikey?.add(da);
+    
+  }
+}

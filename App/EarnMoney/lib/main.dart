@@ -1,6 +1,8 @@
 import 'otherfiles/widgets.dart';
-import 'package:cron/cron.dart';
+// import 'package:cron/cron.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:earnmoney/screens/task.dart';
+
 Future<void> backgroundHandler(RemoteMessage message) async {
   print(message.data.toString());
   print(message.notification!.title);
@@ -9,8 +11,7 @@ Future<void> backgroundHandler(RemoteMessage message) async {
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   MobileAds.instance.initialize();
- await Future.delayed(const Duration(seconds: 2));
-  FlutterNativeSplash.remove();
+
   await Firebase.initializeApp(
       options: const FirebaseOptions(
     apiKey: 'AIzaSyCFDIAxlFate1T62SCYQQGHONPrvJ1--20',
@@ -30,16 +31,6 @@ void main() async {
         enableLights: true,
         enableVibration: true)
   ]);
-  final cron = Cron();
-  cron.schedule(Schedule.parse('*/5 * * * *'), () async {
-    AwesomeNotifications().createNotification(
-        content: NotificationContent(
-            id: 1,
-            channelKey: 'key1',
-            title: 'Complete tasks',
-            body: 'Complete tasks and get paid.'));
-  });
-  await cron.close();
 
   Firebase.initializeApp();
 
@@ -72,29 +63,97 @@ void main() async {
   SendAllData();
 
   runApp(MaterialApp(
-    localizationsDelegates: [
-      GlobalWidgetsLocalizations.delegate,
-      GlobalMaterialLocalizations.delegate,
-      MonthYearPickerLocalizations.delegate,
-    ],
-    theme: ThemeData(
-      scaffoldBackgroundColor: Color.fromARGB(255, 255, 255, 255),
-      iconTheme: IconThemeData(color: MainColor),
-      fontFamily: 'Proxima Nova',
-    ),
-    debugShowCheckedModeBanner: false,
-    home: AnimatedSplashScreen.withScreenFunction(
-      splash: Image.asset(
-        'assets/flash.png',
+      localizationsDelegates: [
+        GlobalWidgetsLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        MonthYearPickerLocalizations.delegate,
+      ],
+      theme: ThemeData(
+        scaffoldBackgroundColor: BackColor,
+        secondaryHeaderColor: BackColor,
+        iconTheme: IconThemeData(color: MainColor),
+        fontFamily: 'Proxima Nova',
       ),
-      duration: 100,
-      screenFunction: () async {
-        if (user.isNotEmpty) {
-          return DoubleBack(child: BottomNavigation());
-        } else {
-          return LoginScr();
-        }
+      debugShowCheckedModeBanner: false,
+      home: Open()));
+}
+
+class Open extends StatefulWidget {
+  const Open({super.key});
+
+  @override
+  State<Open> createState() => _OpenState();
+}
+
+class _OpenState extends State<Open> {
+  refer() {
+    AwesomeDialog(
+      context: context,
+      animType: AnimType.scale,
+      dialogType: DialogType.info,
+      body: Center(
+        child: Text(
+          'Refer and Earn 100 \n\n\n Get instant 100 Coins on there Sign up \n\n Lucky chance to win Iphone 12.',
+          style: TextStyle(fontStyle: FontStyle.italic),
+        ),
+      ),
+      keyboardAware: true,
+      btnOkText: "Refer",
+      title: 'Refer and Earn 100 Coins',
+      padding: const EdgeInsets.all(5.0),
+      btnCancelOnPress: () {
+       Navigator.pop(context);
       },
-    ),
-  ));
+      btnOkOnPress: () async {
+        await Share.share(
+            '\n \n Hey, Do you want to earn \n \n 📲💰 10,000 per/month without any investment.\n \n ➡️ Then what are you waiting for Download now EarnMoney \n ➡️ And use my refer code '
+            '"${user.get(0)['Refercode']}". \n \n  💰💥💥  '
+            '\n ➡️ https://play.google.com/store/apps/details?id=com.nextonebox.earnmoney');
+      },
+    )..show();
+  }
+
+  prevusad() {
+    AwesomeDialog(
+        context: context,
+        animType: AnimType.scale,
+        dialogType: DialogType.success,
+        body: Center(
+          child: Text(
+            'Current \n *10 Watch ads per day \n *10 Spin&Win per day \n *10 days Task tracking \n * Withdraw within 3days    \n\n Pro just in 99₹\n *  30 Watch ads per day \n  *  30 Spin&Win per day \n  *  24hours Task tracking \n  *  Withdraw within 1 hours',
+            style: TextStyle(fontStyle: FontStyle.italic),
+          ),
+        ),
+        keyboardAware: true,
+        btnOkText: "Pay",
+        title: 'Continue to pay ₹99 rupees',
+        padding: const EdgeInsets.all(5.0),
+        btnCancelOnPress: () {
+          Timer(Duration(seconds: 7), () {
+            setState(() {
+              WidgetsBinding.instance.addPostFrameCallback((_) => refer());
+            });
+          });
+          showMessage(context, 'You missed the big earning opportunity');
+        },
+        btnOkOnPress: () async {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => Pay()),
+          );
+        }).show();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    if (user.isNotEmpty) {
+      WidgetsBinding.instance.addPostFrameCallback((_) => prevusad());
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return BottomNavigation();
+  }
 }

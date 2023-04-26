@@ -1,7 +1,7 @@
 import 'package:MyChatAi/OtherFiles/getphone.dart';
 import 'package:MyChatAi/OtherFiles/premium.dart';
 import 'package:http/http.dart' as http;
-import '../OtherFiles/widgets.dart';
+import 'widgets.dart';
 
 class LoginOtp extends StatefulWidget {
   LoginOtp({super.key, required this.data});
@@ -136,7 +136,7 @@ class _LoginOtpState extends State<LoginOtp> {
 
                         Navigator.pushAndRemoveUntil(
                           context,
-                          MaterialPageRoute(builder: (context) => Premium()),
+                          MaterialPageRoute(builder: (context) => BottomNavigation()),
                           (Route<dynamic> route) => false,
                         );
                         Ontimecall();

@@ -86,6 +86,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                         margin: EdgeInsets.all(15),
                         decoration: UseBorder,
                         child: GFListTile(
+                            shadow: BoxShadow(offset: Offset.infinite),
                           titleText: listgetname,
                           subTitle: Text(listgetdescription),
                           description: Text(listgetdate),

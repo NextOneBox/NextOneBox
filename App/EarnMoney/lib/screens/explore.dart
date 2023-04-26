@@ -16,7 +16,7 @@ class _ExploreState extends State<Explore> {
   @override
   void initState() {
     super.initState();
-    if (Platform.isAndroid) WebView.platform = AndroidWebView();
+    // if (Platform.isAndroid) WebView.platform = AndroidWebView();
     BannerAd(
       adUnitId: 'ca-app-pub-3946644332709876/6246084818',
       size: AdSize.banner,
@@ -39,6 +39,15 @@ class _ExploreState extends State<Explore> {
 
   @override
   Widget build(BuildContext context) {
+      //   controller = WebViewController()
+      // ..setJavaScriptMode(JavaScriptMode.unrestricted)
+      // ..setBackgroundColor(const Color(0x00000000))
+      // ..setNavigationDelegate(
+      //   NavigationDelegate(
+      //     onProgress: (int progress) {},
+      //   ),
+      // )
+      // ..loadRequest(Uri.parse('https://www.nextonebox.com/PaisKamaooAppWebPage'));
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Explore',
@@ -52,17 +61,12 @@ class _ExploreState extends State<Explore> {
                     child: AdWidget(ad: _ad!),
                   )
                 : const SizedBox(),
-            Flexible(
-              child: Container(
-                child: WebView(
-                  initialUrl: 'https://www.nextonebox.com/PaisKamaooAppWebPage',
-                  javascriptMode: JavascriptMode.unrestricted,
-                  onWebViewCreated: (controller) async {
-                    this.controller = controller;
-                  },
-                ),
-              ),
-            ),
+            // Flexible(
+            //   child: Container(
+            //     child: WebViewWidget(controller: controller),
+               
+            //   ),
+            // ),
           ],
         ),
       ),

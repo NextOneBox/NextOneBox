@@ -22,7 +22,7 @@ class _LeadsaddedState extends State<Leadsadded> {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Color.fromARGB(255, 255, 255, 255),
+          backgroundColor:BackColor,
           centerTitle: true,
           elevation: 0,
           title: Text(
@@ -172,6 +172,7 @@ class _AppsState extends State<Apps> {
                               child: Column(
                                 children: [
                                   GFListTile(
+                            shadow: BoxShadow(offset: Offset.infinite),
                                       padding: EdgeInsets.all(5),
                                       margin: EdgeInsets.all(5),
                                       avatar: Image(
@@ -325,24 +326,24 @@ class _ProductsState extends State<Products> {
                             margin: EdgeInsets.all(10),
                             child: Column(
                               children: [
-                                GFListTile(
-                                    padding: EdgeInsets.all(5),
-                                    titleText: newf?[index]['link'],
-                                    subTitleText: '',
-                                    description: Text(
-                                        'Added on  ${newf?[index]['date']}'),
-                                    icon: Center(
-                                      child: IconButton(
-                                        icon: Icon(statusicon),
-                                        onPressed: () {
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) => Web()),
-                                          );
-                                        },
-                                      ),
-                                    )),
+                                // GFListTile(
+                                //     padding: EdgeInsets.all(5),
+                                //     titleText: newf?[index]['link'],
+                                //     subTitleText: '',
+                                //     description: Text(
+                                //         'Added on  ${newf?[index]['date']}'),
+                                //     icon: Center(
+                                //       child: IconButton(
+                                //         icon: Icon(statusicon),
+                                //         onPressed: () {
+                                //           Navigator.push(
+                                //             context,
+                                //             MaterialPageRoute(
+                                //                 builder: (context) => Web()),
+                                //           );
+                                //         },
+                                //       ),
+                                //     )),
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [

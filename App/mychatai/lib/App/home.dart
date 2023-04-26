@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 import 'dart:async';
+import 'package:MyChatAi/App/image.dart';
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:MyChatAi/OtherFiles/history.dart';
 import 'package:MyChatAi/OtherFiles/widgets.dart';
@@ -14,49 +15,22 @@ RewardedAd? _rewardedAd;
 int _numRewardedLoadAttempts = 0;
 
 runadd() {
-  DateTime now = DateTime.now();
-  final formattedDate = "${now.year}${now.month}${now.day}";
-  if (int.parse(ChatAiPrem) < int.parse(formattedDate)) {
-    dynamic i = adtime.get(1);
-    if (i == 0) {
-      adtime.put(1, 1);
-    }
-    if (i == 1) {
-      adtime.put(1, 2);
-    }
-    if (i == 2) {
-      adtime.put(1, 3);
-    }
-    if (i == 3) {
-      adtime.put(1, 4);
-    }
-    if (i == 4) {
-      adtime.put(1, 5);
-    }
-    if (i == 5) {
-      adtime.put(1, 6);
-    }
-    if (i == 6) {
-      adtime.put(1, 7);
-    }
-    if (i == 7) {
-      adtime.put(1, 8);
-    }
-    if (i == 8) {
-      adtime.put(1, 9);
-    }
-    if (i == 9) {
-      adtime.put(1, 10);
-    }
-    if (i == 10) {
-      adtime.put(1, 0);
-      _showInterstitialAd();
-    }
-  }
+  _showInterstitialAd();
+// DateTime now = DateTime.now();
+// final formattedDate = "${now.year}${now.month}${now.day}";
+// if (int.parse(ChatAiPrem) < int.parse(formattedDate)) {
+//   dynamic i = adtime.get(1);
+//   if (i == 0) {
+//     adtime.put(1, 1);
+//   }
+//   if (i == 1) {
+//     adtime.put(1, 0);
+// _showInterstitialAd();
+//   }
+// }
 }
 
-InterstitialAd? _interstitialAd;
-int _numInterstitialLoadAttempts = 0;
+
 // unityloadad() async {
 //   UnityAds.showVideoAd(
 //     placementId: 'Rewarded_Android',
@@ -66,12 +40,11 @@ int _numInterstitialLoadAttempts = 0;
 //     },
 //   );
 // }
-
+InterstitialAd? _interstitialAd;
+int _numInterstitialLoadAttempts = 0;
 void _createInterstitialAd() {
   InterstitialAd.load(
-      adUnitId: Platform.isAndroid
-          ? 'ca-app-pub-3946644332709876/6248052800'
-          : 'ca-app-pub-3946644332709876/6248052800',
+      adUnitId: 'ca-app-pub-3946644332709876/6248052800',
       request: AdRequest(),
       adLoadCallback: InterstitialAdLoadCallback(
         onAdLoaded: (InterstitialAd ad) {
@@ -89,8 +62,10 @@ void _createInterstitialAd() {
 }
 
 void _showInterstitialAd() {
+  _createInterstitialAd();
   if (_interstitialAd == null) {
     print('Warning: attempt to show interstitial before loaded.');
+
     return;
   }
   _interstitialAd!.fullScreenContentCallback = FullScreenContentCallback(
@@ -184,6 +159,7 @@ class _HomeState extends State<Home> {
               height: 30,
             ),
             GFListTile(
+                            shadow: BoxShadow(offset: Offset.infinite),
               color: BackColor,
               onTap: () {
                 SetAnalytic('AccSetting');
@@ -291,259 +267,242 @@ class _HomeState extends State<Home> {
                     child: AdWidget(ad: _ad!),
                   )
                 : const SizedBox(),
-            Card(
-              child: Column(
-                children: [
-                  Card(
-                    child: Padding(
-                      padding: const EdgeInsets.all(12),
-                      child: Column(
-                        children: [
-                          Text(
-                            'We are Expert in',
-                            style: TextStyle(
-                                color: MainColor,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 20),
+            Center(
+              child: Container(
+                margin: EdgeInsets.all(6),
+                height: 150,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    InkWell(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => VoiceScreen()),
+                        );
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: MainColor,
+                          borderRadius: BorderRadius.all(Radius.circular(20)),
+                          image: DecorationImage(
+                            image: AssetImage('assets/voice.png'),
+                            fit: BoxFit.fill,
                           ),
-                          Text(
-                            'Used Chat Gpt to assist',
-                            style: TextStyle(color: MainColor, fontSize: 10),
+                        ),
+                        child: Card(
+                          color: Colors.transparent,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Container(
+                                margin: EdgeInsets.only(left: 50),
+                                width: 100,
+                                height: 25,
+                                decoration: BoxDecoration(
+                                  color: MainColor,
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(20)),
+                                ),
+                                child: Center(
+                                    child: Text(
+                                  ' Ai Voice ',
+                                  style: TextStyle(color: Colors.white),
+                                )),
+                              ),
+                            ],
                           ),
-                        ],
+                        ),
                       ),
                     ),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      children: [
-                        Icon(
-                          Icons.cast_for_education,
-                          color: iconclor,
-                        ),
-                        Text(
-                          '     Education',
-                          style: texSty,
-                        ),
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      children: [
-                        Icon(
-                          Icons.sports_gymnastics,
-                          color: iconclor,
-                        ),
-                        Text(
-                          '     Personal Trainer',
-                          style: texSty,
-                        ),
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      children: [
-                        Icon(
-                          Icons.travel_explore,
-                          color: iconclor,
-                        ),
-                        Text(
-                          '     Traveler',
-                          style: texSty,
-                        ),
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      children: [
-                        Icon(
-                          Icons.wb_incandescent_rounded,
-                          color: iconclor,
-                        ),
-                        Text(
-                          '     Many More',
-                          style: texSty,
-                        ),
-                      ],
-                    ),
-                  ),
-                  SizedBox(
-                    height: 8,
-                  ),
-                  Container(
-                    height: 1,
-                    width: 300,
-                    color: MainColor,
-                  ),
-                  SizedBox(
-                    height: 8,
-                  ),
-                  Row(
-                    children: [
-                      Column(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(10.0),
-                            child: Text(
-                              'Use the Power of AI',
-                              style: texSty,
-                            ),
+                    InkWell(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ImageGenerate()),
+                        );
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: MainColor,
+                          borderRadius: BorderRadius.all(Radius.circular(20)),
+                          image: DecorationImage(
+                            image: AssetImage('assets/aiimage.jpg'),
+                            fit: BoxFit.fill,
                           ),
-                          InkWell(
-                            onTap: () {
-                              SetAnalytic('premium');
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => Premium()),
-                              );
-                            },
-                            child: Card(
-                              elevation: 10,
-                              color: Colors.green,
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text(' Go Ad Free'),
+                        ),
+                        child: Card(
+                          color: Colors.transparent,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Container(
+                                margin: EdgeInsets.only(left: 50),
+                                width: 100,
+                                height: 25,
+                                decoration: BoxDecoration(
+                                  color: MainColor,
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(20)),
+                                ),
+                                child: Center(
+                                    child: Text(
+                                  ' Ai Image ',
+                                  style: TextStyle(color: Colors.white),
+                                )),
                               ),
-                            ),
-                          )
-                        ],
+                            ],
+                          ),
+                        ),
                       ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => VoiceScreen()),
-                              );
-                            },
-                            child: Card(
-                              elevation: 5,
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Row(
-                                  children: [
-                                    Text(
-                                      'Talk with AI      ',
-                                      style: texSty,
-                                    ),
-                                    Icon(
-                                      Icons.mic,
-                                      color: iconclor,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                          InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => ChatPage()),
-                              );
-                            },
-                            child: Card(
-                              elevation: 5,
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Row(
-                                  children: [
-                                    Text(
-                                      'Chat with AI     ',
-                                      style: texSty,
-                                    ),
-                                    Icon(
-                                      Icons.message,
-                                      color: iconclor,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                          InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => History()),
-                              );
-                            },
-                            child: Card(
-                              elevation: 5,
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Row(
-                                  children: [
-                                    Text(
-                                      '     History      ',
-                                      style: texSty,
-                                    ),
-                                    Icon(
-                                      Icons.history_outlined,
-                                      color: iconclor,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ],
+                    ),
+                  ],
+                ),
               ),
             ),
-            Container(
+            Center(
+              child: Container(
                 margin: EdgeInsets.all(6),
-                height: 80,
-                child: ListView.builder(
-                  itemCount: 2,
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index) {
-                    return InkWell(
-                      onTap: () async {
-                        var url = newb[index]['url'];
-                        if (await canLaunch(url)) {
-                          await launch(url);
-                        }
+                height: 150,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    InkWell(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => ChatPage()),
+                        );
                       },
-                      child: Card(
-                        color: BackColor,
-                        child: Container(
-                          width: 140,
-                          height: 30,
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: NetworkImage('${newb[index]['image']}'),
-                              fit: BoxFit.fill,
-                            ),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: MainColor,
+                          borderRadius: BorderRadius.all(Radius.circular(20)),
+                          image: DecorationImage(
+                            image: AssetImage('assets/chat.png'),
+                            fit: BoxFit.fill,
                           ),
-                          child: Icon(
-                            Icons.download,
-                            color: Colors.white,
+                        ),
+                        child: Card(
+                          color: Colors.transparent,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Container(
+                                margin: EdgeInsets.only(left: 50),
+                                width: 100,
+                                height: 25,
+                                decoration: BoxDecoration(
+                                  color: MainColor,
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(20)),
+                                ),
+                                child: Center(
+                                    child: Text(
+                                  ' Ai Chat ',
+                                  style: TextStyle(color: Colors.white),
+                                )),
+                              ),
+                            ],
                           ),
                         ),
                       ),
-                    );
-                  },
-                )),
+                    ),
+                    InkWell(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => History()),
+                        );
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: MainColor,
+                          borderRadius: BorderRadius.all(Radius.circular(20)),
+                          image: DecorationImage(
+                            image: AssetImage('assets/weq.png'),
+                            fit: BoxFit.fill,
+                          ),
+                        ),
+                        child: Card(
+                          color: Colors.transparent,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Container(
+                                margin: EdgeInsets.only(left: 50),
+                                width: 100,
+                                height: 25,
+                                decoration: BoxDecoration(
+                                  color: MainColor,
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(20)),
+                                ),
+                                child: Center(
+                                    child: Text(
+                                  ' History ',
+                                  style: TextStyle(color: Colors.white),
+                                )),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            InkWell(
+              onTap: () {
+                getkey();
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Premium()),
+                );
+              },
+              child: Container(
+                width: 300,
+                height: 60,
+                decoration: BoxDecoration(
+                  color: MainColor,
+                  borderRadius: BorderRadius.all(Radius.circular(20)),
+                  image: DecorationImage(
+                    image: AssetImage('assets/pro.png'),
+                    fit: BoxFit.fill,
+                  ),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Card(
+                      color: Colors.transparent,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Container(
+                            width: 100,
+                            height: 25,
+                            decoration: BoxDecoration(
+                              color: Colors.green,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(20)),
+                            ),
+                            child: Center(
+                                child: Text(
+                              ' Ad Free ',
+                              style: TextStyle(color: Colors.white),
+                            )),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
             SizedBox(
               height: 10,
             ),
@@ -561,6 +520,26 @@ class _HomeState extends State<Home> {
                 color: BackColor,
                 child: Column(
                   children: [
+                    Padding(
+                      padding: const EdgeInsets.all(6.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text('Earning App :  '),
+                          IconButton(
+                              iconSize: 35,
+                              onPressed: () async {
+                              
+                                var url =
+                                    'https://play.google.com/store/apps/details?id=com.nextonebox.earnmoney';
+                                if (await canLaunch(url)) {
+                                  await launch(url);
+                                }
+                              },
+                              icon: Image.asset('assets/em.png')),
+                        ],
+                      ),
+                    ),
                     Padding(
                       padding: const EdgeInsets.all(6.0),
                       child: Row(
@@ -710,6 +689,106 @@ class _HomeState extends State<Home> {
                     ),
                   ],
                 ),
+              ),
+            ),
+            Card(
+              child: Column(
+                children: [
+                  Card(
+                    child: Padding(
+                      padding: const EdgeInsets.all(12),
+                      child: Column(
+                        children: [
+                          Text(
+                            'We are Expert in',
+                            style: TextStyle(
+                                color: MainColor,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20),
+                          ),
+                          Text(
+                            'Used Chat Gpt to assist',
+                            style: TextStyle(color: MainColor, fontSize: 10),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.cast_for_education,
+                          color: iconclor,
+                        ),
+                        Text(
+                          '     Education',
+                          style: texSty,
+                        ),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.sports_gymnastics,
+                          color: iconclor,
+                        ),
+                        Text(
+                          '     Personal Trainer',
+                          style: texSty,
+                        ),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.travel_explore,
+                          color: iconclor,
+                        ),
+                        Text(
+                          '     Traveler',
+                          style: texSty,
+                        ),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.wb_incandescent_rounded,
+                          color: iconclor,
+                        ),
+                        Text(
+                          '     Many More',
+                          style: texSty,
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: 8,
+                  ),
+                  Container(
+                    height: 1,
+                    width: 300,
+                    color: MainColor,
+                  ),
+                  SizedBox(
+                    height: 8,
+                  ),
+                ],
               ),
             ),
           ],

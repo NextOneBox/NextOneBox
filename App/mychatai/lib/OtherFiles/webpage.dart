@@ -1,4 +1,4 @@
-import '../OtherFiles/widgets.dart';
+import 'widgets.dart';
 
 class WebPage extends StatefulWidget {
   const WebPage({super.key, required this.data});
@@ -17,7 +17,7 @@ class _WebPageState extends State<WebPage> {
   @override
   void initState() {
     super.initState();
-    if (Platform.isAndroid) WebView.platform = AndroidWebView();
+ 
     BannerAd(
       adUnitId: 'ca-app-pub-6690747295108713/1024392773',
       size: AdSize.banner,
@@ -53,9 +53,11 @@ class _WebPageState extends State<WebPage> {
                   child: AdWidget(ad: _ad!),
                 )
               : const SizedBox(),
-          Flexible(
+           Flexible(
             child: Container(
-              child: WebView(
+              // child: WebViewWidget(controller: controller),
+
+              child:  WebView(
                 initialUrl: widget.data.toString(),
                 javascriptMode: JavascriptMode.unrestricted,
                 onWebViewCreated: (controller) async {

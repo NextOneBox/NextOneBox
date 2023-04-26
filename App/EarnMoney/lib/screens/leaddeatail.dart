@@ -79,7 +79,7 @@ class _LeadDeaailState extends State<LeadDeaail> {
             onPressed: () => Navigator.of(context).pop(),
           ),
           centerTitle: true,
-          backgroundColor: Color.fromARGB(255, 247, 247, 250),
+          backgroundColor:BackColor,
           elevation: 0,
           title: Text(
             'Leads details',
@@ -149,6 +149,7 @@ class _LeadDeaailState extends State<LeadDeaail> {
                         child: Column(
                           children: [
                             GFListTile(
+                            shadow: BoxShadow(offset: Offset.infinite),
                               padding: EdgeInsets.fromLTRB(50, 10, 0, 10),
                               avatar: CircleAvatar(
                                   backgroundColor: MainColor,
@@ -163,6 +164,7 @@ class _LeadDeaailState extends State<LeadDeaail> {
                               color: Colors.black,
                             ),
                             GFListTile(
+                            shadow: BoxShadow(offset: Offset.infinite),
                               icon: Icon(Icons.phone),
                               titleText: 'Phone number ',
                               subTitleText: '${widget.task_name['phone']}',
@@ -172,6 +174,7 @@ class _LeadDeaailState extends State<LeadDeaail> {
                               color: Colors.black,
                             ),
                             GFListTile(
+                            shadow: BoxShadow(offset: Offset.infinite),
                               icon: Icon(Icons.email),
                               titleText: 'Email id',
                               subTitleText: '${widget.task_name['email']}',
@@ -204,22 +207,26 @@ class _LeadDeaailState extends State<LeadDeaail> {
                       ),
                     ),
                     GFListTile(
+                            shadow: BoxShadow(offset: Offset.infinite),
                         padding: EdgeInsets.all(15),
                         margin: EdgeInsets.all(15),
                         subTitleText:
                             'The account opening process is started. Complete and earn your reward',
                         icon: Icon(Icons.check_circle)),
                     GFListTile(
+                            shadow: BoxShadow(offset: Offset.infinite),
                         padding: EdgeInsets.all(15),
                         margin: EdgeInsets.all(15),
                         subTitleText: leadsteps!.get(id)[0]['one'].toString(),
                         icon: Icon(onetick)),
                     GFListTile(
+                            shadow: BoxShadow(offset: Offset.infinite),
                         padding: EdgeInsets.all(15),
                         margin: EdgeInsets.all(15),
                         subTitleText: leadsteps!.get(id)[0]['two'].toString(),
                         icon: Icon(twotick)),
                     GFListTile(
+                            shadow: BoxShadow(offset: Offset.infinite),
                         padding: EdgeInsets.all(15),
                         margin: EdgeInsets.all(15),
                         subTitleText: leadsteps!.get(id)[0]['three'].toString(),
@@ -230,6 +237,7 @@ class _LeadDeaailState extends State<LeadDeaail> {
                     //   height: 500,
                     //   margin: EdgeInsets.all(10),
                     //   child: GFListTile(
+                            // shadow: BoxShadow(offset: Offset.infinite),
                     //             padding: EdgeInsets.all(15),
                     //             margin: EdgeInsets.all(15),
                     //             subTitleText:
@@ -251,6 +259,7 @@ class _LeadDeaailState extends State<LeadDeaail> {
                     //           stepname = 'wait';
                     //         }
                     //         return GFListTile(
+                            // shadow: BoxShadow(offset: Offset.infinite),
                     //             padding: EdgeInsets.all(15),
                     //             margin: EdgeInsets.all(15),
                     //             subTitleText:

@@ -8,6 +8,8 @@ class ProfitDetils extends StatefulWidget {
 }
 
 class _ProfitDetilsState extends State<ProfitDetils> {
+
+  late WebViewController controller;
   late WebViewController ccontroller;
   final cookieManager = WebviewCookieManager();
   void localhtmlfile() async {
@@ -17,7 +19,7 @@ class _ProfitDetilsState extends State<ProfitDetils> {
       mimeType: 'text/html',
       encoding: Encoding.getByName('utf-8'),
     ).toString();
-    ccontroller.loadUrl(uio);
+
   }
 
   @override
@@ -25,11 +27,20 @@ class _ProfitDetilsState extends State<ProfitDetils> {
     super.initState();
     // Enable virtual display.
 
-    if (Platform.isAndroid) WebView.platform = AndroidWebView();
+    // if (Platform.isAndroid) WebView.platform = AndroidWebView();
   }
 
   @override
   Widget build(BuildContext context) {
+      //       controller = WebViewController()
+      // ..setJavaScriptMode(JavaScriptMode.unrestricted)
+      // ..setBackgroundColor(const Color(0x00000000))
+      // ..setNavigationDelegate(
+      //   NavigationDelegate(
+      //     onProgress: (int progress) {},
+      //   ),
+      // )
+      // ..loadRequest(Uri.parse('https://firebasestorage.googleapis.com/v0/b/nextonebox-d7c0a.appspot.com/o/stores.html?alt=media&token=bafc78c4-682b-4af7-9577-8b4cffc86a33'));
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -43,7 +54,7 @@ class _ProfitDetilsState extends State<ProfitDetils> {
           style: TextStyle(
               color: PrColor, fontWeight: FontWeight.bold, fontSize: 15),
         ),
-        backgroundColor: Color.fromARGB(255, 247, 247, 250),
+ backgroundColor:BackColor,
       ),
       body: Column(
         children: [
@@ -63,10 +74,10 @@ class _ProfitDetilsState extends State<ProfitDetils> {
                 InkWell(
                   onTap: () {
                    SetAnalytic('ProfitLink'); 
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => Web()),
-                    );
+                    // Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(builder: (context) => Web()),
+                    // );
                   },
                   child: Container(
                     width: 200,
@@ -88,11 +99,11 @@ class _ProfitDetilsState extends State<ProfitDetils> {
                                 onPressed: () {
                                   SetAnalytic('ProfitLink');
                            
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => Web()),
-                                  );
+                                  // Navigator.push(
+                                  //   context,
+                                  //   MaterialPageRoute(
+                                  //       builder: (context) => Web()),
+                                  // );
                                 },
                                 icon: Icon(
                                   Icons.arrow_circle_right,
@@ -109,13 +120,10 @@ class _ProfitDetilsState extends State<ProfitDetils> {
             child: Container(
               margin: EdgeInsets.all(5),
               decoration: UseBorder,
-              child: WebView(
-                  initialUrl:
-                      'https://firebasestorage.googleapis.com/v0/b/nextonebox-d7c0a.appspot.com/o/stores.html?alt=media&token=bafc78c4-682b-4af7-9577-8b4cffc86a33',
-                  javascriptMode: JavascriptMode.unrestricted,
-                  onWebViewCreated: (controller) async {
-                    this.ccontroller = controller;
-                  }),
+              // child:WebViewWidget(controller: controller),
+              
+              
+    
             ),
           ),
         ],

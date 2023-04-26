@@ -24,7 +24,7 @@ class VoiceScreen extends StatefulWidget {
 }
 
 Future<String> generateResponse(String prompt) async {
-  const apiKey = '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';
+  var apiKey = apikey!.get(0).toString();
 
   var url = Uri.https("api.openai.com", "/v1/completions");
   final response = await http.post(
@@ -75,9 +75,11 @@ class _VoiceScreenState extends State<VoiceScreen> {
         onAdLoaded: (ad) {
           setState(() {
             _ad = ad as BannerAd;
-              DateTime now = DateTime.now();
-  final formattedDate = "${now.year}${now.month}${now.day}";
-            if (int.parse(ChatAiPrem) < int.parse(formattedDate)) {   adLoaded = true;}
+  //             DateTime now = DateTime.now();
+  // final formattedDate = "${now.year}${now.month}${now.day}";
+  //           if (int.parse(ChatAiPrem) < int.parse(formattedDate)) {  
+              adLoaded = true;
+              // }
          
           });
         },
@@ -186,7 +188,7 @@ class _VoiceScreenState extends State<VoiceScreen> {
                   context,
                   MaterialPageRoute(builder: (context) => History()),
                 );
-                runadd();
+         
               })
         ],
         leading: IconButton(

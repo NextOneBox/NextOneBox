@@ -13,8 +13,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'widgets.dart';
 
-
 class BottomNavigation extends StatefulWidget {
+
+
   const BottomNavigation({
     Key? key,
   }) : super(key: key);
@@ -40,37 +41,41 @@ class _BottomNavigationState extends State<BottomNavigation> {
 
   @override
   Widget build(BuildContext context) {
-   
-    return Scaffold(
-      body: screens[currentindex],
-      bottomNavigationBar: BottomNavigationBar(
-          iconSize: 20,
-          backgroundColor: Color.fromARGB(255, 227, 242, 223),
-          unselectedItemColor: Color.fromARGB(255, 164, 221, 149),
-          showUnselectedLabels: true,
-          selectedItemColor: MainColor,
-          currentIndex: currentindex,
-          onTap: (index) {
-            setState(() => currentindex = index);
-          },
+    if (user!.isEmpty) {
+      return LoginScr();
+    } else {
+      return Scaffold(
+        backgroundColor: MainColor,
+        body: screens[currentindex],
+        bottomNavigationBar: BottomNavigationBar(
+            iconSize: 20,
+            backgroundColor: BackColor,
+            unselectedItemColor: Color.fromARGB(255, 164, 221, 149),
+            showUnselectedLabels: true,
+            selectedItemColor: MainColor,
+            currentIndex: currentindex,
+            onTap: (index) {
+              setState(() => currentindex = index);
+            },
 
-          // ignore: prefer_const_literals_to_create_immutables
-          items: [
-            BottomNavigationBarItem(
-                icon: Icon(Icons.check_circle_rounded), label: 'Leads'),
-            BottomNavigationBarItem(
-                icon: Icon(FontAwesomeIcons.sackDollar), label: 'Tasks'),
-            BottomNavigationBarItem(
-                icon: Icon(FontAwesomeIcons.house), label: 'Home'),
-            BottomNavigationBarItem(
-                icon: Icon(FontAwesomeIcons.bullhorn), label: 'Refer&earn'),
-            BottomNavigationBarItem(
-                icon: Icon(
-                  Icons.person,
-                  size: 25,
-                ),
-                label: 'Account'),
-          ]),
-    );
+
+            items: [
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.check_circle_rounded), label: 'Leads'),
+              BottomNavigationBarItem(
+                  icon: Icon(FontAwesomeIcons.sackDollar), label: 'Tasks'),
+              BottomNavigationBarItem(
+                  icon: Icon(FontAwesomeIcons.house), label: 'Home'),
+              BottomNavigationBarItem(
+                  icon: Icon(FontAwesomeIcons.bullhorn), label: 'Refer&earn'),
+              BottomNavigationBarItem(
+                  icon: Icon(
+                    Icons.person,
+                    size: 25,
+                  ),
+                  label: 'Account'),
+            ]),
+      );
+    }
   }
 }

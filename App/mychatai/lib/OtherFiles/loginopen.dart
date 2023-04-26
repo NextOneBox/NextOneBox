@@ -1,7 +1,7 @@
 import 'package:MyChatAi/OtherFiles/getphone.dart';
 import 'package:MyChatAi/OtherFiles/premium.dart';
 import 'package:http/http.dart' as http;
-import '../OtherFiles/widgets.dart';
+import 'widgets.dart';
 
 class LoginScr extends StatefulWidget {
   LoginScr({super.key});
@@ -16,7 +16,7 @@ class _LoginScrState extends State<LoginScr> {
   TextEditingController emailCont = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    // callmyadsnow();
+    getkey();
     var maincolor = Color.fromARGB(255, 0, 0, 0);
     @override
     googleLogin() async {
@@ -73,7 +73,7 @@ class _LoginScrState extends State<LoginScr> {
 
           Navigator.pushAndRemoveUntil(
             context,
-            MaterialPageRoute(builder: (context) => Premium()),
+            MaterialPageRoute(builder: (context) => BottomNavigation()),
             (Route<dynamic> route) => false,
           );
           Ontimecall();

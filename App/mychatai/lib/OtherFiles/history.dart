@@ -1,4 +1,5 @@
-import '../OtherFiles/widgets.dart';
+import '../App/home.dart';
+import 'widgets.dart';
 
 class History extends StatefulWidget {
   const History({super.key});
@@ -8,6 +9,12 @@ class History extends StatefulWidget {
 }
 
 class _HistoryState extends State<History> {
+  @override
+  void initState() {
+    super.initState();
+    runadd();
+  }
+
   @override
   Widget build(BuildContext context) {
     FlutterTts flutterTts = FlutterTts();
@@ -23,41 +30,30 @@ class _HistoryState extends State<History> {
                 color: MainColor,
               ),
               onPressed: () {
-                showFlash(
-                    context: context,
-                    duration: Duration(seconds: 2),
-                    builder: (_, c) {
-                      return Flash.bar(
-                        barrierDismissible: true,
-                        controller: c,
-                        backgroundColor: Color.fromARGB(255, 247, 247, 250),
-                        position: FlashPosition.bottom,
-                        margin: EdgeInsets.all(50),
-                        borderRadius: BorderRadius.circular(20),
-                        child: FlashBar(
-                          padding: EdgeInsets.all(40),
-                          title: Text(
-                            "Clear",
-                            style: texSty,
-                          ),
-                          content: Text(
-                            "Are you sure do you want to Clear your history",
-                          ),
-                          actions: [
-                            TextButton(
-                              onPressed: () {
-                                history.clear();
-                                setState(() {});
-                              },
-                              child: Text(
-                                'Clear',
-                                style: TextStyle(color: Colors.red),
-                              ),
-                            )
-                          ],
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      content: Text(
+                          'Are you sure do you want to Clear your history'),
+                      actions: <Widget>[
+                        TextButton(
+                          child: Text('Cancel'),
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
                         ),
-                      );
-                    });
+                        TextButton(
+                          child: Text('Clear'),
+                          onPressed: () {
+                            history.clear();
+                            setState(() {});
+                          },
+                        ),
+                      ],
+                    );
+                  },
+                );
               })
         ],
         leading: IconButton(

@@ -40,7 +40,7 @@ class _AccountSettingState extends State<AccountSetting> {
           style: TextStyle(
               color: PrColor, fontWeight: FontWeight.bold, fontSize: 25),
         ),
-        backgroundColor: Color.fromARGB(255, 255, 255, 255),
+        backgroundColor:BackColor,
       ),
       body: SingleChildScrollView(
         child: Column(

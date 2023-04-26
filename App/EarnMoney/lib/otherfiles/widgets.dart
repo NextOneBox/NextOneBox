@@ -7,6 +7,7 @@ import 'package:another_flushbar/flushbar.dart';
 import 'package:earnmoney/otherfiles/widgets.dart';
 import 'package:earnmoney/screens/account.dart';
 import 'package:flash/flash.dart';
+import 'package:flash/flash_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -65,6 +66,7 @@ export 'package:earnmoney/screens/settingotp.dart';
 export 'package:gender_picker/gender_picker.dart';
 export 'package:gender_picker/source/enums.dart';
 export 'package:earnmoney/screens/task.dart';
+export 'package:earnmoney/screens/pay.dart';
 // export 'package:unity_ads_plugin/ad/unity_banner_ad.dart';
 // export 'package:unity_ads_plugin/unity_ads.dart';
 export 'package:google_mobile_ads/google_mobile_ads.dart';
@@ -76,7 +78,7 @@ import 'package:workmanager/workmanager.dart';
 export 'package:awesome_notifications/awesome_notifications.dart';
 export 'package:workmanager/workmanager.dart';
 import 'package:http/http.dart' as http;
-
+export 'package:awesome_dialog/awesome_dialog.dart';
 Future GetRequest(String url, Box DataBox) async {
   http.Response response = await http.get(Uri.parse(url));
   if (response.reasonPhrase == 'OK') {
@@ -107,26 +109,11 @@ Future SendAnalytics() async {
 }
 
 void showMessage(BuildContext context, String MYmessage) {
-  showFlash(
-      context: context,
-      duration: Duration(seconds: 12),
-      builder: (_, c) {
-        return Flash.bar(
-          barrierDismissible: true,
-          controller: c,
-          backgroundColor: Colors.black,
-          position: FlashPosition.top,
-          margin: EdgeInsets.all(50),
-          borderRadius: BorderRadius.circular(20),
-          child: FlashBar(
-            padding: EdgeInsets.all(20),
-            content: Text(
-              MYmessage,
-              style: TextStyle(fontSize: 16, color: Colors.white),
-            ),
-          ),
-        );
-      });
+  final snackBar = SnackBar(
+    backgroundColor: Colors.green,
+    content: Text(MYmessage),
+  );
+  ScaffoldMessenger.of(context).showSnackBar(snackBar);
 }
 
 final UseBorder = BoxDecoration(
@@ -135,14 +122,14 @@ final UseBorder = BoxDecoration(
 );
 
 // {showMessage(context, 'Copied'); }
+// final PrColor = Color.fromARGB(255, 34, 151, 247);
 final PrColor = const Color.fromARGB(255, 110, 114, 116);
-// final PrColor = const Color.fromARGB(255, 110, 114, 116);
 
 final MainColor = Color.fromARGB(255, 76, 175, 80);
 // final MainColor = Color.fromARGB(255, 255, 255, 255);
 
-// final BackColor = Color.fromARGB(255, 241, 244, 241);
-final BackColor = Colors.white;
+final BackColor = Color.fromARGB(255, 241, 244, 241);
+// final BackColor = Color.fromARGB(255, 255, 235, 59);
 
 final texSty = TextStyle(
   fontSize: 16,
@@ -177,6 +164,7 @@ dynamic gender = user.get(0)['gender'];
 dynamic AccountNumber = user.get(0)['Account'];
 dynamic phonenumber = user.get(0)['phonenumber'];
 dynamic Refercode = user.get(0)['Refercode'];
+dynamic EMPremium = user.get(0)['EMPremium'];
 
 void callbackDispatcher() {}
 
@@ -288,4 +276,23 @@ Ontimecall() async {
 
     return Future.value(true);
   }
+}
+
+
+
+callnow()async{
+
+ http.Response response = await http.get(Uri.parse(
+        'https://www.nextonebox.com/earnmoney/NotGetUrls/AppEarnMoneyAccount?${email}'));
+    if (response.reasonPhrase == 'OK') {
+      await user.clear();
+      await localballance!.clear();
+      var da = jsonDecode(response.body);
+      for (var a in da) {
+        await user.add(a);
+        await localballance!.put(0, int.parse(a['Ballance']));
+      }
+    }
+
+
 }

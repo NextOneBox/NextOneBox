@@ -80,7 +80,7 @@ class _LeadboadScreenState extends State<LeadboadScreen> {
                       fontWeight: FontWeight.bold,
                       fontSize: 25),
                 ),
-                backgroundColor: Color.fromARGB(255, 247, 247, 250),
+                backgroundColor:BackColor,
               ),
               body: Column(
                 children: [
@@ -231,6 +231,7 @@ class _LeadboadScreenState extends State<LeadboadScreen> {
                                 margin: EdgeInsets.all(7),
                                 decoration: UseBorder,
                                 child: GFListTile(
+                            shadow: BoxShadow(offset: Offset.infinite),
                                   avatar: GFAvatar(
                                     size: 25,
                                     backgroundColor: MainColor,

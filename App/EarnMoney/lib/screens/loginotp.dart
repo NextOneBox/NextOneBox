@@ -142,9 +142,27 @@ class _LoginOtpState extends State<LoginOtp> {
                           (Route<dynamic> route) => false,
                         );
                         Ontimecall();
-                        Timer(Duration(seconds: 25), () async {
-                          SystemNavigator.pop();
-                        });
+                        AwesomeDialog(
+                            context: context,
+                            animType: AnimType.scale,
+                            dialogType: DialogType.info,
+                            body: Center(
+                              child: Text(
+                                'Follow us on Instagram \n\n\n Get instant 10 Coins \n\n Get latest updates',
+                                style: TextStyle(fontStyle: FontStyle.italic),
+                              ),
+                            ),
+                            keyboardAware: true,
+                            btnOkText: "Follow",
+                            title: 'Follow us on Instagram',
+                            padding: const EdgeInsets.all(5.0),
+                            btnCancelOnPress: () {},
+                            btnOkOnPress: () async {
+                              var url = 'https://www.instagram.com/nextonebox/';
+                              if (await canLaunch(url)) {
+                                await launch(url);
+                              }
+                            });
                       }
                       {
                         showMessage(context, response.body);

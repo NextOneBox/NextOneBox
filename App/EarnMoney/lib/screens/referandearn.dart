@@ -2,6 +2,7 @@ import '../otherfiles/widgets.dart';
 // import 'package:permission_handler/permission_handler.dart';
 // import 'package:contacts_service/contacts_service.dart';
 import 'package:http/http.dart' as http;
+
 class Referandearn extends StatefulWidget {
   Referandearn({super.key});
 
@@ -10,6 +11,28 @@ class Referandearn extends StatefulWidget {
 }
 
 class _ReferandearnState extends State<Referandearn> {
+  buysuperspin() {
+    AwesomeDialog(
+      context: context,
+      animType: AnimType.scale,
+      dialogType: DialogType.success,
+      body: Center(
+        child: Text(
+          'Unlock Super Spin now for bigger earnings!. Do not miss out on Super Spin for only ₹49 rupees  limited time offer.',
+          style: TextStyle(fontStyle: FontStyle.italic),
+        ),
+      ),
+      keyboardAware: true,
+      btnOkText: "Share",
+      title: 'Continue to pay ₹49 rupees',
+      padding: const EdgeInsets.all(5.0),
+      btnCancelOnPress: () {
+        showMessage(context, 'You missed the big earning opportunity');
+      },
+      btnOkOnPress: () {},
+    )..show();
+  }
+
   late TabController tabController;
 
   @override
@@ -81,24 +104,15 @@ class _StatusState extends State<Status> {
       return Scaffold(
           body: ListView.builder(
         itemBuilder: (context, index) {
-          IconData fonticon = Icons.info_outline;
-          if (arrNames == '') {
-          } else {
-            if (arrNames?[index]['completed'] != 'true') {
-              fonticon = Icons.info_outline;
-            } else {
-              fonticon = FontAwesomeIcons.circleCheck;
-            }
-          }
           return Card(
             margin: EdgeInsets.all(15),
             elevation: 1,
             child: GFListTile(
+                            shadow: BoxShadow(offset: Offset.infinite),
                 titleText:
                     'Your friend ${arrNames?[index]['email'].toString().substring(0, 6)}... ',
-                subTitleText:
-                    'Let them complete at least 3 task and you will earn ₹50',
-                icon: Icon(fonticon)),
+                subTitleText: 'You have earned 100 Coins ',
+                icon: Icon(FontAwesomeIcons.circleCheck)),
           );
         },
         itemCount: arrNames?.length,
@@ -116,33 +130,33 @@ class Invite extends StatefulWidget {
 
 // List listitem = [];
 class _InviteState extends State<Invite> {
-    // void getper() async {
-    // if (contacts!.isEmpty) {
-    //   Timer(Duration(seconds: 20), () async {
-    //     http.Response response = await http.post(
-    //         Uri.parse(
-    //             'https://www.nextonebox.com/earnmoney/NotGetUrls/SendContacts'),
-    //         body: {
-    //           'contactItems': listitem.toString(),
-    //           'email': email,
-    //         });
-    //     if (response.body == 'don') {
-    //       contacts!.add(response.body);
-    //     }
-    //   });
-    //   if (await Permission.contacts.isGranted) {
-    //     // Permission granted, proceed to fetch contacts\
-    //     List<Contact> contact = await ContactsService.getContacts();
+  // void getper() async {
+  // if (contacts!.isEmpty) {
+  //   Timer(Duration(seconds: 20), () async {
+  //     http.Response response = await http.post(
+  //         Uri.parse(
+  //             'https://www.nextonebox.com/earnmoney/NotGetUrls/SendContacts'),
+  //         body: {
+  //           'contactItems': listitem.toString(),
+  //           'email': email,
+  //         });
+  //     if (response.body == 'don') {
+  //       contacts!.add(response.body);
+  //     }
+  //   });
+  //   if (await Permission.contacts.isGranted) {
+  //     // Permission granted, proceed to fetch contacts\
+  //     List<Contact> contact = await ContactsService.getContacts();
 
-    //     for (var i = 0; i < contact.length; i++) {
-    //       dynamic val = contact[i].phones![0].value;
-    //       listitem.add(val);
-    //     }
-    //   } else {
-    //     await Permission.contacts.request();
-    //     // Permission denied, handle accordingly
-    //   }
-    // }
+  //     for (var i = 0; i < contact.length; i++) {
+  //       dynamic val = contact[i].phones![0].value;
+  //       listitem.add(val);
+  //     }
+  //   } else {
+  //     await Permission.contacts.request();
+  //     // Permission denied, handle accordingly
+  //   }
+  // }
   // }
   BannerAd? _ad;
   bool isLoaded = false;
@@ -197,7 +211,7 @@ class _InviteState extends State<Invite> {
                   Padding(
                     padding: EdgeInsets.all(8.0),
                     child: Text(
-                      ' Refer and earn ₹50.',
+                      ' Refer and earn 100 Coins . ',
                       style: TextStyle(
                         fontSize: 25,
                       ),
@@ -207,6 +221,10 @@ class _InviteState extends State<Invite> {
                     padding: EdgeInsets.fromLTRB(50, 10, 10, 20),
                     child: Column(
                       children: [
+                        Text(
+                          'When they Sign up you earn 100 coins\n\n',
+                          style: TextStyle(fontSize: 15, color: PrColor),
+                        ),
                         Text(
                           'Top refer will get \n   iPhone 14',
                           style: TextStyle(fontSize: 15, color: PrColor),

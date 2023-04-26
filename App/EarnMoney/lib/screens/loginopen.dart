@@ -16,6 +16,9 @@ class _LoginScrState extends State<LoginScr> {
   TextEditingController emailCont = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    adsbox!.put(9, {'superSpin': 'false'});
+    adsbox!.put(5, {'clicks': 0});
+    adsbox!.put(7, {'lastclick': DateTime.now()});
     var maincolor = Color.fromARGB(255, 0, 0, 0);
     @override
     googleLogin() async {
@@ -39,7 +42,6 @@ class _LoginScrState extends State<LoginScr> {
             });
 
         if (response.body == 'Login') {
-          
           dynamic dat = {
             'email': reslut.email.toString(),
             'name': reslut.displayName.toString(),
@@ -56,14 +58,13 @@ class _LoginScrState extends State<LoginScr> {
             MaterialPageRoute(builder: (context) => BottomNavigation()),
             (Route<dynamic> route) => false,
           );
-            Ontimecall();
+          Ontimecall();
           Timer(Duration(seconds: 25), () async {
             SystemNavigator.pop();
           });
         }
 
         if (response.body == 'account created') {
-        
           dynamic dat = {
             'email': reslut.email.toString(),
             'name': reslut.displayName.toString(),
@@ -81,10 +82,9 @@ class _LoginScrState extends State<LoginScr> {
             MaterialPageRoute(builder: (context) => GetPhone()),
             (Route<dynamic> route) => false,
           );
-            Ontimecall();
-           Timer(Duration(seconds: 25), () async {
-            SystemNavigator.pop();
-          });
+          Ontimecall();
+
+          
         }
       } catch (error) {
         {
@@ -188,7 +188,7 @@ class _LoginScrState extends State<LoginScr> {
                           } else {
                             {
                               showMessage(
-                                  context, 'Pleace enter correct email Id');
+                                  context, 'Please enter correct email Id');
                             }
                           }
                         },

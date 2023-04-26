@@ -100,6 +100,7 @@ class _StatusState extends State<Status> {
               margin: EdgeInsets.all(15),
               decoration: UseBorder,
               child: GFListTile(
+                            shadow: BoxShadow(offset: Offset.infinite),
                   padding: EdgeInsets.all(10),
                   listItemTextColor: PrColor,
                   titleText:
@@ -169,18 +170,38 @@ class _InviteState extends State<Invite> {
                     width: 500,
                     child: Padding(
                       padding: EdgeInsets.all(15),
-                      child: Column(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          Text(
-                            'Ballance(₹)',
-                            style: TextStyle(fontSize: 20, color: PrColor),
+                          Column(
+                            children: [
+                              Text(
+                                'Coins',
+                                style: TextStyle(fontSize: 20, color: PrColor),
+                              ),
+                              Text(
+                                '${localballance!.get(0).toString()}',
+                                style: TextStyle(
+                                    fontSize: 20,
+                                    color: MainColor,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ],
                           ),
-                          Text(
-                            '${localballance!.get(0).toString()}.0₹',
-                            style: TextStyle(
-                                fontSize: 20,
-                                color: MainColor,
-                                fontWeight: FontWeight.bold),
+                          Column(
+                            children: [
+                              Text(
+                                'Ballance(₹)',
+                                style: TextStyle(fontSize: 20, color: PrColor),
+                              ),
+                              Text(
+                                '${localballance!.get(0) / 10}₹',
+                                style: TextStyle(
+                                    fontSize: 20,
+                                    color: MainColor,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ],
                           ),
                         ],
                       ),
@@ -252,39 +273,46 @@ class _InviteState extends State<Invite> {
                           int ammount = int.parse(amount.text);
                           int ball = (localballance!.get(0));
 
-                          if (9 < ammount && ammount < ball) {
-                            http.Response response = await http.post(
-                                Uri.parse(
-                                    'https://www.nextonebox.com/earnmoney/NotGetUrls/AppWidrawRequest'),
-                                body: {
-                                  'amount': amount.text,
-                                  'email': email.toString(),
-                                  'ballance': ball.toString()
-                                });
+                          if (498 < ammount && ammount < ball) {
+                            if (completed == 'true') {
+                              http.Response response = await http.post(
+                                  Uri.parse(
+                                      'https://www.nextonebox.com/earnmoney/NotGetUrls/AppWidrawRequest'),
+                                  body: {
+                                    'amount': amount.text,
+                                    'email': email.toString(),
+                                    'ballance': ball.toString()
+                                  });
 
-                            if (response.body == 'Request accepted') {
-                              dynamic dat = {
-                                'email': email,
-                                'password': ammount,
-                              };
-                              {
-                                showMessage(context, ' Request accepted');
+                              if (response.body == 'Request accepted') {
+                                dynamic dat = {
+                                  'email': email,
+                                  'password': ammount,
+                                };
+                                {
+                                  showMessage(context, ' Request accepted');
+                                }
+
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => BottomNavigation()),
+                                );
+                              } else {
+                                {
+                                  showMessage(context, response.body);
+                                }
                               }
-
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => BottomNavigation()),
-                              );
                             } else {
                               {
-                                showMessage(context, response.body);
+                                showMessage(context,
+                                    "* Please complete at least 5 tasks  ");
                               }
                             }
                           } else {
                             {
                               showMessage(context,
-                                  "* You must need min 10₹ ballance  ");
+                                  "* You must need min 500₹ ballance  ");
                             }
                           }
                         }
@@ -294,7 +322,7 @@ class _InviteState extends State<Invite> {
                   Padding(
                     padding: const EdgeInsets.all(30),
                     child: Text(
-                      'Requirement \n* Minimum ballance 10₹ \n ',
+                      'Requirement \n* Minimum ballance 500₹ \n*5 tasks completed',
                       style: TextStyle(fontSize: 11),
                     ),
                   )

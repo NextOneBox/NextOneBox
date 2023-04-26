@@ -198,6 +198,8 @@ class _TaskState extends State<Task> {
                                 child: Column(
                                   children: [
                                     GFListTile(
+                                      shadow:
+                                          BoxShadow(offset: Offset.infinite),
                                       padding: EdgeInsets.all(10),
                                       margin: EdgeInsets.all(10),
                                       avatar: Image(

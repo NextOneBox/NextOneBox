@@ -1,11 +1,12 @@
 import 'package:MyChatAi/OtherFiles/contactus.dart';
 import 'package:MyChatAi/OtherFiles/history.dart';
 import 'package:MyChatAi/OtherFiles/premium.dart';
+import 'package:MyChatAi/OtherFiles/referandearn.dart';
 import 'package:MyChatAi/OtherFiles/webpage.dart';
 
 import 'package:MyChatAi/OtherFiles/widgets.dart';
 
-import '../OtherFiles/widgets.dart' as widgets;
+import 'widgets.dart' as widgets;
 
 Future<void> logout() async {
   await GoogleSignIn().disconnect();
@@ -13,8 +14,9 @@ Future<void> logout() async {
 }
 
 class Account extends StatefulWidget {
- 
-  Account({super.key, });
+  Account({
+    super.key,
+  });
 
   @override
   State<Account> createState() => _AccountState();
@@ -48,8 +50,6 @@ class _AccountState extends State<Account> {
     ).load();
   }
 
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -65,6 +65,7 @@ class _AccountState extends State<Account> {
                 child: Column(
                   children: [
                     GFListTile(
+                            shadow: BoxShadow(offset: Offset.infinite),
                       margin: EdgeInsets.all(20),
                       avatar: GFAvatar(
                         backgroundColor: Colors.black,
@@ -82,28 +83,7 @@ class _AccountState extends State<Account> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        SizedBox(
-                          width: 150,
-                          child: GFButton(
-                            color: Colors.green,
-                            size: 50,
-                            fullWidthButton: true,
-                            // Within the `FirstRoute` widget
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => Premium()),
-                              );
-                            },
-                            text: "Premium",
-                            textColor: BackColor,
-                            icon: Icon(
-                              FontAwesomeIcons.crown,
-                              color: BackColor,
-                            ),
-                          ),
-                        ),
+                    
                         SizedBox(
                           width: 150,
                           child: GFButton(
@@ -162,6 +142,39 @@ class _AccountState extends State<Account> {
                             ),
                             Text(
                               'History',
+                              style: TextStyle(
+                                color: MainColor,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  InkWell(
+                    onTap: (() {
+                      SetAnalytic('Refer and earn');
+
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => Referandearn()),
+                      );
+                    }),
+                    child: Card(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Icon(
+                              Icons.share,
+                              color: MainColor,
+                            ),
+                            SizedBox(
+                              width: 20,
+                            ),
+                            Text(
+                              'Refer & Earn',
                               style: TextStyle(
                                 color: MainColor,
                               ),
@@ -277,47 +290,36 @@ class _AccountState extends State<Account> {
                   InkWell(
                     onTap: (() async {
                       SetAnalytic('Logout');
-                      
-
-                      showFlash(
-                        context: context,
-                        duration: Duration(seconds: 2),
-                        builder: (_, c) {
-                          return Flash.bar(
-                            barrierDismissible: true,
-                            controller: c,
-                            backgroundColor: Color.fromARGB(255, 247, 247, 250),
-                            position: FlashPosition.bottom,
-                            margin: EdgeInsets.all(50),
-                            borderRadius: BorderRadius.circular(20),
-                            child: FlashBar(
-                              padding: EdgeInsets.all(40),
-                              title: Text(
-                                "Logout",
-                                style: texSty,
-                              ),
-                              content: Text(
-                                "Are you sure do you want to logout. You can login again",
-                              ),
-                              actions: [
-                                TextButton(
-                                  onPressed: () {
-                                     SetAnalytic('logout');
+         showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  content: Text(
+                                      'Are you sure do you want to logout. You can login again.'),
+                                  actions: <Widget>[
+                                    TextButton(
+                                      child: Text('Cancel'),
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                    ),
+                                    TextButton(
+                                      child: Text('Logut'),
+                                      onPressed: () {
+                                              SetAnalytic('logout');
                                     logout();
                                     widgets.account.clear();
 
                                     SystemNavigator.pop();
-                                  },
-                                  child: Text(
-                                    'Logout',
-                                    style: TextStyle(color: Colors.red),
-                                  ),
-                                )
-                              ],
-                            ),
-                          );
-                        },
-                      );
+                                      },
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                     
+                       
+                      
                     }),
                     child: Card(
                       child: Padding(

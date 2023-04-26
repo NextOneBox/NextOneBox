@@ -1,11 +1,9 @@
-import 'dart:convert';
-import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:MyChatAi/OtherFiles/history.dart';
 import 'package:MyChatAi/OtherFiles/widgets.dart';
 import 'home.dart';
 import 'model.dart';
-import 'package:flutter/material.dart';
+import '../OtherFiles/widgets.dart';
 import 'package:speech_to_text/speech_recognition_result.dart';
 import 'package:speech_to_text/speech_to_text.dart';
 
@@ -22,7 +20,7 @@ class ChatPage extends StatefulWidget {
 }
 
 Future<String> generateResponse(String prompt) async {
-  const apiKey = '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';
+  var apiKey = apikey!.get(0).toString();
 
   var url = Uri.https("api.openai.com", "/v1/completions");
   final response = await http.post(
@@ -64,6 +62,7 @@ class _ChatPageState extends State<ChatPage> {
   void initState() {
     super.initState();
     isLoading = false;
+
     BannerAd(
       adUnitId: 'ca-app-pub-3946644332709876/2184205785',
       size: AdSize.banner,
@@ -72,11 +71,11 @@ class _ChatPageState extends State<ChatPage> {
         onAdLoaded: (ad) {
           setState(() {
             _ad = ad as BannerAd;
-            DateTime now = DateTime.now();
-            final formattedDate = "${now.year}${now.month}${now.day}";
-            if (int.parse(ChatAiPrem) < int.parse(formattedDate)) {
-              adLoaded = true;
-            }
+            // DateTime now = DateTime.now();
+            // final formattedDate = "${now.year}${now.month}${now.day}";
+            // if (int.parse(ChatAiPrem) < int.parse(formattedDate)) {
+            adLoaded = true;
+            // }
           });
         },
         onAdFailedToLoad: (ad, error) {
@@ -101,7 +100,7 @@ class _ChatPageState extends State<ChatPage> {
                 color: MainColor,
               ),
               onPressed: () {
-                 SetAnalytic('history');
+                SetAnalytic('history');
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => History()),
@@ -184,8 +183,7 @@ class _ChatPageState extends State<ChatPage> {
   }
 
   Widget _buildSubmit() {
-    runadd();
-     SetAnalytic('chat');
+    SetAnalytic('chat');
     return Visibility(
       visible: !isLoading,
       child: Container(
@@ -213,6 +211,7 @@ class _ChatPageState extends State<ChatPage> {
                 .then((_) => _scrollDown());
             generateResponse(input).then((value) {
               setState(() {
+                runadd();
                 history.add(value);
 
                 isLoading = false;

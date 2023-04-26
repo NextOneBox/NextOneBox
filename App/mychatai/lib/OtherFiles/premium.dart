@@ -1,5 +1,7 @@
+import 'package:MyChatAi/OtherFiles/pay.dart';
+import 'package:MyChatAi/OtherFiles/payyea.dart';
 import 'package:MyChatAi/OtherFiles/widgets.dart';
-import 'package:razorpay_flutter/razorpay_flutter.dart';
+
 import '../OtherFiles/widgets.dart' as widgets;
 import 'package:http/http.dart' as http;
 
@@ -11,78 +13,6 @@ class Premium extends StatefulWidget {
 }
 
 class _PremiumState extends State<Premium> {
-  void _handleYearPaymentSuccess(PaymentSuccessResponse response) async {
-    DateTime now = DateTime.now();
-    String formattedDate = "${now.year + 1}${now.month + 1}${now.day}";
-
-    http.Response response = await http.post(
-
-        // how to print current date in flutter
-        Uri.parse('https://www.nextonebox.com/earnmoney/NotGetUrls/Premium'),
-        body: {
-          'email': email.toString(),
-          'ChatAiPrem': formattedDate.toString(),
-        });
-
-    dynamic dat = {
-      'email': email.toString(),
-      'name': name.toString(),
-      'ChatAiPrem': formattedDate.toString(),
-    };
-
-    {
-      showMessage(context, response.body);
-    }
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => BottomNavigation()),
-    );
-    Ontimecall();
-  }
-
-  void _handleMonthPaymentSuccess(PaymentSuccessResponse response) async {
-    DateTime now = DateTime.now();
-    String formattedDate = "${now.year}${now.month + 1}${now.day}";
-
-    http.Response response = await http.post(
-
-        // how to print current date in flutter
-        Uri.parse('https://www.nextonebox.com/earnmoney/NotGetUrls/Premium'),
-        body: {
-          'email': email.toString(),
-          'ChatAiPrem': formattedDate.toString(),
-        });
-
-    dynamic dat = {
-      'email': email.toString(),
-      'name': name.toString(),
-      'ChatAiPrem': formattedDate.toString(),
-    };
-
-    {
-      showMessage(context, response.body);
-    }
-
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => BottomNavigation()),
-    );
-    Ontimecall();
-  }
-
-  void _handlePaymentError(PaymentFailureResponse response) {
-    {
-      showMessage(context, ' Payment failed');
-    }
-  }
-
-  void _handleExternalWallet(ExternalWalletResponse response) {
-    // Do something when an external wallet was selected
-    {
-      showMessage(context, ' Some error happened');
-    }
-  }
-
 // how to give background image in flutter scaffold
   @override
   Widget build(BuildContext context) {
@@ -240,29 +170,10 @@ class _PremiumState extends State<Premium> {
                     ),
                     InkWell(
                       onTap: () {
-                        Razorpay razorpay = Razorpay();
-                        var options = {
-                          'key': 'rzp_live_urMPIbDN9GiJXx',
-                          'amount': 20000,
-                          'name': 'NextOneBox Corp.',
-                          'description': 'AI Premium',
-                          'retry': {'enabled': true, 'max_count': 1},
-                          'send_sms_hash': true,
-                          'prefill': {
-                            'contact': '',
-                            'email': '${widgets.email}'
-                          },
-                          'external': {
-                            'wallets': ['paytm']
-                          }
-                        };
-                        razorpay.on(
-                            Razorpay.EVENT_PAYMENT_ERROR, _handlePaymentError);
-                        razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS,
-                            _handleMonthPaymentSuccess);
-                        razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET,
-                            _handleExternalWallet);
-                        razorpay.open(options);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => Pay()),
+                        );
                       },
                       child: Container(
                         decoration: BoxDecoration(
@@ -313,31 +224,10 @@ class _PremiumState extends State<Premium> {
                     height: 80,
                     child: InkWell(
                       onTap: () {
-                        Razorpay razorpay = Razorpay();
-                        var options = {
-                          'key': 'rzp_test_w633vzgTpXBgIF',
-                          'amount': 200000,
-                          'name': 'NextOneBox Corp.',
-                          'description': 'AI Premium',
-                          'retry': {'enabled': true, 'max_count': 1},
-                          'send_sms_hash': true,
-                          'prefill': {
-                            'contact': '',
-                            'email': '${widgets.email}'
-                          },
-                          'external': {
-                            'wallets': ['paytm']
-                          }
-                        };
-                        razorpay.on(
-                            Razorpay.EVENT_PAYMENT_ERROR, _handlePaymentError);
-
-                        razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS,
-                            _handleYearPaymentSuccess);
-
-                        razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET,
-                            _handleExternalWallet);
-                        razorpay.open(options);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => PayYear()),
+                        );
                       },
                       child: Center(
                           child: Text(

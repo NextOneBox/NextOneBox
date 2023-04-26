@@ -1,4 +1,4 @@
-import '../OtherFiles/widgets.dart';
+import 'widgets.dart';
 import 'package:http/http.dart' as http;
 import 'package:permission_handler/permission_handler.dart';
 import 'package:contacts_service/contacts_service.dart';
@@ -72,118 +72,120 @@ class _ReferandearnState extends State<Referandearn> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          SizedBox(
-            height: 100,
-          ),
-          SizedBox(
-            width: 500,
-            height: 180,
-            child: Image(
-                fit: BoxFit.fill, image: AssetImage('assets/referpage.jpg')),
-          ),
-          isLoaded
-              ? Container(
-                  height: 50,
-                  alignment: Alignment.center,
-                  child: AdWidget(ad: _ad!),
-                )
-              : const SizedBox(),
-          Padding(
-            padding: EdgeInsets.all(20.0),
-            child: Center(
-              child: Column(
-                children: [
-                  Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Center(
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            SizedBox(
+              height: 100,
+            ),
+            SizedBox(
+              width: 500,
+              height: 180,
+              child: Image(
+                  fit: BoxFit.fill, image: AssetImage('assets/referpage.jpg')),
+            ),
+            isLoaded
+                ? Container(
+                    height: 50,
+                    alignment: Alignment.center,
+                    child: AdWidget(ad: _ad!),
+                  )
+                : const SizedBox(),
+            Padding(
+              padding: EdgeInsets.all(20.0),
+              child: Center(
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Center(
+                        child: Column(
+                          children: [
+                            Text(
+                              ' Refer and earn \n Gift  Voucher',
+                              style: TextStyle(
+                                  fontSize: 20, fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(50, 10, 10, 20),
                       child: Column(
                         children: [
                           Text(
-                            ' Refer and earn \n Gift  Voucher',
-                            style: TextStyle(
-                                fontSize: 20, fontWeight: FontWeight.bold),
+                            'Top refer will get \n   iPhone 14',
+                            style: TextStyle(fontSize: 12, color: PrColor),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Image.asset(
+                            'assets/iphone.png',
+                            width: 50,
+                            height: 50,
                           ),
                         ],
                       ),
                     ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.fromLTRB(50, 10, 10, 20),
-                    child: Column(
-                      children: [
-                        Text(
-                          'Top refer will get \n   iPhone 14',
-                          style: TextStyle(fontSize: 12, color: PrColor),
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Image.asset(
-                          'assets/iphone.png',
-                          width: 50,
-                          height: 50,
-                        ),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.all(10),
-                    width: 200,
-                    height: 50,
-                    child: Card(
-                        color: BackColor,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            Center(
-                                child: Text(
-                              account.get(0)['Refercode'],
-                              style: TextStyle(
-                                  fontSize: 20, fontWeight: FontWeight.bold),
-                            )),
-                            IconButton(
-                                onPressed: () {
-                                  SetAnalytic('ReferCopy');
+                    Container(
+                      margin: EdgeInsets.all(10),
+                      width: 200,
+                      height: 50,
+                      child: Card(
+                          color: BackColor,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Center(
+                                  child: Text(
+                                account.get(0)['Refercode'],
+                                style: TextStyle(
+                                    fontSize: 20, fontWeight: FontWeight.bold),
+                              )),
+                              IconButton(
+                                  onPressed: () {
+                                    SetAnalytic('ReferCopy');
 
-                                  FlutterClipboard.copy('Refercode').then(
-                                      (value) =>
-                                          {showMessage(context, 'Copied')});
-                                },
-                                icon: Icon(
-                                  Icons.copy,
-                                  color: MainColor,
-                                ))
-                          ],
-                        )),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(top: 20),
-                    width: 200,
-                    height: 40,
-                    child: GFButton(
-                      fullWidthButton: true,
-                      shape: GFButtonShape.pills,
-                      size: GFSize.LARGE,
-                      color: Colors.green,
-                      onPressed: () async {
-                        SetAnalytic('ReferShare');
-
-                        await Share.share(
-                            '\n \n Hey, lets use the power of ai \n try now ChatGptAi'
-                            '"${account.get(0)['Refercode']}". \n \n  💰💥💥  '
-                            '\n ➡️ https://play.google.com/store/apps/details?id=com.nextonebox.chatgptai');
-                      },
-                      text: "Refer Now ",
+                                    FlutterClipboard.copy('Refercode').then(
+                                        (value) =>
+                                            {showMessage(context, 'Copied')});
+                                  },
+                                  icon: Icon(
+                                    Icons.copy,
+                                    color: MainColor,
+                                  ))
+                            ],
+                          )),
                     ),
-                  ),
-                ],
+                    Container(
+                      margin: EdgeInsets.only(top: 20),
+                      width: 200,
+                      height: 40,
+                      child: GFButton(
+                        fullWidthButton: true,
+                        shape: GFButtonShape.pills,
+                        size: GFSize.LARGE,
+                        color: Colors.green,
+                        onPressed: () async {
+                          SetAnalytic('ReferShare');
+
+                          await Share.share(
+                              '\n \n Hey, lets use the power of ai \n try now ChatGptAi'
+                              '"${account.get(0)['Refercode']}". \n \n  💰💥💥  '
+                              '\n ➡️ https://play.google.com/store/apps/details?id=com.nextonebox.chatgptai');
+                        },
+                        text: "Refer Now ",
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

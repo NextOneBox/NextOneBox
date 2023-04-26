@@ -108,7 +108,7 @@ class _TasksDetailsState extends State<TasksDetails> {
             onPressed: () => Navigator.of(context).pop(),
           ),
           centerTitle: true,
-          backgroundColor: Color.fromARGB(255, 247, 247, 250),
+   backgroundColor:BackColor,
           elevation: 0,
           title: Text(
             'Task details',
@@ -165,8 +165,9 @@ class _TasksDetailsState extends State<TasksDetails> {
                     child: Column(
                       children: [
                         GFListTile(
+                            shadow: BoxShadow(offset: Offset.infinite),
                           avatar: GFAvatar(
-                            backgroundColor: Color.fromARGB(255, 247, 247, 250),
+                     backgroundColor:BackColor,
                             child: Icon(
                               FontAwesomeIcons.indianRupeeSign,
                               color: Colors.yellow[900],
@@ -224,11 +225,13 @@ class _TasksDetailsState extends State<TasksDetails> {
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         GFListTile(
+                            shadow: BoxShadow(offset: Offset.infinite),
                           titleText: '\n \n How to Earn \n',
                           subTitleText:
                               '${widget.task_name['howtoearn'].toString().replaceAll(',', '\n \n')}',
                         ),
                         GFListTile(
+                            shadow: BoxShadow(offset: Offset.infinite),
                           titleText: '\n Benefits \n',
                           subTitleText:
                               '${widget.task_name['benifits'].toString().replaceAll(',', '\n \n')}',

@@ -11,6 +11,99 @@ class _GetPhoneState extends State<GetPhone> {
   FirebaseAuth _auth = FirebaseAuth.instance;
   var verificationID;
 
+  showdi() {
+    AwesomeDialog(
+        context: context,
+        animType: AnimType.scale,
+        dialogType: DialogType.info,
+        body: Center(
+          child: Text(
+            'Follow us on Instagram \n\n\n Get instant 10 Coins \n\n Get latest updates',
+            style: TextStyle(fontStyle: FontStyle.italic),
+          ),
+        ),
+        keyboardAware: true,
+        btnOkText: "Follow",
+        title: 'Follow us on Instagram',
+        padding: const EdgeInsets.all(5.0),
+        btnCancelOnPress: () {},
+        btnOkOnPress: () async {
+          int getammount = 10;
+
+          int Ballance = localballance!.get(0);
+          int newBall = (Ballance + getammount);
+          localballance!.put(0, newBall);
+          http.Response resp = await http.post(
+              Uri.parse(
+                  'https://www.nextonebox.com/earnmoney/NotGetUrls/UpdateBallanceNew'),
+              body: {
+                'email': email.toString(),
+                'Ballance': getammount.toString(),
+              });
+
+          Timer(Duration(seconds: 5), () {
+            setState(() {
+              {
+                showMessage(context, 'You have earned your reward');
+              }
+            });
+          });
+
+          var url = 'https://www.instagram.com/nextonebox/';
+          if (await canLaunch(url)) {
+            await launch(url);
+          }
+          Timer(Duration(seconds: 20), () {
+            setState(() {
+              AwesomeDialog(
+                  context: context,
+                  animType: AnimType.scale,
+                  dialogType: DialogType.info,
+                  body: Center(
+                    child: Text(
+                      'Subscribe us on Youtube \n\n\n Get instant 10 Coins \n\n Get latest updates',
+                      style: TextStyle(fontStyle: FontStyle.italic),
+                    ),
+                  ),
+                  keyboardAware: true,
+                  btnOkText: "Follow",
+                  title: 'Follow us on Youtube',
+                  padding: const EdgeInsets.all(5.0),
+                  btnCancelOnPress: () {},
+                  btnOkOnPress: () async {
+                    var url = 'https://www.youtube.com/@nextonebox';
+                    if (await canLaunch(url)) {
+                      await launch(url);
+                    }
+                    int getammount = 10;
+
+                    int Ballance = localballance!.get(0);
+                    int newBall = (Ballance + getammount);
+                    localballance!.put(0, newBall);
+                    http.Response resp = await http.post(
+                        Uri.parse(
+                            'https://www.nextonebox.com/earnmoney/NotGetUrls/UpdateBallanceNew'),
+                        body: {
+                          'email': email.toString(),
+                          'Ballance': getammount.toString(),
+                        });
+
+                    Timer(Duration(seconds: 5), () {
+                      setState(() {
+                        {
+                          showMessage(context, 'You have earned your reward');
+                        }
+                      });
+                    });
+                  })
+                ..show();
+            });
+          });
+        })
+      ..show();
+    ;
+  }
+
   @override
   Widget build(BuildContext context) {
     TextEditingController phoneController = TextEditingController();
@@ -168,12 +261,10 @@ class _GetPhoneState extends State<GetPhone> {
                                         'referby': refercode.toString(),
                                       });
 
-                                  print(response.body);
                                   if (response.body ==
                                       'Setting updated with refer code') {
                                     {
-                                      showMessage(
-                                          context, 'You have earn 10');
+                                      showMessage(context, 'You have earn 10');
                                     }
 
                                     Navigator.push(
@@ -202,9 +293,8 @@ class _GetPhoneState extends State<GetPhone> {
                                           builder: (context) =>
                                               BottomNavigation()),
                                     );
-                                    Timer(Duration(seconds: 15), () async {
-                                      SystemNavigator.pop();
-                                    });
+
+                                    showdi();
                                   }
                                 } else {
                                   _loadingWidget(context,

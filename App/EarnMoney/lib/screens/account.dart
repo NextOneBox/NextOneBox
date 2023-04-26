@@ -1,5 +1,6 @@
 import 'package:earnmoney/otherfiles/webpage.dart';
 import 'package:earnmoney/screens/getphone.dart';
+import 'package:flash/flash_helper.dart';
 
 import '../otherfiles/widgets.dart';
 import '../otherfiles/widgets.dart' as widgets;
@@ -27,6 +28,7 @@ class _AccountState extends State<Account> {
   @override
   void initState() {
     super.initState();
+
     BannerAd(
       adUnitId: 'ca-app-pub-3946644332709876/6246084818',
       size: AdSize.banner,
@@ -52,9 +54,11 @@ class _AccountState extends State<Account> {
         .logEvent(name: 'full_screen_tapped', parameters: <String, dynamic>{});
   }
 
+
+
   @override
   Widget build(BuildContext context) {
-    print(isLoaded);
+    late WebViewController noting;
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -69,6 +73,7 @@ class _AccountState extends State<Account> {
                 child: Column(
                   children: [
                     GFListTile(
+                            shadow: BoxShadow(offset: Offset.infinite),
                       margin: EdgeInsets.all(20),
                       avatar: GFAvatar(
                         backgroundColor: Colors.black,
@@ -298,51 +303,39 @@ class _AccountState extends State<Account> {
                           // Within the `FirstRoute` widget
                           onPressed: () {
                             SetAnalytic('Logout');
-
-                            showFlash(
+                            showDialog(
                               context: context,
-                              duration: Duration(seconds: 2),
-                              builder: (_, c) {
-                                return Flash.bar(
-                                  barrierDismissible: true,
-                                  controller: c,
-                                  backgroundColor:
-                                      Color.fromARGB(255, 247, 247, 250),
-                                  position: FlashPosition.bottom,
-                                  margin: EdgeInsets.all(50),
-                                  borderRadius: BorderRadius.circular(20),
-                                  child: FlashBar(
-                                    padding: EdgeInsets.all(40),
-                                    title: Text(
-                                      "Logout",
-                                      style: texSty,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  content: Text(
+                                      'Are you sure do you want to logout. You can login again.'),
+                                  actions: <Widget>[
+                                    TextButton(
+                                      child: Text('Cancel'),
+                                      onPressed: () {
+                                       Navigator.pop(context);
+                                      },
                                     ),
-                                    content: Text(
-                                      "Are you sure do you want to logout. You can login again",
-                                    ),
-                                    actions: [
-                                      TextButton(
-                                        onPressed: () {
-                                          logout();
-                                          widgets.user.clear();
-                                          widgets.pkacc?.clear();
-                                          lead?.clear();
-                                          widgets.widrawstaus?.clear();
-                                          leadsteps?.clear();
-                                          refer?.clear();
+                                    TextButton(
+                                      child: Text('Logut'),
+                                      onPressed: () {
+                                        logout();
+                                        widgets.user.clear();
+                                        widgets.pkacc?.clear();
+                                        lead?.clear();
+                                        widgets.widrawstaus?.clear();
+                                        leadsteps?.clear();
+                                        refer?.clear();
 
-                                          SystemNavigator.pop();
-                                        },
-                                        child: Text(
-                                          'Logout',
-                                          style: TextStyle(color: Colors.red),
-                                        ),
-                                      )
-                                    ],
-                                  ),
+                                        SystemNavigator.pop();
+                                      },
+                                    ),
+                                  ],
                                 );
                               },
                             );
+
+   
                           },
                           text: "Logout",
                           textColor: PrColor,
@@ -362,6 +355,7 @@ class _AccountState extends State<Account> {
                         margin: EdgeInsets.all(5),
                         decoration: UseBorder,
                         child: GFListTile(
+                            shadow: BoxShadow(offset: Offset.infinite),
                           onTap: () async {
                             SetAnalytic('Facebook');
 
@@ -373,7 +367,7 @@ class _AccountState extends State<Account> {
                           listItemTextColor: Color.fromARGB(255, 119, 121, 123),
                           avatar: Icon(
                             FontAwesomeIcons.facebook,
-                            size: 20,                
+                            size: 20,
                             color: PrColor,
                           ),
                         ),
@@ -384,6 +378,7 @@ class _AccountState extends State<Account> {
                         margin: EdgeInsets.all(5),
                         decoration: UseBorder,
                         child: GFListTile(
+                            shadow: BoxShadow(offset: Offset.infinite),
                           onTap: () async {
                             SetAnalytic('Youtube');
 
@@ -406,6 +401,7 @@ class _AccountState extends State<Account> {
                         margin: EdgeInsets.all(5),
                         decoration: UseBorder,
                         child: GFListTile(
+                            shadow: BoxShadow(offset: Offset.infinite),
                           onTap: () async {
                             SetAnalytic('instagram');
 
@@ -428,6 +424,7 @@ class _AccountState extends State<Account> {
                         margin: EdgeInsets.all(5),
                         decoration: UseBorder,
                         child: GFListTile(
+                            shadow: BoxShadow(offset: Offset.infinite),
                           onTap: () async {
                             SetAnalytic('twitter');
 
