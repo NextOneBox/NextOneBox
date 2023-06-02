@@ -1,0 +1,70 @@
+name: MyChatAi
+description: Nextonebox ai.
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+version: 5.0.0+5
+
+environment:
+  sdk: '>=2.19.6 <3.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  awesome_notifications: ^0.7.4+1
+  cupertino_icons: ^1.0.2
+  getwidget: ^3.0.1
+  font_awesome_flutter: ^10.2.1
+  http: ^0.13.5
+  path_provider: ^2.0.11
+  hive: ^2.2.3
+  url_launcher: ^6.0.3
+  clipboard: ^0.1.3
+  flash: ^3.0.1
+  gender_picker: ^1.1.0
+  share_plus: ^6.1.0
+  double_back_to_close: ^2.0.0
+  google_sign_in: ^6.1.0
+  firebase_auth: ^4.1.4
+  firebase_core: ^2.3.0
+  firebase_core_platform_interface: ^4.5.2
+  flutter_local_notifications: ^13.0.0
+  firebase_messaging: ^14.1.4
+  cloud_firestore: ^4.2.0
+  another_flushbar: ^1.12.29
+  webview_flutter: ^3.0.4
+  webview_cookie_manager: ^2.0.6
+  google_mobile_ads: ^2.3.0
+  month_year_picker: ^0.2.0+3
+  workmanager: ^0.5.1
+  rxdart: ^0.27.5
+  audioplayers: ^4.0.1
+  flutter_native_splash: ^2.2.19
+  speech_to_text: ^6.1.1
+  just_audio_background: ^0.0.1-beta.9
+  flutter_tts: ^3.6.3
+  contacts_service: ^0.6.3
+  permission_handler: ^10.2.0
+  flutter_svg: ^2.0.5
+  awesome_dialog: ^3.0.2
+  flutter_openmoney: ^0.0.2
+  change_app_package_name: ^1.1.0
+
+
+flutter_native_splash:
+  android: true
+  ios: true
+  web: false
+  background_image : 'assets/ailogo.png'
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+
+flutter:
+
+  uses-material-design: true
+  assets:
+
+    - assets/
