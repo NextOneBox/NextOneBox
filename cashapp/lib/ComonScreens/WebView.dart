@@ -26,7 +26,7 @@ class _WebPageState extends State<WebPage> {
     return Scaffold(
       body: Column(
         children: [
-          SizedBox(
+          const SizedBox(
             height: 15,
           ),
           Flexible(

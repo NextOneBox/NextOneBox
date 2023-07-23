@@ -42,13 +42,13 @@ export 'package:flutter/material.dart';
 export 'package:chatai/OtherFiles/local_notification_service.dart';
 export 'package:hive/hive.dart';
 export 'package:path_provider/path_provider.dart';
-export 'package:double_back_to_close/double_back_to_close.dart';
+
 export 'package:flutter/services.dart';
 export 'package:webview_flutter/webview_flutter.dart';
 export 'package:chatai/OtherFiles/loginotp.dart';
 export 'package:flutter/gestures.dart';
 export 'package:cloud_firestore/cloud_firestore.dart';
-export 'package:awesome_dialog/awesome_dialog.dart';
+
 export 'package:firebase_core/firebase_core.dart';
 export 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:awesome_notifications/awesome_notifications.dart';
@@ -56,7 +56,8 @@ export 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:http/http.dart' as http;
 export 'package:flutter_tts/flutter_tts.dart';
 export 'package:chatai/OtherFiles/history.dart';
-
+export 'package:quickalert/quickalert.dart';
+export 'package:quickalert/widgets/quickalert_dialog.dart';
 export 'package:chatai/App/image.dart';
 export 'package:awesome_notifications/awesome_notifications.dart';
 export 'package:chatai/OtherFiles/history.dart';
@@ -64,7 +65,7 @@ export 'package:chatai/App/home.dart';
 export 'package:chatai/App/voic.dart';
 export 'package:http/http.dart';
 export 'package:speech_to_text/speech_to_text.dart';
-export '../OtherFiles/premium.dart';
+export 'package:unity_ads_plugin/unity_ads_plugin.dart';
 
 Future GetRequest(String url, Box DataBox) async {
   http.Response response = await http.get(Uri.parse(url));

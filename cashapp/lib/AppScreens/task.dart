@@ -1,9 +1,10 @@
 import 'package:cashapp/AppScreens/tasksdetaile.dart';
 import 'package:cashapp/ComonScreens/widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 class Task extends StatefulWidget {
   final val;
-  Task({super.key, this.val});
+  const Task({super.key, this.val});
 
   @override
   State<Task> createState() => _TaskState();
@@ -12,13 +13,39 @@ class Task extends StatefulWidget {
 var newb = task?.values.toList();
 
 class _TaskState extends State<Task> {
+unityloadad() async {
+    UnityAds.load(
+        placementId: 'Rewarded_Android',
+        onFailed: (placementId, error, message) =>
+            showMessage(context, 'Failed to load ad.'));
 
+
+
+    UnityAds.showVideoAd(
+      placementId: 'Rewarded_Android',
+      onStart: (placementId) => print('Video Ad $placementId started'),
+      onClick: (placementId) => print('Video Ad $placementId click'),
+      onSkipped: (placementId) => print('Video Ad $placementId skipped'),
+      onComplete: (placementId) async {
+ 
+      },
+      onFailed: (placementId, error, message) =>
+          print('Video Ad $placementId failed: $error $message'),
+    );
+  }
   bool isLoaded = false;
 
   @override
   initState() {
     super.initState();
-   
+   UnityAds.init(
+      gameId: '5278155',
+    );
+    UnityAds.load(
+        placementId: 'Rewarded_Android',
+        onFailed: (placementId, error, message) =>
+            showMessage(context, 'Failed to load ad.'));
+  
     if (widget.val == '') {
       newb = task?.values.toList();
     } else {
@@ -44,7 +71,7 @@ class _TaskState extends State<Task> {
       onWillPop: () async {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => BottomNavigation()),
+          MaterialPageRoute(builder: (context) =>  BottomNavigation()),
         );
         return false;
       },
@@ -55,7 +82,7 @@ class _TaskState extends State<Task> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  SizedBox(
+                  const SizedBox(
                     height: 70,
                   ),
                   SizedBox(
@@ -158,6 +185,7 @@ class _TaskState extends State<Task> {
                                       builder: (context) =>
                                           TasksDetails(task_name: taskName)),
                                 );
+                                unityloadad();
                               },
                               child: Card(
                                 color: Colors.white,
@@ -180,7 +208,7 @@ class _TaskState extends State<Task> {
                                       ),
                                       Padding(
                                         padding: const EdgeInsets.all(8.0),
-                                        child: Container(
+                                        child: SizedBox(
                                           width: 150,
                                           child: Column(
                                             crossAxisAlignment:
@@ -188,7 +216,7 @@ class _TaskState extends State<Task> {
                                             children: [
                                               Text(
                                                 newb?[index]['name'],
-                                                style: TextStyle(
+                                                style: const TextStyle(
                                                     color: Color.fromARGB(
                                                         255, 16, 16, 16),
                                                     fontWeight:
@@ -196,7 +224,7 @@ class _TaskState extends State<Task> {
                                               ),
                                               Text(
                                                 newb?[index]['description'],
-                                                style: TextStyle(
+                                                style: const TextStyle(
                                                   color: Color.fromARGB(
                                                       255, 110, 114, 116),
                                                 ),
@@ -206,10 +234,10 @@ class _TaskState extends State<Task> {
                                         ),
                                       ),
                                       Container(
-                                        margin: EdgeInsets.only(left: 50),
+                                        margin: const EdgeInsets.only(left: 50),
                                         width: 100,
                                         height: 50,
-                                        decoration: BoxDecoration(
+                                        decoration: const BoxDecoration(
                                           color: MainColor,
                                           borderRadius: BorderRadius.all(
                                               Radius.circular(20)),
@@ -217,7 +245,7 @@ class _TaskState extends State<Task> {
                                         child: Center(
                                             child: Text(
                                           ' Earn ₹ ${newb?[index]['price']} ',
-                                          style: TextStyle(color: Colors.white),
+                                          style: const TextStyle(color: Colors.white),
                                         )),
                                       ),
                                     ],
@@ -231,7 +259,7 @@ class _TaskState extends State<Task> {
                 ],
               ),
             );
-          },
+          }, future: null,
         ),
       ),
     );

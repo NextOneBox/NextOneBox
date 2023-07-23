@@ -1,13 +1,17 @@
 import 'dart:async';
+import 'dart:math';
 
+import 'package:cashapp/AppScreens/cosmofeed.dart';
 import 'package:cashapp/ComonScreens/widgets.dart';
 import 'package:quantupi/quantupi.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 
 class Pay extends StatefulWidget {
-  const Pay({super.key});
+  const Pay({super.key, required this.link, required this.price});
 
+  final link;
+  final price;
   @override
   State<Pay> createState() => _PayState();
 }
@@ -18,66 +22,94 @@ class _PayState extends State<Pay> {
       receiverUpiId: 'nextonebox@sbi',
       receiverName: 'NextOneBox CEO',
       transactionRefId: '',
-      transactionNote: 'Pro version of CashApp',
-      amount: 39.0,
+      transactionNote: 'CashApp',
+      amount: widget.price,
     );
     final response = await zupi.startTransaction();
-    print(response);
 
-// Split the response string into individual key-value pairs
     List<String> keyValuePairs = response.split('&');
 
-// Iterate over each key-value pair
     for (String pair in keyValuePairs) {
-// Split the pair into key and value
       List<String> keyValuePair = pair.split('=');
       String key = keyValuePair[0];
       String value = keyValuePair[1];
 
 // Check if the key is "Status"
       if (key == "Status") {
-        print("Transaction status: $value");
         if (value == 'SUCCESS') {
-          http.Response response = await http.post(
+          facebookAppEvents.logPurchase(amount: widget.price, currency: "INR");
+          if (widget.price == 139.0) {
+            http.Response response = await http.put(
+                Uri.parse('https://fogcash.nextonebox.com/UpdateAccount'),
+                body: {
+                  'Email': email.toString(),
+                  'JackPot': 'true',
+                });
+            if (response.reasonPhrase == 'OK') {
+              SendAllData();
+            }
+            setState(() {});
+          }
 
-              // how to print current date in flutter
-              Uri.parse(
-                  'https://www.nextonebox.com/earnmoney/NotGetUrls/EMPremium'),
-              body: {
-                'email': email.toString(),
-                'EMPremium': 'true',
-              });
+          if (widget.price == 99.0) {
+            http.Response response = await http.put(
+                Uri.parse('https://fogcash.nextonebox.com/UpdateAccount'),
+                body: {
+                  'Email': email.toString(),
+                  'LuckeySpin': 10,
+                });
+            if (response.reasonPhrase == 'OK') {
+              SendAllData();
+            }
+
+            setState(() {});
+          }
+
+          if (widget.price == 89.0) {
+            http.Response response = await http.put(
+                Uri.parse('https://fogcash.nextonebox.com/UpdateAccount'),
+                body: {
+                  'Email': email.toString(),
+                  'Pro': 'true',
+                });
+            if (response.reasonPhrase == 'OK') {
+              SendAllData();
+            }
+
+            setState(() {});
+          }
+          if (widget.price == 19.0) {
+            http.Response response = await http.put(
+                Uri.parse('https://fogcash.nextonebox.com/UpdateAccount'),
+                body: {
+                  'Email': email.toString(),
+                  'SlotMachine': 'true',
+                });
+            if (response.reasonPhrase == 'OK') {
+              SendAllData();
+            }
+
+            setState(() {});
+          }
 
           setState(() {
-            AwesomeDialog(
+            QuickAlert.show(
               context: context,
-              animType: AnimType.LEFTSLIDE,
-              headerAnimationLoop: false,
-              dialogType: DialogType.SUCCES,
-              showCloseIcon: true,
-              title: 'Succes',
-              desc: 'Congratulation you are upgraded please restart the app',
-              btnOkOnPress: () {
-                debugPrint('OnClcik');
-              },
-              btnOkIcon: Icons.check_circle,
-              onDissmissCallback: (type) {},
-            ).show();
+              title: 'SUCCES',
+              type: QuickAlertType.success,
+              text: 'Congratulation you are upgraded please restart the app',
+            );
+            SendAllData();
+            buysuccessfacebook();
           });
         } else {
           setState(() {
-            AwesomeDialog(
+            QuickAlert.show(
               context: context,
-              animType: AnimType.LEFTSLIDE,
-              headerAnimationLoop: false,
-              dialogType: DialogType.SUCCES,
-              showCloseIcon: true,
               title: 'Failed',
-              desc: ' If you have paid please contact us',
-              btnOkOnPress: () {},
-              btnOkIcon: Icons.check_circle,
-              onDissmissCallback: (type) {},
-            ).show();
+              type: QuickAlertType.error,
+              text: 'If you have paid please contact us',
+            );
           });
         }
         break;
@@ -85,52 +117,9 @@ class _PayState extends State<Pay> {
     }
   }
 
-  CheckPayment() {
-    // ignore: avoid_single_cascade_in_expression_statements
-    AwesomeDialog(
-      context: context,
-      animType: AnimType.SCALE,
-      dialogType: DialogType.QUESTION,
-      body: Center(
-        child: Column(children: [
-          Text(
-            '',
-            style: TextStyle(fontStyle: FontStyle.italic),
-          ),
-        ]),
-      ),
-      keyboardAware: true,
-      btnOkText: "Close Payment",
-      title: '',
-      padding: const EdgeInsets.all(5.0),
-      onDissmissCallback: (type) {
-        Navigator.of(context).pop();
-      },
-      btnOkOnPress: () async {
-        var curl = await controller.currentUrl();
-        String baseUrl = curl.toString().split('#')[1];
-        if (baseUrl == 'true') {
-          showMessage(context, 'Payment Success');
-        } else {
-          showMessage(context, 'Payment Failed ');
-        }
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => BottomNavigation()),
-        );
-
-        callnow();
-        Timer(Duration(seconds: 10), () {
-          SystemNavigator.pop();
-        });
-        setState(() {});
-      },
-    )..show();
-  }
-
-  late WebViewController controller;
   @override
   Widget build(BuildContext context) {
+    addtocartfacebook();
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -139,47 +128,50 @@ class _PayState extends State<Pay> {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => ContactUs()),
+                  MaterialPageRoute(builder: (context) => const ContactUs()),
                 );
               },
-              child: Text('Help!')),
-          IconButton(
-              icon: Icon(
-                Icons.cancel_sharp,
-                color: Colors.blue,
-              ),
-              onPressed: () {
-                CheckPayment();
-              })
+              child: const Text('Help!')),
         ],
         backgroundColor: Colors.white,
       ),
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           InkWell(
-            onTap: () {
+            onTap: () async {
               paymentkro();
+
+              var data = "Email: $email ,Name: $name, Price: ₹${widget.price} ,Phone:$phonenumber ,Date: ${DateTime.now().toString()}";
+
+              http.Response response = await http.post(
+                  Uri.parse('https://fogcash.nextonebox.com/ContactUs'),
+                  body: {
+                    'message': data.toString(),
+                  });
+
+              facebookAppEvents.logAddToCart(
+                id: Random().nextInt(100).toString(),
+                type: 'product${widget.price}',
+                price: widget.price,
+                currency: 'INR',
+              );
             },
-            child: Card(
-              child: Padding(
-                padding: const EdgeInsets.all(10),
-                child: Text(
-                  'Pay with UPI : ₹39',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                ),
-              ),
-            ),
-          ),
-          Flexible(
-            child: Container(
-              child: Column(
-                children: [
-                  InkWell(
-                    onTap: () {
-                      paymentkro();
-                    },
-                    child: Card(
-                        child: Row(
+            child: Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Card(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: Text(
+                          '   Pay Fast With  UPI :',
+                          style: TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.bold),
+                        )),
+                    Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Padding(
@@ -214,83 +206,59 @@ class _PayState extends State<Pay> {
                             fit: BoxFit.cover,
                           ),
                         ),
-                        GFButton(
-                            onPressed: () async {
-                              paymentkro();
-
-                              // var url =
-                              //     'upi://pay?cu=INR&pa=nextonebox@sbi&pn=nextonebox&am=89&tn=nextonebox';
-                              // if (await canLaunch(url)) {
-                              //   await launch(url);
-                              // }
-                            },
-                            color: Colors.green,
-                            child: Text('Other'))
+                        const Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: Icon(
+                              Icons.navigate_next_rounded,
+                              color: Colors.green,
+                              size: 40,
+                            )),
                       ],
-                    )),
-                  ),
-                  SizedBox(
-                    height: 30,
-                  ),
-                  Card(
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        'Or',
-                        style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.bold),
-                      ),
                     ),
-                  ),
-                  SizedBox(
-                    height: 30,
-                  ),
-                  Card(
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        'Pay with Credit/Debit Cards etc :       ',
-                        style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                  ),
-                  Flexible(
-                    child: WillPopScope(
-                      onWillPop: () async {
-                        if (await controller.canGoBack()) {
-                          controller.goBack();
-                          var curl = await controller.currentUrl();
-                          String baseUrl = curl.toString().split('#')[1];
-                          if (baseUrl == 'true') {
-                            CheckPayment();
-                            return true;
-                          }
-                          if (baseUrl == 'false') {
-                            CheckPayment();
-                            return true;
-                          } else {
-                            return false;
-                          }
-                        } else {
-                          CheckPayment();
-                          return true;
-                        }
-                      },
-                      child: WebView(
-                        initialUrl:
-                            'https://nextonebox.com/ccavRequestHandler?EMPremium=39.0+${email}-true',
-                        javascriptMode: JavascriptMode.unrestricted,
-                        onWebViewCreated: (controller) async {
-                          this.controller = controller;
-                        },
-                      ),
-                    ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
+          SizedBox(
+            height: 50,
+          ),
+          InkWell(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => CosmoFeed(
+                          data: widget.link.toString(),
+                          price: widget.price,
+                        )),
+              );
+            },
+            child: Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Card(
+                child: Column(
+                  children: [
+                    Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: Text(
+                          '   Pay With Card|Wallet|NetBanking :\n',
+                          style: TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.bold),
+                        )),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Image.asset(
+                        'assets/card.png',
+                        width: 500,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          )
         ],
       ),
     );

@@ -1,4 +1,5 @@
 
+import 'package:chatai/OtherFiles/purchase.dart';
 import 'package:http/http.dart' as http;
 import 'widgets.dart';
 
@@ -135,7 +136,7 @@ class _LoginOtpState extends State<LoginOtp> {
 
                         Navigator.pushAndRemoveUntil(
                           context,
-                          MaterialPageRoute(builder: (context) => BottomNavigation()),
+                          MaterialPageRoute(builder: (context) => Purchase()),
                           (Route<dynamic> route) => false,
                         );
                         Ontimecall();

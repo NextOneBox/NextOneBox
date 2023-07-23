@@ -1,7 +1,10 @@
 import 'package:http/http.dart' as http;
 import 'package:cashapp/ComonScreens/widgets.dart';
 import 'package:flutter/material.dart';
+
 class AccountSetting extends StatefulWidget {
+  const AccountSetting({super.key});
+
   @override
   State<AccountSetting> createState() => _AccountSettingState();
 }
@@ -10,11 +13,10 @@ var check;
 DateTime? selected;
 
 class _AccountSettingState extends State<AccountSetting> {
-  FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
   var verificationID;
   var checkcodeenterbox = false;
   @override
-  
   Widget build(BuildContext context) {
     TextEditingController nameController = TextEditingController();
     TextEditingController accountController = TextEditingController();
@@ -29,17 +31,16 @@ class _AccountSettingState extends State<AccountSetting> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.black),
+          icon: const Icon(Icons.arrow_back, color: Colors.black),
           onPressed: () => Navigator.of(context).pop(),
         ),
-        
         elevation: 0,
-        title: Text(
+        title: const Text(
           'Settings',
           style: TextStyle(
               color: Colors.black, fontWeight: FontWeight.bold, fontSize: 25),
         ),
-        backgroundColor:SecondaryColor,
+        backgroundColor: SecondaryColor,
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -53,7 +54,7 @@ class _AccountSettingState extends State<AccountSetting> {
                     margin: const EdgeInsets.all(5),
                     child: Column(
                       children: [
-                        Padding(
+                        const Padding(
                           padding: EdgeInsets.fromLTRB(0, 3, 0, 3),
                           child: Text(
                             '',
@@ -67,8 +68,8 @@ class _AccountSettingState extends State<AccountSetting> {
                         Column(
                           children: [
                             Container(
-                              margin: EdgeInsets.only(left: 20, bottom: 3),
-                              child: Row(
+                              margin: const EdgeInsets.only(left: 20, bottom: 3),
+                              child: const Row(
                                 children: [
                                   Text(
                                     'Full Name',
@@ -87,15 +88,15 @@ class _AccountSettingState extends State<AccountSetting> {
                                   controller: nameController,
                                   decoration: InputDecoration(
                                     floatingLabelStyle:
-                                        TextStyle(color: MainColor),
-                                    focusedBorder: OutlineInputBorder(
+                                        const TextStyle(color: MainColor),
+                                    focusedBorder: const OutlineInputBorder(
                                         borderSide: BorderSide(
                                       color: MainColor,
                                     )),
                                     border: const OutlineInputBorder(),
                                     labelText: '$name',
-                                    prefixIcon: Padding(
-                                      padding: const EdgeInsets.all(8),
+                                    prefixIcon: const Padding(
+                                      padding: EdgeInsets.all(8),
                                       child:
                                           Icon(Icons.person, color: MainColor),
                                     ),
@@ -107,8 +108,8 @@ class _AccountSettingState extends State<AccountSetting> {
                           children: [
                             Container(
                               margin:
-                                  EdgeInsets.only(left: 20, bottom: 3, top: 10),
-                              child: Row(
+                                  const EdgeInsets.only(left: 20, bottom: 3, top: 10),
+                              child: const Row(
                                 children: [
                                   Text(
                                     'Phone Number',
@@ -125,24 +126,24 @@ class _AccountSettingState extends State<AccountSetting> {
                                 child: TextFormField(
                                   keyboardType: TextInputType.number,
                                   controller: phoneController,
-                                  maxLength: 10,
+                                
                                   decoration: InputDecoration(
                                     floatingLabelStyle:
-                                        TextStyle(color: MainColor),
-                                    focusedBorder: OutlineInputBorder(
+                                        const TextStyle(color: MainColor),
+                                    focusedBorder: const OutlineInputBorder(
                                         borderSide: BorderSide(
                                       color: MainColor,
                                     )),
                                     border: const OutlineInputBorder(),
                                     labelText: '$phonenumber',
-                                    prefixIcon: Padding(
-                                      padding: const EdgeInsets.all(8),
+                                    prefixIcon: const Padding(
+                                      padding: EdgeInsets.all(8),
                                       child: Column(
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
                                         children: [
                                           Text(
-                                            '+91',
+                                            '+',
                                             style: TextStyle(
                                                 fontSize: 18, color: MainColor),
                                           ),
@@ -156,11 +157,11 @@ class _AccountSettingState extends State<AccountSetting> {
                         Column(
                           children: [
                             Container(
-                              margin: EdgeInsets.only(left: 20, bottom: 3),
-                              child: Row(
+                              margin: const EdgeInsets.only(left: 20, bottom: 3),
+                              child: const Row(
                                 children: [
                                   Text(
-                                    'Account Details',
+                                    'Paypal / Paytm number',
                                     style: TextStyle(
                                       fontSize: 14,
                                     ),
@@ -175,15 +176,15 @@ class _AccountSettingState extends State<AccountSetting> {
                                   controller: accountController,
                                   decoration: InputDecoration(
                                     floatingLabelStyle:
-                                        TextStyle(color: MainColor),
-                                    focusedBorder: OutlineInputBorder(
+                                        const TextStyle(color: MainColor),
+                                    focusedBorder: const OutlineInputBorder(
                                         borderSide: BorderSide(
                                       color: MainColor,
                                     )),
                                     border: const OutlineInputBorder(),
                                     labelText: '$AccountNumber',
-                                    prefixIcon: Padding(
-                                      padding: const EdgeInsets.all(8),
+                                    prefixIcon: const Padding(
+                                      padding: EdgeInsets.all(8),
                                       child: Icon(Icons.account_balance,
                                           color: MainColor),
                                     ),
@@ -194,7 +195,7 @@ class _AccountSettingState extends State<AccountSetting> {
                         Container(
                           width: 200,
                           height: 40,
-                          margin: EdgeInsets.fromLTRB(10, 20, 10, 10),
+                          margin: const EdgeInsets.fromLTRB(10, 20, 10, 10),
                           child: GFButton(
                             shape: GFButtonShape.pills,
                             size: GFSize.LARGE,
@@ -209,51 +210,39 @@ class _AccountSettingState extends State<AccountSetting> {
                               var account = accountController.text;
 
                               if (name.length > 3) {
-                                if (phone.length == 10) {
+                               
                                   if (account.length > 3) {
                                     {
                                       showMessage(context, 'Please wait');
                                     }
-                                    http.Response response = await http.post(
+                                    http.Response response = await http.put(
                                         Uri.parse(
-                                            'https://www.nextonebox.com/earnmoney/NotGetUrls/AppAccountUpdateSetting'),
+                                            'https://fogcash.nextonebox.com/UpdateAccount'),
                                         body: {
-                                          'name': name.toString(),
-                                          'email': email.toString(),
-                                          'phone': phone.toString(),
-                                          'account': account.toString(),
+                                          'Name': name.toString(),
+                                          'Email': email.toString(),
+                                          'PhoneNumber': phone.toString(),
+                                          'Account': account.toString(),
                                         });
+                                     if (response.reasonPhrase == 'OK') {
+                                      SendAllData();
+                                     }
 
-                                    dynamic dat = {
-                                      'email': email.toString(),
-                                      'name':  name.toString(),
-                                      'Account':account.toString(),
-                                      'Ballance': localballance!.get(0),
-                                      'Refercode': user.get(0)['Refercode'],
-                                      'phone': phone.toString(),
-                                    };
-                                    await user.clear();
-                                    await user.add(dat);
-                                    {
-                                      showMessage(context, response.body);
-                                    }
+                                  
+                                    
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              BottomNavigation()),
+                                               BottomNavigation()),
                                     );
                                   } else {
                                     showMessage(context,
-                                        'Please enter your UPI id \n or Paytm number');
+                                        'Please enter Paypal ID \n or Paytm number');
                                   }
-                                } else {
-                                  showMessage(context,
-                                      'Please enter 10 \n digit Phone number');
-                                }
+                              
                               } else {
-                                showMessage(
-                                    context, 'Please enter Full Name');
+                                showMessage(context, 'Please enter Full Name');
                               }
                             },
                             text: "Save",
@@ -271,4 +260,3 @@ class _AccountSettingState extends State<AccountSetting> {
     );
   }
 }
-

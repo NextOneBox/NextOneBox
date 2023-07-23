@@ -1,12 +1,11 @@
-import 'dart:async';
 
 import 'package:cashapp/ComonScreens/widgets.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:contacts_service/contacts_service.dart';
 import 'package:fast_contacts/fast_contacts.dart';
 import 'package:flutter/material.dart';
+
 class Referandearn extends StatefulWidget {
-  Referandearn({super.key});
+  const Referandearn({super.key});
 
   @override
   State<Referandearn> createState() => _ReferandearnState();
@@ -21,10 +20,11 @@ class _ReferandearnState extends State<Referandearn> {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Color.fromARGB(255, 255, 255, 255),
+          backgroundColor: const Color.fromARGB(255, 255, 255, 255),
           elevation: 0,
           actions: [
             Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Card(
                     color: SecondaryColor,
@@ -33,18 +33,18 @@ class _ReferandearnState extends State<Referandearn> {
                       children: [
                         Center(
                             child: Text(
-                          '   ${user.get(0)['Refercode']}',
-                          style: TextStyle(
+                          '   ${user.get(0)['ReferCode'].toString()}',
+                          style: const TextStyle(
                               fontSize: 20, fontWeight: FontWeight.bold),
                         )),
                         IconButton(
                             onPressed: () {
                               FlutterClipboard.copy(
-                                      '${user.get(0)['Refercode']}')
+                                      user.get(0)['ReferCode'])
                                   .then((value) =>
-                                      {showMessage(context, 'Copied')});
+                                      {showMessage(context, '\nCopied')});
                             },
-                            icon: Icon(
+                            icon: const Icon(
                               Icons.copy,
                               color: MainColor,
                             ))
@@ -52,7 +52,7 @@ class _ReferandearnState extends State<Referandearn> {
                     )),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Container(
+                  child: SizedBox(
                     width: 100,
                     child: GFButton(
                       fullWidthButton: true,
@@ -61,105 +61,57 @@ class _ReferandearnState extends State<Referandearn> {
                       color: MainColor,
                       onPressed: () async {
                         await Share.share(
-                            '\n \n Hey, Do you want to earn \n \n 📲💰 ₹10,000 per/month without any investment.\n \n ✅ Then what are you waiting for Download now CashApp \n✅ And use my refer code\n✅ Thousands of users are already earning.💰💥💥  '
-                            '"${user.get(0)['Refercode']}". \n \n  💰💥💥  '
-                            '\n✅ CashApp \n➡️ https://play.google.com/store/apps/details?id=com.nextonebox.cashapp \n✅ ChatGpt App \n➡️ https://play.google.com/store/apps/details?id=com.nextonebox.chatgpt');
+                            '\n \n Hey, Do you want to earn \n \n 📲💰 ₹10,000 per/day without any investment.\n \n ✅ Then what are you waiting for Download now FogCash \n✅ And use my refer code\n✅ Thousands of users are already earning.💰💥💥  '
+                            '"${user.get(0)['ReferCode']}". \n \n  💰💥💥  '
+                            '\n✅ FogCash \n➡️ https://play.google.com/store/apps/details?id=com.nextonebox.cashapp \n✅ ChatGpt App \n➡️ https://play.google.com/store/apps/details?id=com.nextonebox.chatgpt');
                       },
                       text: "Refer Now ",
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: InkWell(
+                    onTap: () async {
+                      var url =
+                          'https://wa.me/?text=%0AHey%2C%20Do%20you%20want%20to%20earn%20%0A%0A%F0%9F%93%B2%F0%9F%92%B0%20%E2%82%B910%2C000%20per%2Fday%20without%20any%20investment%F0%9F%98%83.%0A%0A%E2%9C%85%20Then%20what%20are%20you%20waiting%20for%20Download%20now%20FogCash%0A%E2%9C%85%20And%20use%20my%20refer%20code%20${user.get(0)['ReferCode']}%20%0A%E2%9C%85%20Thousands%20of%20users%20are%20already%20earning.%F0%9F%92%B0%F0%9F%92%A5%F0%9F%92%A5%20%0A%0A%E2%9C%85%20FogCash%20%0A%E2%9E%A1%EF%B8%8F%20https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdetails%3Fid%3Dcom.nextonebox.cashapp%0A%0A%E2%9C%85%20ChatGpt%20App%20%0A%E2%9E%A1%EF%B8%8F%20https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdetails%3Fid%3Dcom.nextonebox.chatgpt';
+                      if (await canLaunch(url)) {
+                        await launch(url);
+                      }
+                    },
+                    child: const Icon(
+                      FontAwesomeIcons.whatsapp,
+                      size: 40,
+                      color: Color.fromARGB(255, 11, 75, 13),
                     ),
                   ),
                 ),
               ],
             ),
           ],
-          bottom: TabBar(
-            labelColor: Color.fromARGB(255, 2, 1, 1),
-            labelStyle: TextStyle(
-              fontSize: 15,
-              fontWeight: FontWeight.bold,
-            ),
-            tabs: [
-              Tab(
-                text: 'Invite',
-              ),
-              Tab(
-                text: 'Status',
-              ),
-            ],
-          ),
-          title: Text(
-            '₹25/User ',
+          
+          title: const Text(
+            '₹25',
             style: TextStyle(
                 color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20),
-          ),
-          leading: IconButton(
-            icon: Icon(Icons.arrow_back, color: Colors.black),
-            onPressed: () {
-                   Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => BottomNavigation()),
-                      );
-            },
           ),
         ),
         body: FutureBuilder(
           builder: (BuildContext context, AsyncSnapshot snapshot) {
-            return TabBarView(
-              children: [
-                Invite(),
-                Status(),
-              ],
+            return const Invite(
+             
             );
-          },
+          }, future: null,
         ),
       ),
     );
   }
 }
 
-class Status extends StatefulWidget {
-  Status({super.key});
 
-  @override
-  State<Status> createState() => _StatusState();
-}
-
-var list = refer?.values.toList().reversed;
-
-class _StatusState extends State<Status> {
-  var arrNames = list?.toList();
-
-  @override
-  Widget build(BuildContext context) {
-    if (arrNames!.isEmpty) {
-      return Scaffold(
-        body: Center(
-          child: Text('No refer yet! \n if have wait for changes to happen.'),
-        ),
-      );
-    } else {
-      return Scaffold(
-          body: ListView.builder(
-        itemBuilder: (context, index) {
-          return Card(
-            margin: EdgeInsets.all(15),
-            elevation: 1,
-            child: GFListTile(
-                shadow: BoxShadow(offset: Offset.infinite),
-                titleText:
-                    'Your friend ${arrNames?[index]['email'].toString().substring(0, 6)}... ',
-                subTitleText: 'You have earned ₹5/50 Coins ',
-                icon: Icon(FontAwesomeIcons.circleCheck)),
-          );
-        },
-        itemCount: arrNames?.length,
-      ));
-    }
-  }
-}
 
 class Invite extends StatefulWidget {
-  Invite({super.key});
+  const Invite({super.key});
 
   @override
   State<Invite> createState() => _InviteState();
@@ -176,10 +128,8 @@ class _InviteState extends State<Invite> {
     if (permissionStatus == true) {
       List contacts = await FastContacts.getAllContacts();
 
-      Timer(Duration(seconds: 3), () {
-        contact = contacts;
-        setState(() {});
-      });
+      contact = contacts;
+      setState(() {});
     } else {
       await Permission.contacts.request();
       setState(() {
@@ -240,26 +190,26 @@ class _InviteState extends State<Invite> {
         Container(
           width: 500,
           height: 200,
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             image: DecorationImage(
               image: AssetImage('assets/refer.png'),
               fit: BoxFit.fill,
             ),
           ),
-          child: Padding(
-            padding: const EdgeInsets.all(10),
+          child: const Padding(
+            padding: EdgeInsets.all(10),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  '₹5/50 Coins on Sign up. ',
+                  '₹5/🪙50 on Sign up. ',
                   style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                       color: Colors.black),
                 ),
                 Text(
-                  '₹20/200 coins on first widthrawal \n Luckey refer will get iPhone 14',
+                  '₹20/🪙200 on first widthrawal \n Luckey refer will get iPhone 14',
                   style: TextStyle(fontSize: 13, color: Colors.black),
                 ),
               ],
@@ -269,111 +219,97 @@ class _InviteState extends State<Invite> {
         Flexible(
           child: Container(
             color: Colors.white,
-            child: ListView.builder(
-                itemCount: contact.length,
-                itemBuilder: (context, index) {
-                  return InkWell(
-                    onTap: () async {
-                      await Share.share(
-                          '\n \n Hey, Do you want to earn \n \n 📲💰 ₹10,000 per/month without any investment.\n \n ✅ Then what are you waiting for Download now CashApp \n✅ And use my refer code\n✅ Thousands of users are already earning.💰💥💥  '
-                          '"${user.get(0)['Refercode']}". \n \n  💰💥💥  '
-                          '\n✅ CashApp \n➡️ https://play.google.com/store/apps/details?id=com.nextonebox.cashapp \n✅ ChatGpt App \n➡️ https://play.google.com/store/apps/details?id=com.nextonebox.chatgpt');
+            child: StreamBuilder<Object>(
+                stream: null,
+                builder: (context, snapshot) {
+                  return ListView.builder(
+                      itemCount: contact.length,
+                      itemBuilder: (context, index) {
+                        return InkWell(
+                          onTap: () async {
+                            var v = contact[index].phones[0].number;
 
-                      // var v =
-                      //     contact[index].phones[0].number.replaceAll('+', '');
-
-                      // var num3;
-
-                      // if (v.length == 10) {
-                      //   num3 = '91${v}';
-                      // }
-                      // if (v.contains(' ')) {
-                      //   num3 = v.replaceAll(' ', '');
-                      // } else {
-                      //   num3 = v;
-                      // }
-
-                      // for (int i = 0; i < v.length; i++) {
-                      //   Phone phone = v[i];
-                      // }
-                      // for (int i in v) {
-                      //   print(i); // Or do any other operation with i
-                      // } Instance of 'Contact' [Instance of 'Phone'] Instance of 'Phone'
-
-                      //write for loop if i in list
-
-                      // var url =
-                      //     'https://wa.me/${num3}?%0AHey%2C%20Do%20you%20want%20to%20earn%20%0A%0A%F0%9F%93%B2%F0%9F%92%B0%20%E2%82%B910%2C000%20per%2Fmonth%20without%20any%20investment%F0%9F%98%83.%0A%0A%E2%9C%85%20Then%20what%20are%20you%20waiting%20for%20Download%20now%20CashApp%0A%E2%9C%85%20And%20use%20my%20refer%20code%20${user.get(0)['Refercode']}%20%0A%E2%9C%85%20Thousands%20of%20users%20are%20already%20earning.%F0%9F%92%B0%F0%9F%92%A5%F0%9F%92%A5%20%0A%0A%E2%9C%85%20CashApp%20%0A%E2%9E%A1%EF%B8%8F%20https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdetails%3Fid%3Dcom.nextonebox.cashapp%0A%0A%E2%9C%85%20ChatGpt%20App%20%0A%E2%9E%A1%EF%B8%8F%20https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdetails%3Fid%3Dcom.nextonebox.chatgpt';
-                      // if (await canLaunch(url)) {
-                      //   await launch(url);
-                      // }
-                    },
-                    child: Card(
-                      color: Colors.white,
-                      child: Padding(
-                        padding: const EdgeInsets.all(10),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Container(
-                              width: 60,
-                              height: 40,
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(50)),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(2),
-                                child: Center(
-                                    child: Text(
-                                  ' Earn\n  ₹5',
-                                  style: TextStyle(
-                                      color:
-                                          Color.fromARGB(255, 108, 106, 106)),
-                                )),
-                              ),
-                            ),
-                            Column(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Container(
-                                    width: 150,
-                                    child: Text(
-                                      contact[index].displayName!.toString(),
-                                      style: TextStyle(
-                                        color: Color.fromARGB(255, 68, 68, 68),
+                            var url =
+                                'https://wa.me/${v.toString()}?text=%0AHey%2C%20Do%20you%20want%20to%20earn%20%0A%0A%F0%9F%93%B2%F0%9F%92%B0%20%E2%82%B910%2C000%20per%2Fday%20without%20any%20investment%F0%9F%98%83.%0A%0A%E2%9C%85%20Then%20what%20are%20you%20waiting%20for%20Download%20now%20FogCash%0A%E2%9C%85%20And%20use%20my%20refer%20code%20${user.get(0)['ReferCode']}%20%0A%E2%9C%85%20Thousands%20of%20users%20are%20already%20earning.%F0%9F%92%B0%F0%9F%92%A5%F0%9F%92%A5%20%0A%0A%E2%9C%85%20FogCash%20%0A%E2%9E%A1%EF%B8%8F%20https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdetails%3Fid%3Dcom.nextonebox.cashapp%0A%0A%E2%9C%85%20ChatGpt%20App%20%0A%E2%9E%A1%EF%B8%8F%20https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdetails%3Fid%3Dcom.nextonebox.chatgpt';
+                            if (await canLaunch(url)) {
+                              await launch(url);
+                            }
+                          },
+                          child: Card(
+                            color: Colors.white,
+                            child: Padding(
+                              padding: const EdgeInsets.all(10),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Container(
+                                    width: 60,
+                                    height: 40,
+                                    decoration: const BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(50)),
+                                    ),
+                                    child: const Padding(
+                                      padding: EdgeInsets.all(2),
+                                      child: Center(
+                                          child: Text(
+                                        ' Earn\n  ₹25',
+                                        style: TextStyle(
+                                            color: Color.fromARGB(
+                                                255, 108, 106, 106)),
+                                      )),
+                                    ),
+                                  ),
+                                  Column(
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: SizedBox(
+                                          width: 150,
+                                          child: Text(
+                                            contact[index]
+                                                .displayName!
+                                                .toString(),
+                                            style: const TextStyle(
+                                              color: Color.fromARGB(
+                                                  255, 68, 68, 68),
+                                            ),
+                                          ),
+                                        ),
                                       ),
+                                      SizedBox(
+                                        width: 150,
+                                        child: Text(
+                                          contact[index]
+                                              .phones[0]
+                                              .number
+                                              .toString(),
+                                          style: const TextStyle(
+                                            color:
+                                                Color.fromARGB(255, 68, 68, 68),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Container(
+                                    margin: const EdgeInsets.only(left: 50),
+                                    width: 60,
+                                    height: 40,
+                                    child: const Icon(
+                                      FontAwesomeIcons.whatsapp,
+                                      size: 50,
+                                      color: Colors.green,
                                     ),
                                   ),
-                                ),
-                                Container(
-                                  width: 150,
-                                  child: Text(
-                                    contact[index].phones[0].number.toString(),
-                                    style: TextStyle(
-                                      color: Color.fromARGB(255, 68, 68, 68),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Container(
-                              margin: EdgeInsets.only(left: 50),
-                              width: 60,
-                              height: 40,
-                              child: Icon(
-                                FontAwesomeIcons.whatsapp,
-                                size: 50,
-                                color: Colors.green,
+                                ],
                               ),
                             ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  );
+                          ),
+                        );
+                      });
                 }),
           ),
         ),

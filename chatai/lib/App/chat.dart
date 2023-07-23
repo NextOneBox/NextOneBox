@@ -215,6 +215,7 @@ class _ChatPageState extends State<ChatPage> {
               generateResponse(input).then((value) {
                 setState(() {
                   runadd();
+                    unityloadad();
                   history.add(value);
 
                   isLoading = false;

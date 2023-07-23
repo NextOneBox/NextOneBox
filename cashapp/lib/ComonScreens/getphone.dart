@@ -1,109 +1,23 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:async';
 
+import 'package:cashapp/ComonScreens/sharnow.dart';
 import 'package:http/http.dart' as http;
 import 'package:cashapp/ComonScreens/widgets.dart';
 import 'package:flutter/material.dart';
+
 class GetPhone extends StatefulWidget {
+  const GetPhone({super.key});
+
   @override
   State<GetPhone> createState() => _GetPhoneState();
 }
 
 class _GetPhoneState extends State<GetPhone> {
-  FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
   var verificationID;
 
-  showdi() {
-    AwesomeDialog(
-        context: context,
-        animType: AnimType.SCALE,
-        dialogType: DialogType.INFO,
-        body: Center(
-          child: Text(
-            'Follow us on Instagram \n\n\n Get instant 10 Coins \n\n Get latest updates',
-            style: TextStyle(fontStyle: FontStyle.italic),
-          ),
-        ),
-        keyboardAware: true,
-        btnOkText: "Follow",
-        title: 'Follow us on Instagram',
-        padding: const EdgeInsets.all(5.0),
-        btnCancelOnPress: () {},
-        btnOkOnPress: () async {
-          int getammount = 10;
-
-          int Ballance = localballance!.get(0);
-          int newBall = (Ballance + getammount);
-          localballance!.put(0, newBall);
-          http.Response resp = await http.post(
-              Uri.parse(
-                  'https://www.nextonebox.com/earnmoney/NotGetUrls/UpdateBallanceNew'),
-              body: {
-                'email': email.toString(),
-                'Ballance': getammount.toString(),
-              });
-
-          Timer(Duration(seconds: 5), () {
-            setState(() {
-              {
-                showMessage(context, 'You have earned your reward');
-              }
-            });
-          });
-
-          var url = 'https://www.instagram.com/nextonebox/';
-          if (await canLaunch(url)) {
-            await launch(url);
-          }
-          Timer(Duration(seconds: 20), () {
-            setState(() {
-              AwesomeDialog(
-                  context: context,
-                  animType: AnimType.SCALE,
-                  dialogType: DialogType.INFO,
-                  body: Center(
-                    child: Text(
-                      'Subscribe us on Youtube \n\n\n Get instant 10 Coins \n\n Get latest updates',
-                      style: TextStyle(fontStyle: FontStyle.italic),
-                    ),
-                  ),
-                  keyboardAware: true,
-                  btnOkText: "Follow",
-                  title: 'Follow us on Youtube',
-                  padding: const EdgeInsets.all(5.0),
-                  btnCancelOnPress: () {},
-                  btnOkOnPress: () async {
-                    var url = 'https://www.youtube.com/@nextonebox';
-                    if (await canLaunch(url)) {
-                      await launch(url);
-                    }
-                    int getammount = 10;
-
-                    int Ballance = localballance!.get(0);
-                    int newBall = (Ballance + getammount);
-                    localballance!.put(0, newBall);
-                    http.Response resp = await http.post(
-                        Uri.parse(
-                            'https://www.nextonebox.com/earnmoney/NotGetUrls/UpdateBallanceNew'),
-                        body: {
-                          'email': email.toString(),
-                          'Ballance': getammount.toString(),
-                        });
-
-                    Timer(Duration(seconds: 5), () {
-                      setState(() {
-                        {
-                          showMessage(context, 'You have earned your reward');
-                        }
-                      });
-                    });
-                  })
-                .show();
-            });
-          });
-        })
-      .show();
-    ;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -122,15 +36,15 @@ class _GetPhoneState extends State<GetPhone> {
                     margin: const EdgeInsets.all(5),
                     child: Column(
                       children: [
-                        SizedBox(
+                        const SizedBox(
                           height: 100,
                         ),
                         Column(
                           children: [
                             Container(
-                              margin:
-                                  EdgeInsets.only(left: 20, bottom: 3, top: 10),
-                              child: Row(
+                              margin: const EdgeInsets.only(
+                                  left: 20, bottom: 3, top: 10),
+                              child: const Row(
                                 children: [
                                   Text(
                                     'Phone Number',
@@ -147,27 +61,23 @@ class _GetPhoneState extends State<GetPhone> {
                                 child: TextFormField(
                                   keyboardType: TextInputType.number,
                                   controller: phoneController,
-                                  maxLength: 10,
-                                  decoration: InputDecoration(
+                               
+                                  decoration: const InputDecoration(
                                     floatingLabelStyle:
                                         TextStyle(color: MainColor),
                                     focusedBorder: OutlineInputBorder(
                                         borderSide: BorderSide(
                                       color: MainColor,
                                     )),
-                                    border: const OutlineInputBorder(),
+                                    border: OutlineInputBorder(),
                                     labelText: '',
                                     prefixIcon: Padding(
-                                      padding: const EdgeInsets.all(8),
+                                      padding: EdgeInsets.all(8),
                                       child: Column(
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
                                         children: [
-                                          Text(
-                                            '+91',
-                                            style: TextStyle(
-                                                fontSize: 18, color: MainColor),
-                                          ),
+                                         
                                         ],
                                       ),
                                     ),
@@ -176,8 +86,9 @@ class _GetPhoneState extends State<GetPhone> {
                           ],
                         ),
                         Container(
-                          margin: EdgeInsets.only(left: 20, bottom: 3, top: 10),
-                          child: Row(
+                          margin: const EdgeInsets.only(
+                              left: 20, bottom: 3, top: 10),
+                          child: const Row(
                             children: [
                               Text(
                                 'Gender           ',
@@ -190,8 +101,9 @@ class _GetPhoneState extends State<GetPhone> {
                           ),
                         ),
                         Container(
-                          margin: EdgeInsets.only(left: 20, bottom: 3, top: 10),
-                          child: Row(
+                          margin: const EdgeInsets.only(
+                              left: 20, bottom: 3, top: 10),
+                          child: const Row(
                             children: [
                               Text(
                                 'Date of Birth (Year)     ',
@@ -208,16 +120,16 @@ class _GetPhoneState extends State<GetPhone> {
                                 vertical: 1, horizontal: 20),
                             child: TextField(
                               controller: refercodegetcontr,
-                              decoration: InputDecoration(
+                              decoration: const InputDecoration(
                                 floatingLabelStyle: TextStyle(color: MainColor),
                                 focusedBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
                                   color: MainColor,
                                 )),
-                                border: const OutlineInputBorder(),
+                                border: OutlineInputBorder(),
                                 labelText: ' Refer code if any (optional) ',
                                 prefixIcon: Padding(
-                                  padding: const EdgeInsets.all(8),
+                                  padding: EdgeInsets.all(8),
                                   child: Icon(Icons.gif_outlined,
                                       color: MainColor),
                                 ),
@@ -226,7 +138,7 @@ class _GetPhoneState extends State<GetPhone> {
                         Container(
                           width: 200,
                           height: 40,
-                          margin: EdgeInsets.fromLTRB(10, 20, 10, 10),
+                          margin: const EdgeInsets.fromLTRB(10, 20, 10, 10),
                           child: GFButton(
                             shape: GFButtonShape.pills,
                             size: GFSize.LARGE,
@@ -240,68 +152,42 @@ class _GetPhoneState extends State<GetPhone> {
 
                               var refercode = refercodegetcontr.text;
 
-                              if (refercode == '$Refercode') {
-                                {
-                                  showMessage(context,
-                                      'Please enter Correct refer code');
-                                }
-                              } else {
-                                if (phone.length == 10) {
+                    
+                                if (phone.length >= 10) {
                                   {
                                     showMessage(context, 'Please wait');
                                   }
-                                  http.Response response = await http.post(
+
+                                  http.Response response = await http.put(
                                       Uri.parse(
-                                          'https://www.nextonebox.com/earnmoney/NotGetUrls/AppAccountUpdateSignup'),
+                                          'https://fogcash.nextonebox.com/UpdateAccount'),
                                       body: {
-                                        'gender':
-                                            genderlistdropdownValue.toString(),
-                                        'email': email.toString(),
-                                        'phone': phone.toString(),
-                                        'age': agelistdropdownValue.toString(),
-                                        'referby': refercode.toString(),
+                                        'Email': email.toString(),
+                                        'PhoneNumber': phone.toString(),
+                                        'Age': agelistdropdownValue.toString(),
                                       });
-
-                                  if (response.body ==
-                                      'Setting updated with refer code') {
-                                    {
-                                      showMessage(context, 'You have earn 10');
-                                    }
-
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              BottomNavigation()),
-                                    );
-                                    SendAllData();
-                                  } else {
-                                    {
-                                      showMessage(context, response.body);
-                                    }
-                                    dynamic dat = {
-                                      'email': email.toString(),
-                                      'name': name.toString(),
-                                      'phonenumber': phone.toString(),
-                                      'Ballance': '0',
-                                      'Refercode': '...',
-                                    };
-                                    await user.clear();
-                                    await user.add(dat);
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              BottomNavigation()),
-                                    );
-
-                                    showdi();
-                                  }
+                           
+                             
+                          if (response.reasonPhrase == 'OK') {
+      SendAllData();
+      Timer(const Duration(seconds: 3), () {
+        setState(() {});
+      });
+    }
+        Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (context) => ShareNow()),
+            (Route<dynamic> route) => false,
+          );
+     
+                          
+                                 
+                                
                                 } else {
                                   showMessage(context,
-                                      'Please enter 10 digit Phone number');
+                                      'Please enter correct Phone number');
                                 }
-                              }
+                        
                             },
                             text: "Next",
                           ),
@@ -318,8 +204,6 @@ class _GetPhoneState extends State<GetPhone> {
     );
   }
 }
-
-
 
 const List<String> genderlist = <String>[
   "Select",

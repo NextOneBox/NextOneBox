@@ -1,7 +1,8 @@
 import 'package:cashapp/ComonScreens/widgets.dart';
+
 import 'package:flutter/material.dart';
 class LeadboadScreen extends StatefulWidget {
-  LeadboadScreen({super.key});
+  const LeadboadScreen({super.key});
 
   @override
   State<LeadboadScreen> createState() => _LeadboadScreenState();
@@ -17,6 +18,7 @@ class _LeadboadScreenState extends State<LeadboadScreen> {
   @override
   void initState() {
     super.initState();
+
    
   }
 
@@ -28,19 +30,19 @@ class _LeadboadScreenState extends State<LeadboadScreen> {
         return Scaffold(
             appBar: AppBar(
               leading: IconButton(
-                icon: Icon(Icons.arrow_back, color: Colors.black),
+                icon: const Icon(Icons.arrow_back, color: Colors.black),
                 onPressed: () => Navigator.of(context).pop(),
               ),
               
               elevation: 0,
-              title: Text(
+              title: const Text(
                 'Leaderboard',
                 style: TextStyle(
                     color: Colors.black, fontWeight: FontWeight.bold, fontSize: 25),
               ),
-              backgroundColor: Color.fromARGB(255, 247, 247, 250),
+              backgroundColor: const Color.fromARGB(255, 247, 247, 250),
             ),
-            body: Center(
+            body: const Center(
                 child: Text(
               '',
               style: TextStyle(
@@ -48,7 +50,7 @@ class _LeadboadScreenState extends State<LeadboadScreen> {
                   fontWeight: FontWeight.bold,
                   fontSize: 20),
             )));
-      });
+      }, future: null,);
     } else {
       return FutureBuilder(
         builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -56,7 +58,7 @@ class _LeadboadScreenState extends State<LeadboadScreen> {
               appBar: AppBar(
                 
                 elevation: 0,
-                title: Text(
+                title: const Text(
                   'Leaderboard',
                   style: TextStyle(
                       color: Colors.black,
@@ -68,13 +70,13 @@ class _LeadboadScreenState extends State<LeadboadScreen> {
               body: Column(
                 children: [
                   
-                  Container(
+                  SizedBox(
                     width: 500,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Container(
-                          margin: EdgeInsets.all(7),
+                          margin: const EdgeInsets.all(7),
                           decoration: UseBorder,
                           width: 80,
                           height: 70,
@@ -82,7 +84,7 @@ class _LeadboadScreenState extends State<LeadboadScreen> {
                               child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              GFAvatar(
+                              const GFAvatar(
                                 size: 15,
                                 backgroundColor: MainColor,
                                 child: Icon(
@@ -93,14 +95,14 @@ class _LeadboadScreenState extends State<LeadboadScreen> {
                               ),
                               Text(
                                 LIstLeadBoard[1]['name'],
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontSize: 18,
                                     color: Colors.black,
                                     fontWeight: FontWeight.bold),
                               ),
                               Text(
                                 LIstLeadBoard[1]['description'] + ' ₹',
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontSize: 10,
                                     color: Colors.black,
                                     fontWeight: FontWeight.bold),
@@ -109,7 +111,7 @@ class _LeadboadScreenState extends State<LeadboadScreen> {
                           )),
                         ),
                         Container(
-                          margin: EdgeInsets.all(7),
+                          margin: const EdgeInsets.all(7),
                           decoration: UseBorder,
                           width: 100,
                           height: 100,
@@ -117,7 +119,7 @@ class _LeadboadScreenState extends State<LeadboadScreen> {
                               child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              GFAvatar(
+                              const GFAvatar(
                                 size: 15,
                                 backgroundColor: MainColor,
                                 child: Icon(
@@ -128,14 +130,14 @@ class _LeadboadScreenState extends State<LeadboadScreen> {
                               ),
                               Text(
                                 LIstLeadBoard[0]['name'],
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontSize: 20,
                                     color: Colors.black,
                                     fontWeight: FontWeight.bold),
                               ),
                               Text(
                                 LIstLeadBoard[0]['description'] + ' ₹',
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontSize: 10,
                                     color: Colors.black,
                                     fontWeight: FontWeight.bold),
@@ -144,7 +146,7 @@ class _LeadboadScreenState extends State<LeadboadScreen> {
                           )),
                         ),
                         Container(
-                          margin: EdgeInsets.all(7),
+                          margin: const EdgeInsets.all(7),
                           decoration: UseBorder,
                           width: 80,
                           height: 70,
@@ -152,7 +154,7 @@ class _LeadboadScreenState extends State<LeadboadScreen> {
                               child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              GFAvatar(
+                              const GFAvatar(
                                 size: 15,
                                 backgroundColor: MainColor,
                                 child: Icon(
@@ -163,14 +165,14 @@ class _LeadboadScreenState extends State<LeadboadScreen> {
                               ),
                               Text(
                                 LIstLeadBoard[2]['name'],
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontSize: 18,
                                     color: Colors.black,
                                     fontWeight: FontWeight.bold),
                               ),
                               Text(
                                 LIstLeadBoard[2]['description'] + ' ₹',
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontSize: 10,
                                     color: Colors.black,
                                     fontWeight: FontWeight.bold),
@@ -205,11 +207,11 @@ class _LeadboadScreenState extends State<LeadboadScreen> {
                           return Column(
                             children: [
                               Container(
-                                margin: EdgeInsets.all(7),
+                                margin: const EdgeInsets.all(7),
                                 decoration: UseBorder,
                                 child: GFListTile(
-                            shadow: BoxShadow(offset: Offset.infinite),
-                                  avatar: GFAvatar(
+                            shadow: const BoxShadow(offset: Offset.infinite),
+                                  avatar: const GFAvatar(
                                     size: 25,
                                     backgroundColor: MainColor,
                                     child: Icon(
@@ -220,12 +222,12 @@ class _LeadboadScreenState extends State<LeadboadScreen> {
                                   ),
                                   subTitle: Text(
                                     listgetname,
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                         fontSize: 20,
                                         color: Colors.black,
                                         fontWeight: FontWeight.bold),
                                   ),
-                                  icon: Text('' + listgetdescription + ' ₹'),
+                                  icon: Text('$listgetdescription ₹'),
                                 ),
                               ),
                             ],
@@ -234,7 +236,7 @@ class _LeadboadScreenState extends State<LeadboadScreen> {
                   )
                 ],
               ));
-        },
+        }, future: null,
       );
     }
   }

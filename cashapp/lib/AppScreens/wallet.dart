@@ -1,11 +1,10 @@
-
-
+import 'package:cashapp/AppScreens/widthrawhistory.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:cashapp/ComonScreens/widgets.dart';
 
 class Wallet extends StatefulWidget {
-  Wallet({super.key});
+  const Wallet({super.key});
 
   @override
   State<Wallet> createState() => _WalletState();
@@ -14,6 +13,7 @@ class Wallet extends StatefulWidget {
 class _WalletState extends State<Wallet> {
   late TabController tabController;
 
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -21,101 +21,37 @@ class _WalletState extends State<Wallet> {
       child: Scaffold(
         appBar: AppBar(
           leading: IconButton(
-            icon: Icon(Icons.arrow_back, color: Colors.black),
+            icon: const Icon(Icons.arrow_back, color: Colors.black),
             onPressed: () => Navigator.of(context).pop(),
           ),
           backgroundColor: Colors.white,
           elevation: 0,
-          bottom: TabBar(
-            labelColor: Colors.black,
-            labelStyle: TextStyle(
-              fontSize: 15,
-              fontWeight: FontWeight.bold,
-            ),
-            tabs: [
-              Tab(text: 'Withdraw'),
-              Tab(
-                text: 'Request',
-              ),
-            ],
-          ),
-          title: Text(
-            'Wallet',
+          title: const Text(
+            'Wallet ',
             style: TextStyle(
                 color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20),
           ),
+          actions: [
+            IconButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>  WidthrawHistory()),
+                  );
+                },
+                icon: Icon(Icons.history))
+          ],
           toolbarHeight: 50,
         ),
         body: FutureBuilder(
           builder: (BuildContext context, AsyncSnapshot snapshot) {
-            return TabBarView(
-              children: [
-                Invite(),
-                Status(),
-              ],
-            );
+            return const Invite();
           },
+          future: null,
         ),
       ),
     );
-  }
-}
-
-class Status extends StatefulWidget {
-  Status({super.key});
-
-  @override
-  State<Status> createState() => _StatusState();
-}
-
-var widrawlist = widrawstaus?.values.toList().reversed;
-
-class _StatusState extends State<Status> {
-  var arrNames = widrawlist?.toList();
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(body: Builder(builder: (context) {
-      if (arrNames!.isEmpty) {
-        return Scaffold(
-          body: Center(
-            child: Text(
-                'No withdraw request available.\n if have wait for changes to happen.'),
-          ),
-        );
-      } else {
-        return ListView.builder(
-          itemBuilder: (context, index) {
-            IconData fonticon;
-            if (arrNames?[index]['status'] == 'don') {
-              fonticon = FontAwesomeIcons.circleCheck;
-            } else {
-              if (arrNames?[index]['status'] == 'cancel') {
-                fonticon = FontAwesomeIcons.xmark;
-              } else {
-                fonticon = Icons.info_outline;
-              }
-            }
-            return Container(
-              margin: EdgeInsets.all(15),
-              decoration: UseBorder,
-              child: GFListTile(
-                  shadow: BoxShadow(offset: Offset.infinite),
-                  padding: EdgeInsets.all(10),
-                  listItemTextColor: Colors.black,
-                  titleText:
-                      'Your withdraw request for amount ₹${arrNames?[index]['amount']} ',
-                  description: Text(
-                    ' Date     ${arrNames?[index]['date'].substring(0, 10)}',
-                    style: TextStyle(fontSize: 10, height: 3),
-                  ),
-                  icon: Icon(fonticon)),
-            );
-          },
-          itemCount: arrNames?.length,
-        );
-      }
-    }));
   }
 }
 
@@ -124,7 +60,7 @@ var ballance;
 bool isLoaded = false;
 
 class Invite extends StatefulWidget {
-  Invite({super.key});
+  const Invite({super.key});
 
   @override
   State<Invite> createState() => _InviteState();
@@ -135,37 +71,36 @@ class _InviteState extends State<Invite> {
   @override
   void initState() {
     super.initState();
-   
   }
 
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Padding(
-        padding: EdgeInsets.fromLTRB(10, 80, 10, 10),
+        padding: const EdgeInsets.fromLTRB(10, 80, 10, 10),
         child: Center(
           child: Column(
             children: [
               Column(
                 children: [
                   Container(
-                    margin: EdgeInsets.all(10),
+                    margin: const EdgeInsets.all(10),
                     width: 500,
                     child: Padding(
-                      padding: EdgeInsets.all(15),
+                      padding: const EdgeInsets.all(15),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           Column(
                             children: [
-                              Text(
-                                'Coins',
+                              const Text(
+                                'Coins ',
                                 style: TextStyle(
                                     fontSize: 20, color: Colors.black),
                               ),
                               Text(
-                                '${localballance!.get(0).toString()}',
-                                style: TextStyle(
+                                '🪙${localballance!.get(0) ?? 0}',
+                                style: const TextStyle(
                                     fontSize: 20,
                                     color: MainColor,
                                     fontWeight: FontWeight.bold),
@@ -174,14 +109,30 @@ class _InviteState extends State<Invite> {
                           ),
                           Column(
                             children: [
-                              Text(
+                              const Text(
                                 'Ballance(₹)',
                                 style: TextStyle(
                                     fontSize: 20, color: Colors.black),
                               ),
                               Text(
-                                '${localballance!.get(0) / 10}₹',
+                                '₹${localballance!.get(0) / 10}',
+                                style: const TextStyle(
+                                    fontSize: 20,
+                                    color: MainColor,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ],
+                          ),
+                          Column(
+                            children: [
+                              const Text(
+                                'Ballance(\$)',
                                 style: TextStyle(
+                                    fontSize: 20, color: Colors.black),
+                              ),
+                              Text(
+                                '\$${localballance!.get(0) / 800}',
+                                style: const TextStyle(
                                     fontSize: 20,
                                     color: MainColor,
                                     fontWeight: FontWeight.bold),
@@ -192,14 +143,14 @@ class _InviteState extends State<Invite> {
                       ),
                     ),
                   ),
-      
                   Container(
-                    margin: EdgeInsets.symmetric(vertical: 50, horizontal: 20),
+                    margin: const EdgeInsets.symmetric(
+                        vertical: 50, horizontal: 20),
                     child: TextFormField(
                       keyboardType: TextInputType.number,
                       controller: amount,
                       textInputAction: TextInputAction.done,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         floatingLabelStyle: TextStyle(color: MainColor),
                         focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(
@@ -207,26 +158,19 @@ class _InviteState extends State<Invite> {
                         )),
                         border: OutlineInputBorder(),
                         hintText: "Enter amount",
-                        prefixIcon: Padding(
-                          padding: EdgeInsets.all(8),
-                          child: Icon(
-                            Icons.currency_rupee,
-                            color: MainColor,
-                          ),
-                        ),
                       ),
                     ),
                   ),
                   Container(
-                    width: 250,
-                    height: 45,
-                    margin: EdgeInsets.fromLTRB(20, 50, 20, 2),
+                    width: 350,
+                    height: 70,
+                    margin: const EdgeInsets.fromLTRB(20, 80, 20, 2),
                     child: GFButton(
                       fullWidthButton: true,
                       shape: GFButtonShape.pills,
                       size: GFSize.LARGE,
                       color: MainColor,
-                      child: Text(
+                      child: const Text(
                         'Withdraw',
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
@@ -234,6 +178,7 @@ class _InviteState extends State<Invite> {
                             fontFamily: 'RobotoMono'),
                       ),
                       onPressed: () async {
+                        setState(() {});
                         if (user.get(0)['Account'] == 'UPI id /paytm number' ||
                             user.get(0)['Account'] == null) {
                           {
@@ -244,72 +189,66 @@ class _InviteState extends State<Invite> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => AccountSetting()),
+                                builder: (context) => const AccountSetting()),
                           );
                         } else {
-                          MyAnalytic!
-                              .put(DateTime.now().toString(), 'Withdraw');
                           int ammount = int.parse(amount.text);
                           int ball = (localballance!.get(0));
 
-                          if (99 < ammount && ammount < ball) {
-                            if (EMPremium == 'true') {
-                              if (completed == 'true') {
-                                http.Response response = await http.post(
-                                    Uri.parse(
-                                        'https://www.nextonebox.com/earnmoney/NotGetUrls/AppWidrawRequest'),
-                                    body: {
-                                      'amount': amount.text,
-                                      'email': email.toString(),
-                                      'ballance': ball.toString()
-                                    });
-
-                                if (response.body == 'Request accepted') {
-                                  dynamic dat = {
-                                    'email': email,
-                                    'password': ammount,
-                                  };
-                                  {
-                                    showMessage(context, ' Request accepted');
-                                  }
-
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            BottomNavigation()),
-                                  );
-                                } else {
-                                  {
-                                    showMessage(context, response.body);
-                                  }
-                                }
-                              } else {
+                          if (249 < ammount && ammount < ball) {
+                            if (user.get(0)['Pro'] == 'true') {
+                              if (user.get(0)['TaskCompleted'] == 'true') {
                                 {
-                                  showMessage(context,
-                                      "* Please complete at least 5 tasks.last step to get withdraw. ");
+                                  showMessage(context, ' Request accepted');
                                 }
+
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => BottomNavigation()),
+                                );
+                              } else {
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      title: const Text(
+                                          'Restrictions! Controling scam & fake users\n10k+ users already got withdrawal this month 💸 '),
+                                      content: const Text(
+                                          '*Pleace Open app daily and watch ads for atleast 30 days\n*Please complete at least 5 tasks to get instant withdrawal. \n\n Enjoy Earning 😋 \n Feel save to earn and withdrawal 🙂\n Dont panic you get withdrawal after completing this steps🕺🏼.'),
+                                      actions: [
+                                        TextButton(
+                                          onPressed: () {
+                                            Navigator.of(context)
+                                                .pop(); // Close the dialog
+                                          },
+                                          child: const Text('OK'),
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                );
                               }
                             } else {
                               buyMessage(context, '');
                             }
                           } else {
                             {
-                              showMessage(context, "*min ballance 100₹   ");
+                              showMessage(
+                                  context, "\n* Min ballance ₹250 or \$25  ");
                             }
                           }
                         }
                       },
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text('1₹  = 10 coins'),
+                  const Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Text(
+                      'Minimum ballance ₹250 or \$25',
+                      style: TextStyle(fontSize: 10),
+                    ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text('Minimum ballance ₹100'),
-                  )
                 ],
               ),
             ],

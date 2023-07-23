@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
+import '../OtherFiles/purchase.dart';
 import '../OtherFiles/widgets.dart';
 
 class ImageGenerate extends StatefulWidget {
@@ -9,30 +10,28 @@ class ImageGenerate extends StatefulWidget {
 
 class _ImageGenerateState extends State<ImageGenerate> {
   prevusad() {
-    AwesomeDialog(
-        context: context,
-        animType: AnimType.SCALE,
-        dialogType: DialogType.SUCCES,
-        body: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Center(
-            child: Text(
-              'Try chatai Pro to generate ai image just in ₹35  \nGive your imagination a power in real world',
-            ),
-          ),
-        ),
-        keyboardAware: true,
-        btnOkText: "Buy now",
-        padding: const EdgeInsets.all(5.0),
-        btnCancelOnPress: () {
-          Navigator.of(context);
-        },
-        btnOkOnPress: () async {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => Premium()),
-          );
-        }).show();
+    QuickAlert.show(
+      context: context,
+      title: 'MyChatAi Pro ',
+      type: QuickAlertType.confirm,
+      text:
+          '✅Ad free\n✅Generate ai image\n✅Give your imagination a power in real world',
+      confirmBtnText: '😃Pro ',
+      onConfirmBtnTap: () {
+        Navigator.of(context, rootNavigator: true).pop('dialog');
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => Purchase()),
+        );
+      },
+      cancelBtnText: '😔Later',
+      onCancelBtnTap: () {
+        Navigator.of(context, rootNavigator: true).pop('dialog');
+
+        showMessage(context, '  😔 Missing Big   Opportunity');
+      },
+      confirmBtnColor: Colors.green,
+    );
   }
 
   void generateAIImage() async {
@@ -113,7 +112,6 @@ class _ImageGenerateState extends State<ImageGenerate> {
   void initState() {
     super.initState();
 
-    runadd();
     BannerAd(
       adUnitId: 'ca-app-pub-7177495743199841/7198110692',
       size: AdSize.banner,

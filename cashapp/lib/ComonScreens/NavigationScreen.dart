@@ -1,30 +1,38 @@
 import 'package:cashapp/ComonScreens/widgets.dart';
 import 'package:cashapp/AppScreens/referandearn.dart';
+
 import 'package:flutter/material.dart';
 
+
 class BottomNavigation extends StatefulWidget {
+
+
+   BottomNavigation({super.key, });
+
   @override
   _BottomNavigationState createState() => _BottomNavigationState();
 }
 
 class _BottomNavigationState extends State<BottomNavigation> {
-  int _selectedIndex = 2;
+  int _selectedIndex = 1;
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.w600);
 
   final _widgetOptions = [
-    GameScreen(),
-    Task(val: ''),
-    Home(),
-    Referandearn(),
-    Account(),
+ 
+    const Task(val: ''),
+    const Home(),
+    const Referandearn(),
+    const Account(),
   ];
 
   @override
   Widget build(BuildContext context) {
+    
     if (user.isEmpty) {
-      return LoginScr();
+      return const LoginScr();
     } else {
+      
       return Scaffold(
         body: Center(
           child: _widgetOptions.elementAt(_selectedIndex),
@@ -45,19 +53,16 @@ class _BottomNavigationState extends State<BottomNavigation> {
                   const EdgeInsets.symmetric(horizontal: 15.0, vertical: 8),
               child: GNav(
                 rippleColor: Colors.grey[300]!,
-                hoverColor: Color.fromARGB(255, 165, 180, 185),
+                hoverColor: const Color.fromARGB(255, 165, 180, 185),
                 gap: 8,
                 activeColor: Colors.blueAccent,
                 iconSize: 24,
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-                duration: Duration(milliseconds: 400),
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                duration: const Duration(milliseconds: 400),
                 tabBackgroundColor: Colors.grey[100]!,
-                color: Color.fromARGB(255, 10, 71, 121),
-                tabs: [
-                  GButton(
-                    icon: LineIcons.gamepad,
-                    text: 'Play',
-                  ),
+                color: const Color.fromARGB(255, 10, 71, 121),
+                tabs: const [
+              
                   GButton(
                     icon: LineIcons.gifts,
                     text: 'Offer',

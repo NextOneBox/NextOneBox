@@ -1,5 +1,7 @@
+
 import 'package:cashapp/ComonScreens/widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:upgrader/upgrader.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -10,41 +12,33 @@ void main() async {
     messagingSenderId: '644783585713',
     projectId: 'nextonebox-d7c0a',
   ));
-
-  Firebase.initializeApp();
+  // await Firebase.initializeApp();
   Directory docume = await getApplicationDocumentsDirectory();
 
   Hive.init(docume.path);
   SystemChrome.setSystemUIOverlayStyle(
-      SystemUiOverlayStyle(statusBarColor: Color.fromRGBO(0, 0, 0, 0)));
+      const SystemUiOverlayStyle(statusBarColor: Color.fromRGBO(0, 0, 0, 0)));
 
   await Hive.openBox('user');
-  await Hive.openBox('pkacc');
-  await Hive.openBox('notif');
-  await Hive.openBox('leads');
   await Hive.openBox('tasks');
-  await Hive.openBox('refer');
-  await Hive.openBox('leadsteps');
   await Hive.openBox('widrawstaus');
-  await Hive.openBox('globalmessage');
   await Hive.openBox('LeaderBoard');
-  await Hive.openBox('MyAnalytic');
-  await Hive.openBox('profitlink');
   await Hive.openBox('adsbox');
   await Hive.openBox('localballance');
-  await Hive.openBox('quiz');
   await Hive.openBox('contacts');
-
+  
+  SendAllData();
   runApp(
+  
     MaterialApp(
         theme: ThemeData(
           useMaterial3: true,
           scaffoldBackgroundColor: Colors.white,
           secondaryHeaderColor: SecondaryColor,
-          iconTheme: IconThemeData(color: SecondaryColor),
+          iconTheme: const IconThemeData(color: SecondaryColor),
           fontFamily: 'Proxima Nova',
         ),
         debugShowCheckedModeBanner: false,
-        home: BottomNavigation()),
+        home:  BottomNavigation()),
   );
 }

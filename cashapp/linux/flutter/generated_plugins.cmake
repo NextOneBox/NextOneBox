@@ -5,6 +5,7 @@
 list(APPEND FLUTTER_PLUGIN_LIST
   audioplayers_linux
   awesome_notifications
+  objectbox_flutter_libs
   url_launcher_linux
 )
 

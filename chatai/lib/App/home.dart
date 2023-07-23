@@ -1,12 +1,36 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:chatai/App/chat.dart';
-
+import 'package:http/http.dart' as http;
+import '../OtherFiles/purchase.dart';
 import '../OtherFiles/widgets.dart' as widgets;
 import '../OtherFiles/widgets.dart';
 
+
 RewardedAd? _rewardedAd;
 int _numRewardedLoadAttempts = 0;
+
+  unityloadad() async {
+    UnityAds.load(
+        placementId: 'Rewarded_Android',
+      );
+
+
+
+    UnityAds.showVideoAd(
+      placementId: 'Rewarded_Android',
+      onStart: (placementId) => print('Video Ad $placementId started'),
+      onClick: (placementId) => print('Video Ad $placementId click'),
+      onSkipped: (placementId) => print('Video Ad $placementId skipped'),
+      onComplete: (placementId) async {
+      
+      },
+      onFailed: (placementId, error, message) =>
+          print('Video Ad $placementId failed: $error $message'),
+    );
+  }
+
+
 
 runadd() {
   // _showInterstitialAd();
@@ -53,6 +77,10 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+
+
+
+
   //how to change widget after ever 10  seconds
   SpeechToText speechToText = SpeechToText();
   var isListening = false;
@@ -63,28 +91,71 @@ class _HomeState extends State<Home> {
   void initState() {
     super.initState();
     // _createInterstitialAd();
-    // UnityAds.init(
-    //   gameId: '5212950',
-    // );
+    UnityAds.init(
+      gameId: '5349140',
+    );
+    UnityAds.load(
+        placementId: 'Rewarded_Android',
+        onFailed: (placementId, error, message) =>
+            showMessage(context, 'Failed to load ad.'));
+    // BannerAd(
+    //   adUnitId: 'ca-app-pub-7177495743199841/7198110692',
+    //   size: AdSize.banner,
+    //   request: AdRequest(),
+    //   listener: BannerAdListener(
+    //     onAdLoaded: (ad) {
+    //       setState(() {
+    //         _ad = ad as BannerAd;
+    //         isLoaded = true;
+    //       });
+    //     },
+    //     onAdFailedToLoad: (ad, error) {
+    //       // Releases an ad resource when it fails to load
+    //       ad.dispose();
+    //       print('Ad load failed (code=${error.code} message=${error.message})');
+    //     },
+    //   ),
+    // ).load();
+  }
 
-    BannerAd(
-      adUnitId: 'ca-app-pub-7177495743199841/7198110692',
-      size: AdSize.banner,
-      request: AdRequest(),
-      listener: BannerAdListener(
-        onAdLoaded: (ad) {
-          setState(() {
-            _ad = ad as BannerAd;
-            isLoaded = true;
-          });
-        },
-        onAdFailedToLoad: (ad, error) {
-          // Releases an ad resource when it fails to load
-          ad.dispose();
-          print('Ad load failed (code=${error.code} message=${error.message})');
-        },
-      ),
-    ).load();
+  void main() async {
+    final url = Uri.parse(
+        'https://api.d-id.com/talks'); // Replace with the actual API endpoint URL
+
+    final jsonBody = {
+      'source_url':
+          'https://create-images-results.d-id.com/api_docs/assets/noelle.jpeg',
+      'script': {'type': 'text', 'input': 'Hello world!'}
+    };
+
+    final headers = {
+      'Content-Type': 'application/json',
+      'Authorization':
+          'Basic c2hhaGlkbWlyOTY4MkBnbWFpbC5jb20:rYzVdT2aexjJoXlyHxgCy'
+    };
+
+    http
+        .post(
+      url,
+      headers: headers,
+      body: jsonEncode(jsonBody),
+    )
+        .then((response) async {
+      if (response.statusCode == 201) {
+        print(response.body);
+        Map<String, dynamic> jsonObject = json.decode(response.body);
+        String idValue = jsonObject['id'];
+        print(idValue);
+        final url = Uri.parse('https://api.d-id.com/talks/${idValue}');
+        http.Response respoe = await http.post(
+          url,
+        );
+
+        print(respoe.body);
+      } else {
+        print(response.body);
+      }
+    });
   }
 
   var iconclor = MainColor;
@@ -126,13 +197,17 @@ class _HomeState extends State<Home> {
                   ),
                 ),
                 InkWell(
-                  onTap: () {
+                  onTap: () async {
+                
+             Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => Purchase()),
+                              );
+             
                     getkey();
 
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => Premium()),
-                    );
+               
                   },
                   child: Container(
                     width: 150,
@@ -143,7 +218,7 @@ class _HomeState extends State<Home> {
                     ),
                     child: Center(
                         child: Text(
-                      ' AiChatGpt Pro ₹35',
+                      ' ChatAi Pro',
                       style: TextStyle(color: Colors.white),
                     )),
                   ),
@@ -346,9 +421,13 @@ class _HomeState extends State<Home> {
                 ),
               ),
             ),
-            SizedBox(
-              height: 10,
-            ),
+            isLoaded
+                ? Container(
+                    height: 50,
+                    alignment: Alignment.center,
+                    child: AdWidget(ad: _ad!),
+                  )
+                : const SizedBox(),
             Card(
               elevation: 5,
               child: Column(
@@ -425,6 +504,7 @@ class _HomeState extends State<Home> {
                               )),
                           IconButton(
                               iconSize: 35,
+                              
                               onPressed: () async {
                                 var url =
                                     'https://www.jasper.ai/?jredirect=true';

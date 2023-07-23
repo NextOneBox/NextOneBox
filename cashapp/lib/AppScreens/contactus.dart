@@ -1,6 +1,7 @@
 import 'package:cashapp/ComonScreens/widgets.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
+
 class ContactUs extends StatefulWidget {
   const ContactUs({super.key});
 
@@ -15,10 +16,9 @@ class _ContactUsState extends State<ContactUs> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor:SecondaryColor,
-        
+        backgroundColor: SecondaryColor,
         elevation: 0,
-        title: Text(
+        title: const Text(
           'Contact us',
           style: TextStyle(
               color: Colors.black, fontWeight: FontWeight.bold, fontSize: 30),
@@ -38,19 +38,19 @@ class _ContactUsState extends State<ContactUs> {
                       children: [
                         Column(
                           children: [
-                            SizedBox(
+                            const SizedBox(
                               height: 20,
                             ),
-                            Row(
+                            const Row(
                               children: [
                                 Text('     Subject :-         '),
                                 DropdownButtonExample(),
                               ],
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 20,
                             ),
-                            Row(
+                            const Row(
                               children: [
                                 Text('     Message :-           '),
                               ],
@@ -62,14 +62,14 @@ class _ContactUsState extends State<ContactUs> {
                                   maxLines: 5,
                                   keyboardType: TextInputType.name,
                                   controller: problem,
-                                  decoration: InputDecoration(
+                                  decoration: const InputDecoration(
                                     floatingLabelStyle:
                                         TextStyle(color: MainColor),
                                     focusedBorder: OutlineInputBorder(
                                         borderSide: BorderSide(
                                       color: MainColor,
                                     )),
-                                    border: const OutlineInputBorder(),
+                                    border: OutlineInputBorder(),
                                   ),
                                 )),
                           ],
@@ -77,7 +77,7 @@ class _ContactUsState extends State<ContactUs> {
                         Container(
                           width: 200,
                           height: 40,
-                          margin: EdgeInsets.fromLTRB(10, 20, 10, 10),
+                          margin: const EdgeInsets.fromLTRB(10, 20, 10, 10),
                           child: GFButton(
                             shape: GFButtonShape.pills,
                             size: GFSize.LARGE,
@@ -90,41 +90,40 @@ class _ContactUsState extends State<ContactUs> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => BottomNavigation()),
+                                    builder: (context) =>  BottomNavigation()),
                               );
                               setState(() {});
-                              var name = problem.text;
+                                  var data = "Email: $email ,Name: $name ,Problem: ${problem.text}, Phone:$phonenumber ,Date: ${DateTime.now().toString()}";
+                             
 
                               {
                                 showMessage(context,
-                                    'You have successfully send message');
+                                    'Reply in 24 hours');
                               }
 
                               http.Response response = await http.post(
                                   Uri.parse(
-                                      'https://www.nextonebox.com/earnmoney/NotGetUrls/Appcontact'),
+                                      'https://fogcash.nextonebox.com/ContactUs'),
                                   body: {
-                                    'message': name.toString(),
+                                    'message': data.toString(),
                                   });
                             },
                             text: "Send",
                           ),
                         ),
-                        Text(
+                        const Text(
                             '\n\n\n\n Email : info@nextonebox.com \n\n Social media  : nextonebox \n'),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             IconButton(
                               onPressed: () async {
-                        
-
                                 var url = 'https://www.facebook.com/nextonebox';
                                 if (await canLaunch(url)) {
                                   await launch(url);
                                 }
                               },
-                              icon: Icon(
+                              icon: const Icon(
                                 FontAwesomeIcons.facebook,
                                 size: 20,
                                 color: MainColor,
@@ -132,14 +131,12 @@ class _ContactUsState extends State<ContactUs> {
                             ),
                             IconButton(
                               onPressed: () async {
-                           
-
                                 var url = 'https://www.youtube.com/@nextonebox';
                                 if (await canLaunch(url)) {
                                   await launch(url);
                                 }
                               },
-                              icon: Icon(
+                              icon: const Icon(
                                 FontAwesomeIcons.youtube,
                                 size: 20,
                                 color: MainColor,
@@ -147,15 +144,13 @@ class _ContactUsState extends State<ContactUs> {
                             ),
                             IconButton(
                               onPressed: () async {
-                              
-
                                 var url =
                                     'https://www.instagram.com/nextonebox';
                                 if (await canLaunch(url)) {
                                   await launch(url);
                                 }
                               },
-                              icon: Icon(
+                              icon: const Icon(
                                 FontAwesomeIcons.instagram,
                                 size: 20,
                                 color: MainColor,
@@ -163,15 +158,13 @@ class _ContactUsState extends State<ContactUs> {
                             ),
                             IconButton(
                               onPressed: () async {
-                             
-
                                 var url =
                                     'https://www.instagram.com/NextOneBox';
                                 if (await canLaunch(url)) {
                                   await launch(url);
                                 }
                               },
-                              icon: Icon(
+                              icon: const Icon(
                                 FontAwesomeIcons.twitter,
                                 size: 20,
                                 color: MainColor,
@@ -179,15 +172,13 @@ class _ContactUsState extends State<ContactUs> {
                             ),
                             IconButton(
                               onPressed: () async {
-                              
-
                                 var url =
                                     'https://web.telegram.org/k/#@nextonebox';
                                 if (await canLaunch(url)) {
                                   await launch(url);
                                 }
                               },
-                              icon: Icon(
+                              icon: const Icon(
                                 FontAwesomeIcons.telegram,
                                 size: 20,
                                 color: MainColor,
@@ -230,7 +221,6 @@ class _DropdownButtonExampleState extends State<DropdownButtonExample> {
   Widget build(BuildContext context) {
     return DropdownButton<String>(
       value: genderlistdropdownValue,
-   
       elevation: 16,
       style: const TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
       underline: Container(

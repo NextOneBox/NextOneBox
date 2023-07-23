@@ -10,7 +10,7 @@ Future<void> logout() async {
 }
 
 class Account extends StatefulWidget {
-  Account({super.key});
+  const Account({super.key});
 
   @override
   State<Account> createState() => _AccountState();
@@ -24,8 +24,6 @@ class _AccountState extends State<Account> {
   @override
   void initState() {
     super.initState();
-
-   
   }
 
   @override
@@ -41,23 +39,23 @@ class _AccountState extends State<Account> {
               width: 500,
               decoration: UseBorder,
               child: Padding(
-                padding: EdgeInsets.only(top: 35),
+                padding: const EdgeInsets.only(top: 35),
                 child: Column(
                   children: [
                     GFListTile(
-                      shadow: BoxShadow(offset: Offset.infinite),
-                      margin: EdgeInsets.all(20),
-                      avatar: GFAvatar(
+                      shadow: const BoxShadow(offset: Offset.infinite),
+                      margin: const EdgeInsets.all(20),
+                      avatar: const GFAvatar(
                         backgroundColor: Colors.black,
                         child: Icon(
                           FontAwesomeIcons.userAstronaut,
                           color: Colors.red,
                         ),
                       ),
-                      titleText: widgets.name,
-                      subTitleText: widgets.email,
+                      titleText: user.get(0)['Name'],
+                      subTitleText: user.get(0)['Email'],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     Row(
@@ -71,15 +69,16 @@ class _AccountState extends State<Account> {
                             fullWidthButton: true,
                             // Within the `FirstRoute` widget
                             onPressed: () {
+         
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => Wallet()),
+                                    builder: (context) => const Wallet()),
                               );
                             },
                             text: "Wallet",
                             textColor: SecondaryColor,
-                            icon: Icon(
+                            icon: const Icon(
                               LineIcons.wallet,
                               color: SecondaryColor,
                             ),
@@ -96,11 +95,11 @@ class _AccountState extends State<Account> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => AccountSetting()),
+                                    builder: (context) => const AccountSetting()),
                               );
                             },
                             text: "Setting",
-                            icon: Icon(
+                            icon: const Icon(
                               Icons.settings,
                               color: SecondaryColor,
                             ),
@@ -116,11 +115,11 @@ class _AccountState extends State<Account> {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => LeadboadScreen()),
+                  MaterialPageRoute(builder: (context) => const LeadboadScreen()),
                 );
               },
-              child: Padding(
-                padding: const EdgeInsets.all(10),
+              child: const Padding(
+                padding: EdgeInsets.all(10),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
@@ -129,8 +128,8 @@ class _AccountState extends State<Account> {
                       color: MainColor,
                     ),
                     Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Container(
+                      padding: EdgeInsets.all(8.0),
+                      child: SizedBox(
                         width: 200,
                         child: Text(
                           'Winners',
@@ -152,21 +151,21 @@ class _AccountState extends State<Account> {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => ContactUs()),
+                  MaterialPageRoute(builder: (context) => const ContactUs()),
                 );
               },
-              child: Padding(
-                padding: const EdgeInsets.all(10),
+              child: const Padding(
+                padding: EdgeInsets.all(10),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Icon(
-                      Icons.insert_page_break_rounded,
+                      LineIcons.headset,
                       color: MainColor,
                     ),
                     Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Container(
+                      padding: EdgeInsets.all(8.0),
+                      child: SizedBox(
                         width: 200,
                         child: Text(
                           'Support 24/7',
@@ -189,24 +188,24 @@ class _AccountState extends State<Account> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => WebPage(
+                      builder: (context) => const WebPage(
                             data:
                                 'https://www.nextonebox.com/TermAndConditions',
                           )),
                 );
               },
-              child: Padding(
-                padding: const EdgeInsets.all(10),
+              child: const Padding(
+                padding: EdgeInsets.all(10),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Icon(
-                      LineIcons.goodreads,
+                      LineIcons.file,
                       color: MainColor,
                     ),
                     Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Container(
+                      padding: EdgeInsets.all(8.0),
+                      child: SizedBox(
                         width: 200,
                         child: Text(
                           ' Term & Con.',
@@ -227,23 +226,23 @@ class _AccountState extends State<Account> {
             InkWell(
               onTap: () async {
                 var url =
-                    'https://play.google.com/store/apps/details?id=com.nextonebox.earnmoney';
+                    'https://play.google.com/store/apps/details?id=com.nextonebox.cashapp';
                 if (await canLaunch(url)) {
                   await launch(url);
                 }
               },
-              child: Padding(
-                padding: const EdgeInsets.all(10),
+              child: const Padding(
+                padding: EdgeInsets.all(10),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Icon(
-                      LineIcons.star,
+                      FontAwesomeIcons.star,
                       color: MainColor,
                     ),
                     Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Container(
+                      padding: EdgeInsets.all(8.0),
+                      child: SizedBox(
                         width: 200,
                         child: Text(
                           'Rate Us',
@@ -261,73 +260,72 @@ class _AccountState extends State<Account> {
                 ),
               ),
             ),
-            InkWell(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => NotificationScreen()),
-                );
-              },
-              child: Padding(
-                padding: const EdgeInsets.all(10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Icon(
-                      Icons.notification_important_rounded,
-                      color: MainColor,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Container(
-                        width: 200,
-                        child: Text(
-                          'Notification',
-                          style: TextStyle(
-                              color: Color.fromARGB(255, 16, 16, 16),
-                              fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                    ),
-                    Icon(
-                      Icons.navigate_next_rounded,
-                      color: Colors.black,
-                    ),
-                  ],
-                ),
-              ),
-            ),
+            // InkWell(
+            //   onTap: () {
+            //     Navigator.push(
+            //       context,
+            //       MaterialPageRoute(builder: (context) => NotificationScreen()),
+            //     );
+            //   },
+            //   child: Padding(
+            //     padding: const EdgeInsets.all(10),
+            //     child: Row(
+            //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            //       children: [
+            //         Icon(
+            //           Icons.notification_important_rounded,
+            //           color: MainColor,
+            //         ),
+            //         Padding(
+            //           padding: const EdgeInsets.all(8.0),
+            //           child: Container(
+            //             width: 200,
+            //             child: Text(
+            //               'Notification',
+            //               style: TextStyle(
+            //                   color: Color.fromARGB(255, 16, 16, 16),
+            //                   fontWeight: FontWeight.bold),
+            //             ),
+            //           ),
+            //         ),
+            //         Icon(
+            //           Icons.navigate_next_rounded,
+            //           color: Colors.black,
+            //         ),
+            //       ],
+            //     ),
+            //   ),
+            // ),
             InkWell(
               onTap: () {
                 showDialog(
                   context: context,
                   builder: (BuildContext context) {
                     return AlertDialog(
-                      content: Text(
+                      content: const Text(
                           'Are you sure do you want to logout. You can login again.'),
                       actions: <Widget>[
                         TextButton(
-                          child: Text('Cancel'),
+                          child: const Text('Cancel'),
                           onPressed: () {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => BottomNavigation()),
+                                  builder: (context) =>  BottomNavigation()),
                             );
                           },
                         ),
                         TextButton(
-                          child: Text('Logout'),
+                          child: const Text('Logout'),
                           onPressed: () {
                             logout();
                             widgets.user.clear();
-                            widgets.pkacc?.clear();
-                            lead?.clear();
                             widgets.widrawstaus?.clear();
-                            leadsteps?.clear();
-                            refer?.clear();
-
-                            SystemNavigator.pop();
+                       Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (context) => LoginScr()),
+            (Route<dynamic> route) => false,
+          );
                           },
                         ),
                       ],
@@ -335,8 +333,8 @@ class _AccountState extends State<Account> {
                   },
                 );
               },
-              child: Padding(
-                padding: const EdgeInsets.all(10),
+              child: const Padding(
+                padding: EdgeInsets.all(10),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
@@ -345,8 +343,8 @@ class _AccountState extends State<Account> {
                       color: MainColor,
                     ),
                     Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Container(
+                      padding: EdgeInsets.all(8.0),
+                      child: SizedBox(
                         width: 200,
                         child: Text(
                           'Logout',
@@ -365,7 +363,7 @@ class _AccountState extends State<Account> {
               ),
             ),
             Container(
-              margin: EdgeInsets.all(10),
+              margin: const EdgeInsets.all(10),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -373,92 +371,87 @@ class _AccountState extends State<Account> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       Container(
-                        width: 70,
+                        width: 50,
                         height: 50,
-                        margin: EdgeInsets.all(5),
-                        decoration: UseBorder,
+                        margin: const EdgeInsets.all(5),
                         child: GFListTile(
-                          shadow: BoxShadow(offset: Offset.infinite),
+                          shadow: const BoxShadow(offset: Offset.infinite),
                           onTap: () async {
                             var url = 'https://www.facebook.com/nextonebox';
                             if (await canLaunch(url)) {
                               await launch(url);
                             }
                           },
-                          listItemTextColor: Color.fromARGB(255, 119, 121, 123),
-                          avatar: Icon(
+                          listItemTextColor: const Color.fromARGB(255, 119, 121, 123),
+                          avatar: const Icon(
                             FontAwesomeIcons.facebook,
                             size: 20,
-                            color: MainColor,
+                            color: Colors.blue,
                           ),
                         ),
                       ),
                       Container(
-                        width: 70,
+                        width: 50,
                         height: 50,
-                        margin: EdgeInsets.all(5),
-                        decoration: UseBorder,
+                        margin: const EdgeInsets.all(5),
                         child: GFListTile(
-                          shadow: BoxShadow(offset: Offset.infinite),
+                          shadow: const BoxShadow(offset: Offset.infinite),
                           onTap: () async {
                             var url = 'https://www.youtube.com/@nextonebox';
                             if (await canLaunch(url)) {
                               await launch(url);
                             }
                           },
-                          listItemTextColor: Color.fromARGB(255, 119, 121, 123),
-                          avatar: Icon(
+                          listItemTextColor: const Color.fromARGB(255, 119, 121, 123),
+                          avatar: const Icon(
                             FontAwesomeIcons.youtube,
                             size: 20,
-                            color: MainColor,
+                            color: Colors.red,
                           ),
                         ),
                       ),
                       Container(
-                        width: 70,
+                        width: 50,
                         height: 50,
-                        margin: EdgeInsets.all(5),
-                        decoration: UseBorder,
+                        margin: const EdgeInsets.all(5),
                         child: GFListTile(
-                          shadow: BoxShadow(offset: Offset.infinite),
+                          shadow: const BoxShadow(offset: Offset.infinite),
                           onTap: () async {
                             var url = 'https://www.instagram.com/nextonebox/';
                             if (await canLaunch(url)) {
                               await launch(url);
                             }
                           },
-                          listItemTextColor: Color.fromARGB(255, 119, 121, 123),
-                          avatar: Icon(
+                          listItemTextColor: const Color.fromARGB(255, 119, 121, 123),
+                          avatar: const Icon(
                             FontAwesomeIcons.instagram,
                             size: 20,
-                            color: MainColor,
+                            color: Colors.red,
                           ),
                         ),
                       ),
                       Container(
-                        width: 70,
+                        width: 50,
                         height: 50,
-                        margin: EdgeInsets.all(5),
-                        decoration: UseBorder,
+                        margin: const EdgeInsets.all(5),
                         child: GFListTile(
-                          shadow: BoxShadow(offset: Offset.infinite),
+                          shadow: const BoxShadow(offset: Offset.infinite),
                           onTap: () async {
                             var url = 'https://twitter.com/NextOneBox';
                             if (await canLaunch(url)) {
                               await launch(url);
                             }
                           },
-                          listItemTextColor: Color.fromARGB(255, 119, 121, 123),
-                          avatar: Icon(
+                          listItemTextColor: const Color.fromARGB(255, 119, 121, 123),
+                          avatar: const Icon(
                             FontAwesomeIcons.twitter,
                             size: 20,
-                            color: MainColor,
+                            color: Colors.blue,
                           ),
                         ),
                       ),
                     ],
                   ),
-                 
                 ],
               ),
             )

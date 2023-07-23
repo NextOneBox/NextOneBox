@@ -2,25 +2,28 @@ import 'package:cashapp/ComonScreens/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-
 class TasksDetails extends StatefulWidget {
-  TasksDetails({super.key, required this.task_name});
+  const TasksDetails({super.key, required this.task_name});
   final task_name;
   @override
   State<TasksDetails> createState() => _TasksDetailsState();
 }
 
-Box? user = Hive.box('user');
-Box? task = Hive.box('tasks');
+// Box? user = Hive.box('user');
+// Box? task = Hive.box('tasks');
 String code = user?.get(0)['Refercode'];
 
 class _TasksDetailsState extends State<TasksDetails> {
   var shortLink = 'No Data Yet';
 
+
+
+
   bool isLoaded = false;
   @override
   void initState() {
     super.initState();
+    
   }
 
   @override
@@ -54,9 +57,8 @@ class _TasksDetailsState extends State<TasksDetails> {
                 print("URL can't be launched.");
               }
 
-              ;
             },
-            text: '  Redeem Now   ',
+            text: '  Redeem now   ',
             color: Colors.black,
             shape: GFButtonShape.pills,
           ),
@@ -76,7 +78,7 @@ class _TasksDetailsState extends State<TasksDetails> {
                   '✅ Use this link to Open account \n \n'
                   '➡️https://www.nextonebox.com/earnmoney/t?id=${widget.task_name['name']}+$code');
             },
-            text: "  Refer&Earn    ",
+            text: "  Share&Earn    ",
             color: Colors.black,
             shape: GFButtonShape.pills,
           ),
@@ -84,12 +86,12 @@ class _TasksDetailsState extends State<TasksDetails> {
       ),
       appBar: AppBar(
           leading: IconButton(
-            icon: Icon(Icons.arrow_back, color: Colors.black),
+            icon: const Icon(Icons.arrow_back, color: Colors.black),
             onPressed: () => Navigator.of(context).pop(),
           ),
           backgroundColor: SecondaryColor,
           elevation: 0,
-          title: Text(
+          title: const Text(
             'Task details',
             style: TextStyle(
                 color: Colors.black, fontWeight: FontWeight.bold, fontSize: 25),
@@ -97,19 +99,19 @@ class _TasksDetailsState extends State<TasksDetails> {
       body: SingleChildScrollView(
         child: Center(
           child: Padding(
-            padding: EdgeInsets.all(20.0),
+            padding: const EdgeInsets.all(20.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Container(
-                  margin: EdgeInsets.all(10),
+                  margin: const EdgeInsets.all(10),
                   width: 500,
                   child: Padding(
-                    padding: EdgeInsets.all(15),
+                    padding: const EdgeInsets.all(15),
                     child: Column(
                       children: [
                         Padding(
-                          padding: EdgeInsets.all(8.0),
+                          padding: const EdgeInsets.all(8.0),
                           child: Row(
                             children: [
                               Image(
@@ -118,18 +120,18 @@ class _TasksDetailsState extends State<TasksDetails> {
                                 width: 50,
                                 height: 50,
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 30,
                               ),
                               Text(
                                 '${widget.task_name['name']}',
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontSize: 25, fontWeight: FontWeight.bold),
                               ),
                             ],
                           ),
                         ),
-                        Divider(
+                        const Divider(
                           height: 3,
                         ),
                       ],
@@ -137,14 +139,14 @@ class _TasksDetailsState extends State<TasksDetails> {
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.all(10),
+                  margin: const EdgeInsets.all(10),
                   width: 500,
                   child: Padding(
-                    padding: EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(8.0),
                     child: Column(
                       children: [
                         GFListTile(
-                          shadow: BoxShadow(offset: Offset.infinite),
+                          shadow: const BoxShadow(offset: Offset.infinite),
                           avatar: GFAvatar(
                             backgroundColor: MainColor,
                             child: Icon(
@@ -155,11 +157,11 @@ class _TasksDetailsState extends State<TasksDetails> {
                           titleText: '₹${widget.task_name['price']} ',
                           subTitleText: '${widget.task_name['description']}',
                         ),
-                        Divider(
+                        const Divider(
                           height: 5,
                           color: Colors.black,
                         ),
-                        Padding(
+                        const Padding(
                           padding: EdgeInsets.all(8.0),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -173,7 +175,7 @@ class _TasksDetailsState extends State<TasksDetails> {
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 250,
                   height: 80,
                   child: Padding(
@@ -189,24 +191,24 @@ class _TasksDetailsState extends State<TasksDetails> {
                     ),
                   ),
                 ),
-                Container(
+                SizedBox(
                   width: 500,
                   child: Container(
-                    margin: EdgeInsets.only(top: 10, bottom: 10),
+                    margin: const EdgeInsets.only(top: 10, bottom: 10),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         GFListTile(
-                          shadow: BoxShadow(offset: Offset.infinite),
+                          shadow: const BoxShadow(offset: Offset.infinite),
                           titleText: '\n \n How to Earn \n',
                           subTitleText:
-                              '${widget.task_name['howtoearn'].toString().replaceAll(',', '\n \n')}',
+                              widget.task_name['howtoearn'].toString().replaceAll(',', '\n \n'),
                         ),
                         GFListTile(
-                          shadow: BoxShadow(offset: Offset.infinite),
+                          shadow: const BoxShadow(offset: Offset.infinite),
                           titleText: '\n Benefits \n',
                           subTitleText:
-                              '${widget.task_name['benifits'].toString().replaceAll(',', '\n \n')}',
+                              widget.task_name['benifits'].toString().replaceAll(',', '\n \n'),
                         ),
                       ],
                     ),

@@ -1,6 +1,7 @@
 import 'package:chatai/OtherFiles/contactus.dart';
 import 'package:chatai/OtherFiles/history.dart';
-import 'package:chatai/OtherFiles/premium.dart';
+
+import 'package:chatai/OtherFiles/purchase.dart';
 import 'package:chatai/OtherFiles/referandearn.dart';
 import 'package:chatai/OtherFiles/webpage.dart';
 
@@ -95,7 +96,7 @@ class _AccountState extends State<Account> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => Premium()),
+                                    builder: (context) => Purchase()),
                               );
                             },
                             text: "Ai Pro",
@@ -133,8 +134,9 @@ class _AccountState extends State<Account> {
               ),
             ),
             Card(
-              child: Container(
-                margin: EdgeInsets.all(20),
+              color: const Color.fromARGB(255, 255, 255, 255),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -146,6 +148,7 @@ class _AccountState extends State<Account> {
                         );
                       }),
                       child: Card(
+                        color: Colors.white,
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Row(
@@ -178,6 +181,7 @@ class _AccountState extends State<Account> {
                         );
                       }),
                       child: Card(
+                        color: Colors.white,
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Row(
@@ -209,6 +213,7 @@ class _AccountState extends State<Account> {
                         );
                       }),
                       child: Card(
+                        color: Colors.white,
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Row(
@@ -244,6 +249,7 @@ class _AccountState extends State<Account> {
                         );
                       }),
                       child: Card(
+                        color: Colors.white,
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Row(
@@ -276,6 +282,7 @@ class _AccountState extends State<Account> {
                         }
                       }),
                       child: Card(
+                        color: Colors.white,
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Row(
@@ -329,6 +336,7 @@ class _AccountState extends State<Account> {
                         );
                       }),
                       child: Card(
+                        color: Colors.white,
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Row(
