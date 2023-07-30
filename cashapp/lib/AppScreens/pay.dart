@@ -8,10 +8,16 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 
 class Pay extends StatefulWidget {
-  const Pay({super.key, required this.link, required this.price});
+  const Pay({
+    super.key,
+    required this.link,
+    required this.price,
+    required this.type,
+  });
 
   final link;
   final price;
+  final type;
   @override
   State<Pay> createState() => _PayState();
 }
@@ -22,7 +28,7 @@ class _PayState extends State<Pay> {
       receiverUpiId: 'nextonebox@sbi',
       receiverName: 'NextOneBox CEO',
       transactionRefId: '',
-      transactionNote: 'CashApp',
+      transactionNote: '$email',
       amount: widget.price,
     );
     final response = await zupi.startTransaction();
@@ -34,11 +40,10 @@ class _PayState extends State<Pay> {
       String key = keyValuePair[0];
       String value = keyValuePair[1];
 
-// Check if the key is "Status"
       if (key == "Status") {
         if (value == 'SUCCESS') {
           facebookAppEvents.logPurchase(amount: widget.price, currency: "INR");
-          if (widget.price == 139.0) {
+          if (widget.price == 69.0) {
             http.Response response = await http.put(
                 Uri.parse('https://fogcash.nextonebox.com/UpdateAccount'),
                 body: {
@@ -78,12 +83,12 @@ class _PayState extends State<Pay> {
 
             setState(() {});
           }
-          if (widget.price == 19.0) {
+          if (widget.price == 39.0) {
             http.Response response = await http.put(
                 Uri.parse('https://fogcash.nextonebox.com/UpdateAccount'),
                 body: {
                   'Email': email.toString(),
-                  'SlotMachine': 'true',
+                  'MystryScrach': 'true',
                 });
             if (response.reasonPhrase == 'OK') {
               SendAllData();
@@ -91,7 +96,22 @@ class _PayState extends State<Pay> {
 
             setState(() {});
           }
+          if (widget.price == 149.0) {
+            http.Response response = await http.put(
+                Uri.parse('https://fogcash.nextonebox.com/UpdateAccount'),
+                body: {
+                  'Email': email.toString(),
+                  'MystryScrach': 'true',
+                  'LuckeySpin': 10,
+                  'JackPot': 'true',
+                  'Pro': 'true',
+                });
+            if (response.reasonPhrase == 'OK') {
+              SendAllData();
+            }
 
+            setState(() {});
+          }
           setState(() {
             QuickAlert.show(
               context: context,
@@ -115,6 +135,23 @@ class _PayState extends State<Pay> {
         break;
       }
     }
+  }
+
+  payint() async {
+    var data =
+        "Email: $email ,Name: $name, Price: ₹${widget.price} ,Phone:$phonenumber ,Date: ${DateTime.now().toString()}";
+
+    http.Response response = await http
+        .post(Uri.parse('https://fogcash.nextonebox.com/ContactUs'), body: {
+      'message': data.toString(),
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    paymentkro();
+    payint();
   }
 
   @override
@@ -142,14 +179,6 @@ class _PayState extends State<Pay> {
           InkWell(
             onTap: () async {
               paymentkro();
-
-              var data = "Email: $email ,Name: $name, Price: ₹${widget.price} ,Phone:$phonenumber ,Date: ${DateTime.now().toString()}";
-
-              http.Response response = await http.post(
-                  Uri.parse('https://fogcash.nextonebox.com/ContactUs'),
-                  body: {
-                    'message': data.toString(),
-                  });
 
               facebookAppEvents.logAddToCart(
                 id: Random().nextInt(100).toString(),

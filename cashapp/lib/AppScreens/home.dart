@@ -1,18 +1,18 @@
-// ignore_for_file: prefer_const_constructors
 import 'dart:async';
 import 'package:cashapp/AppScreens/course.dart';
+import 'package:cashapp/AppScreens/proScreens/education.dart';
 import 'package:cashapp/AppScreens/proScreens/mistryearn.dart';
 import 'package:cashapp/AppScreens/proScreens/scrachcard.dart';
 import 'package:cashapp/AppScreens/tasksdetaile.dart';
+import 'package:cashapp/ComonScreens/local_notification_service.dart';
 import 'package:cashapp/ComonScreens/sharnow.dart';
 
 import 'package:confetti/confetti.dart';
 import 'package:http/http.dart' as http;
 import 'package:cashapp/ComonScreens/widgets.dart';
-import '../ComonScreens/local_notification_service.dart';
+
 import 'package:flutter/material.dart';
 
-import 'dailyreward.dart';
 import 'proScreens/luckeyspin.dart';
 
 class Home extends StatefulWidget {
@@ -49,7 +49,8 @@ class Screehome extends State<Home> {
         adsbox!.put(12, {'WatchLastClickOn': DateTime.now()});
 
         setState(() {
-          showWining(context, '');
+          showMessage.show(
+              context, 'You won your coins, it take time to update balance');
         });
       },
     );
@@ -65,7 +66,7 @@ class Screehome extends State<Home> {
   Ceckinternet() async {
     var connectivityResult = await Connectivity().checkConnectivity();
     if (connectivityResult == ConnectivityResult.none) {
-      showMessage(context, 'Please check your internet connection');
+      showMessage.show(context, 'Please check your internet connection');
     }
   }
 
@@ -76,9 +77,7 @@ class Screehome extends State<Home> {
     UnityAds.init(
       gameId: '5278155',
     );
-    UnityAds.load(
-      placementId: 'Interstitial_Android',
-    );
+
     UnityAds.load(
       placementId: 'Rewarded_Android',
     );
@@ -133,14 +132,14 @@ class Screehome extends State<Home> {
     'https://ekaro.in/enkr20230301s21885315',
     'https://ekaro.in/enkr20230301s21885399'
   ];
-    List dailylist = [
-'1','2','3','4','5','6','7','8','9','0'
-  ];
+  List dailylist = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'];
   dynamic listTrandign =
       task?.values.where((tet) => tet['favorite'] == 'yes').toList();
 
   @override
   Widget build(BuildContext context) {
+    print('this is the miageadfasdfasdf asdf asdf asdf asd');
+
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 251, 253, 253),
       body: FutureBuilder(
@@ -153,15 +152,13 @@ class Screehome extends State<Home> {
                     height: 20,
                   ),
                   GFListTile(
-                      shadow: const BoxShadow(offset: Offset.infinite),
+                      shadow: BoxShadow(offset: Offset.infinite),
                       color: Colors.white60,
                       onTap: () {
-                        SendAllData();
                         setState(() {});
                         Navigator.push(
                           context,
-                          MaterialPageRoute(
-                              builder: (context) => const Wallet()),
+                          MaterialPageRoute(builder: (context) => Wallet()),
                         );
                         UnityAds.load(
                           placementId: 'Interstitial_Android',
@@ -171,51 +168,38 @@ class Screehome extends State<Home> {
                       },
                       icon: TextButton.icon(
                           onPressed: () {
-                            unityloadad();
+                            setState(() {});
                             Navigator.push(
                               context,
-                              MaterialPageRoute(
-                                  builder: (context) => const Wallet()),
+                              MaterialPageRoute(builder: (context) => Wallet()),
                             );
+                            UnityAds.load(
+                              placementId: 'Interstitial_Android',
+                            );
+                            UnityAds.showVideoAd(
+                                placementId: 'Interstitial_Android');
                           },
                           icon: Icon(Icons.currency_rupee),
                           label: Text(
                             '${localballance!.get(0) / 10}',
                             style: TextStyle(fontSize: 30),
                           )),
-                      padding: const EdgeInsets.fromLTRB(15, 5, 1, 1),
-                      avatar: const GFAvatar(
+                      padding: EdgeInsets.fromLTRB(15, 5, 1, 1),
+                      avatar: GFAvatar(
+                        shape: GFAvatarShape.circle,
                         backgroundColor: Colors.black,
-                        child: Icon(
-                          FontAwesomeIcons.userAstronaut,
-                          color: Colors.red,
+                        child: CircleAvatar(
+                          backgroundColor: Colors.white,
+                          radius: 47,
+                          child: CircleAvatar(
+                            backgroundImage:
+                                NetworkImage(adsbox!.get(1000)['image']),
+                            radius: 45,
+                          ),
                         ),
                       ),
                       titleText: user.get(0)['Name']),
-                 
-                  Container(
-                     
-                      height: 60,
-                      child: ListView.builder(
-                          itemCount: dailylist.length,
-                          scrollDirection: Axis.horizontal,
-                          itemBuilder: (context, index) {
-                    
-                            return InkWell(
-                              onTap: () async {
-                                {
-          showMessage(context, 'Use app for 20 days to unlock\nStart claiming daily reward from Day 21');
-        }
-                              },
-                              child: Container(
-                    width: 60,
-                    height: 60,
-                    child: Card(
-                      child: Center(child: Text('Day 2${dailylist[index]}\n₹1${dailylist[index]}' )),
-                    ),
-                  ),
-                            );
-                          })),
+
                   Container(
                     height: 150,
                     color: SecondaryColor,
@@ -446,6 +430,84 @@ class Screehome extends State<Home> {
                           )),
                     ],
                   ),
+                  GestureDetector(
+                    onTap: () {
+                      UnityAds.load(
+                        placementId: 'Interstitial_Android',
+                      );
+                      UnityAds.showVideoAd(placementId: 'Interstitial_Android');
+
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => SuperSpin()),
+                      );
+                    },
+                    child: Card(
+                      elevation: 5,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10)),
+                      child: Container(
+                        width: MediaQuery.of(context).size.width,
+                        height: 200,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          image: DecorationImage(
+                            image: NetworkImage(adsbox!.get(1001)['image']),
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Column(
+                              children: [
+                                MaterialButton(
+                                  onPressed: () {
+                                    buyVip(context, '');
+                                  },
+                                  color: Colors.amber,
+                                  elevation: 10,
+                                  height: 40,
+                                  minWidth: 100,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(50)),
+                                  child: const Text('💎 Vip',
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 15,
+                                      )),
+                                ),
+                                SizedBox(
+                                  height: 20,
+                                ),
+                                MaterialButton(
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              VideoPlayerPage()),
+                                    );
+                                  },
+                                  color: Colors.amber,
+                                  elevation: 10,
+                                  height: 40,
+                                  minWidth: 100,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(50)),
+                                  child: const Text('How to Earn',
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 15,
+                                      )),
+                                )
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
 
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -480,7 +542,7 @@ class Screehome extends State<Home> {
                                 SizedBox(
                                   height: 14,
                                 ),
-                                Text(' Jack Pot',
+                                Text(' Super Spin',
                                     style: TextStyle(
                                         fontSize: 25,
                                         fontWeight: FontWeight.w500)),
@@ -493,7 +555,7 @@ class Screehome extends State<Home> {
                                     child: Image(
                                         image: AssetImage(
                                             'assets/superspin.png'))),
-                                Text('Earn Upto ₹1000 daily',
+                                Text('Earn Upto ₹10000',
                                     style:
                                         TextStyle(fontWeight: FontWeight.bold))
                               ],
@@ -531,7 +593,7 @@ class Screehome extends State<Home> {
                                 SizedBox(
                                   height: 14,
                                 ),
-                                Text('Luckey Spin',
+                                Text('✅ Luckey Spin',
                                     style: TextStyle(
                                         fontSize: 25,
                                         fontWeight: FontWeight.w500)),
@@ -541,7 +603,7 @@ class Screehome extends State<Home> {
                                     height: 100,
                                     child: Image(
                                         image: AssetImage('assets/spw.png'))),
-                                Text('Earn Upto ₹5000 daily',
+                                Text('Earn Upto ₹30000 ',
                                     style:
                                         TextStyle(fontWeight: FontWeight.bold))
                               ],
@@ -566,9 +628,7 @@ class Screehome extends State<Home> {
                                   builder: (context) => MysteryScrach()),
                             );
                           } else {
-                            UnityAds.load(
-                              placementId: 'Interstitial_Android',
-                            );
+                            SendAllData();
                             UnityAds.showVideoAd(
                                 placementId: 'Interstitial_Android');
 
@@ -593,7 +653,7 @@ class Screehome extends State<Home> {
                                 SizedBox(
                                   height: 14,
                                 ),
-                                Text(' Mystery Scrach',
+                                Text(' Mystery Scratch',
                                     style: TextStyle(
                                         fontSize: 20,
                                         fontWeight: FontWeight.w500)),
@@ -640,7 +700,7 @@ class Screehome extends State<Home> {
                                 SizedBox(
                                   height: 14,
                                 ),
-                                Text('Scrach Card',
+                                Text('Scratch Card',
                                     style: TextStyle(
                                         fontSize: 25,
                                         fontWeight: FontWeight.w500)),
@@ -662,7 +722,109 @@ class Screehome extends State<Home> {
                       ),
                     ],
                   ),
-
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      IconButton(
+                        onPressed: () async {
+                          var url = 'https://www.facebook.com/nextonebox';
+                          if (await canLaunch(url)) {
+                            await launch(url);
+                          }
+                        },
+                        icon: const Icon(
+                          FontAwesomeIcons.facebook,
+                          size: 20,
+                          color: MainColor,
+                        ),
+                      ),
+                      IconButton(
+                        onPressed: () async {
+                          var url = 'https://www.youtube.com/@nextonebox';
+                          if (await canLaunch(url)) {
+                            await launch(url);
+                          }
+                        },
+                        icon: const Icon(
+                          FontAwesomeIcons.youtube,
+                          size: 20,
+                          color: Colors.red,
+                        ),
+                      ),
+                      IconButton(
+                        onPressed: () async {
+                          var url = 'https://www.instagram.com/NextOneBox';
+                          if (await canLaunch(url)) {
+                            await launch(url);
+                          }
+                        },
+                        icon: const Icon(
+                          FontAwesomeIcons.twitter,
+                          size: 20,
+                          color: Colors.blue,
+                        ),
+                      ),
+                      IconButton(
+                        onPressed: () async {
+                          var url = 'https://www.instagram.com/nextonebox';
+                          if (await canLaunch(url)) {
+                            await launch(url);
+                          }
+                        },
+                        icon: const Icon(
+                          FontAwesomeIcons.instagram,
+                          size: 20,
+                          color: Colors.red,
+                        ),
+                      ),
+                      IconButton(
+                        onPressed: () async {
+                          var url = 'https://web.telegram.org/k/#@nextonebox';
+                          if (await canLaunch(url)) {
+                            await launch(url);
+                          }
+                        },
+                        icon: const Icon(
+                          FontAwesomeIcons.telegram,
+                          size: 20,
+                          color: Colors.blue,
+                        ),
+                      ),
+                    ],
+                  ),
+                  Container(
+                      height: 60,
+                      child: ListView.builder(
+                          itemCount: dailylist.length,
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: (context, index) {
+                            return InkWell(
+                              onTap: () async {
+                                {
+                                  showMessage.show(context,
+                                      'Use app for 20 days to unlock\nStart claiming daily reward from Day 21');
+                                }
+                              },
+                              child: Container(
+                                width: 60,
+                                height: 60,
+                                child: Card(
+                                  child: Center(
+                                      child: Text(
+                                    'Day 2${dailylist[index]}\n  ₹1${dailylist[index]}',
+                                    style: TextStyle(
+                                        fontSize: 10,
+                                        color:
+                                            Color.fromARGB(255, 110, 114, 116),
+                                        fontWeight: FontWeight.bold),
+                                  )),
+                                ),
+                              ),
+                            );
+                          })),
                   const SizedBox(
                     height: 20,
                   ),

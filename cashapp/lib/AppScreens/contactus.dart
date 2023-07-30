@@ -38,15 +38,7 @@ class _ContactUsState extends State<ContactUs> {
                       children: [
                         Column(
                           children: [
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            const Row(
-                              children: [
-                                Text('     Subject :-         '),
-                                DropdownButtonExample(),
-                              ],
-                            ),
+                      
                             const SizedBox(
                               height: 20,
                             ),
@@ -87,18 +79,16 @@ class _ContactUsState extends State<ContactUs> {
                               fontSize: 25,
                             ),
                             onPressed: () async {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>  BottomNavigation()),
-                              );
-                              setState(() {});
+                      if(problem.text.length > 0 ){
+
+
+                    setState(() {});
                                   var data = "Email: $email ,Name: $name ,Problem: ${problem.text}, Phone:$phonenumber ,Date: ${DateTime.now().toString()}";
                              
 
                               {
-                                showMessage(context,
-                                    'Reply in 24 hours');
+                                showMessage.show(context,
+                                    ' Successfully sent \n Reply in 24 hours through Email');
                               }
 
                               http.Response response = await http.post(
@@ -106,7 +96,16 @@ class _ContactUsState extends State<ContactUs> {
                                       'https://fogcash.nextonebox.com/ContactUs'),
                                   body: {
                                     'message': data.toString(),
-                                  });
+                                  });   }
+                             else{
+
+   {
+                                showMessage.show(context,
+                                    'Define your problem');
+                              }
+
+
+                             }
                             },
                             text: "Send",
                           ),
@@ -139,23 +138,10 @@ class _ContactUsState extends State<ContactUs> {
                               icon: const Icon(
                                 FontAwesomeIcons.youtube,
                                 size: 20,
-                                color: MainColor,
+                                color: Colors.red,
                               ),
                             ),
-                            IconButton(
-                              onPressed: () async {
-                                var url =
-                                    'https://www.instagram.com/nextonebox';
-                                if (await canLaunch(url)) {
-                                  await launch(url);
-                                }
-                              },
-                              icon: const Icon(
-                                FontAwesomeIcons.instagram,
-                                size: 20,
-                                color: MainColor,
-                              ),
-                            ),
+                          
                             IconButton(
                               onPressed: () async {
                                 var url =
@@ -167,7 +153,21 @@ class _ContactUsState extends State<ContactUs> {
                               icon: const Icon(
                                 FontAwesomeIcons.twitter,
                                 size: 20,
-                                color: MainColor,
+                                color: Colors.blue,
+                              ),
+                            ),
+                              IconButton(
+                              onPressed: () async {
+                                var url =
+                                    'https://www.instagram.com/nextonebox';
+                                if (await canLaunch(url)) {
+                                  await launch(url);
+                                }
+                              },
+                              icon: const Icon(
+                                FontAwesomeIcons.instagram,
+                                size: 20,
+                                color: Colors.red,
                               ),
                             ),
                             IconButton(
@@ -181,7 +181,7 @@ class _ContactUsState extends State<ContactUs> {
                               icon: const Icon(
                                 FontAwesomeIcons.telegram,
                                 size: 20,
-                                color: MainColor,
+                                color: Colors.blue,
                               ),
                             ),
                           ],
@@ -195,50 +195,6 @@ class _ContactUsState extends State<ContactUs> {
           ],
         ),
       ),
-    );
-  }
-}
-
-const List<String> genderlist = <String>[
-  "Withdraw",
-  'Ads',
-  'Payment',
-  'Task',
-  'Other',
-];
-
-class DropdownButtonExample extends StatefulWidget {
-  const DropdownButtonExample({super.key});
-
-  @override
-  State<DropdownButtonExample> createState() => _DropdownButtonExampleState();
-}
-
-String genderlistdropdownValue = genderlist.first;
-
-class _DropdownButtonExampleState extends State<DropdownButtonExample> {
-  @override
-  Widget build(BuildContext context) {
-    return DropdownButton<String>(
-      value: genderlistdropdownValue,
-      elevation: 16,
-      style: const TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
-      underline: Container(
-        height: 2,
-        color: MainColor,
-      ),
-      onChanged: (String? value) {
-        // This is called when the user selects an item.
-        setState(() {
-          genderlistdropdownValue = value!;
-        });
-      },
-      items: genderlist.map<DropdownMenuItem<String>>((String value) {
-        return DropdownMenuItem<String>(
-          value: value,
-          child: Text(value),
-        );
-      }).toList(),
     );
   }
 }

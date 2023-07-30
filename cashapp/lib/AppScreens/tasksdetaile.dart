@@ -32,6 +32,7 @@ class _TasksDetailsState extends State<TasksDetails> {
       floatingActionButton: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
+          SizedBox(width: 10,),
           GFButton(
             onPressed: () async {
               http.Response response = await http.post(
@@ -57,9 +58,10 @@ class _TasksDetailsState extends State<TasksDetails> {
                 print("URL can't be launched.");
               }
 
-            },
-            text: '  Redeem now   ',
+            }, 
+            text: '        Redeem now          ',
             color: Colors.black,
+            size: 50,
             shape: GFButtonShape.pills,
           ),
           GFButton(
@@ -78,8 +80,9 @@ class _TasksDetailsState extends State<TasksDetails> {
                   '✅ Use this link to Open account \n \n'
                   '➡️https://www.nextonebox.com/earnmoney/t?id=${widget.task_name['name']}+$code');
             },
-            text: "  Share&Earn    ",
-            color: Colors.black,
+            text: "         Share&Earn          ",
+                color: Colors.black,
+            size: 50,
             shape: GFButtonShape.pills,
           ),
         ],

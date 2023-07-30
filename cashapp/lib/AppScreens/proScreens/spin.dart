@@ -16,7 +16,7 @@ class _SpinWheelState extends State<SpinWheel> {
   Ceckinternet() async {
     var connectivityResult = await Connectivity().checkConnectivity();
     if (connectivityResult == ConnectivityResult.none) {
-      showMessage(context, 'Please check your internet connection');
+      showMessage.show(context, 'Please check your internet connection');
     }
   }
 
@@ -61,7 +61,8 @@ class _SpinWheelState extends State<SpinWheel> {
         adsbox!.put(14, {'SpinLastClickOn': DateTime.now()});
 
         setState(() {
-          showWining(context, '');
+          showMessage.show(
+              context, 'You won your reward, it take time to update balance');
         });
       },
     );
@@ -103,27 +104,6 @@ class _SpinWheelState extends State<SpinWheel> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const SizedBox(height: 50),
-              Container(
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(30),
-                    border: const Border(
-                      bottom: BorderSide(color: MainColor),
-                      top: BorderSide(color: MainColor),
-                      left: BorderSide(color: MainColor),
-                      right: BorderSide(color: MainColor),
-                    )),
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 5, right: 5),
-                  child: Text('${localballance!.get(0)} 🪙',
-                      style: const TextStyle(
-                        fontSize: 25,
-                        fontWeight: FontWeight.w700,
-                      )),
-                ),
-              ),
-              const SizedBox(
-                height: 30,
-              ),
               AbsorbPointer(
                 absorbing: true,
                 child: SizedBox(
@@ -299,8 +279,7 @@ class _SpinWheelState extends State<SpinWheel> {
                                             shape: RoundedRectangleBorder(
                                                 borderRadius:
                                                     BorderRadius.circular(50)),
-                                            child: const Text(
-                                                'Watch Ad to CLAIM',
+                                            child: const Text('Get Coins',
                                                 style: TextStyle(
                                                     color: Colors.white)))),
                                     const SizedBox(
@@ -336,7 +315,7 @@ class _SpinWheelState extends State<SpinWheel> {
                     );
 
                     if (user.get(0)['Pro'] == 'true') {
-                         playSound('win');
+                      playSound('win');
                       setState(() {
                         selected.add(Fortune.randomInt(0, items.length));
                       });

@@ -1,9 +1,7 @@
 import 'package:cashapp/ComonScreens/WebView.dart';
 import 'package:cashapp/ComonScreens/widgets.dart';
 import 'package:cashapp/ComonScreens/widgets.dart' as widgets;
-
 import 'package:flutter/material.dart';
-
 Future<void> logout() async {
   await GoogleSignIn().disconnect();
   FirebaseAuth.instance.signOut();
@@ -29,7 +27,7 @@ class _AccountState extends State<Account> {
   @override
   Widget build(BuildContext context) {
     // late WebViewController noting;
-
+    // String profileimage = adsbox!.get(1000)['image'];
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -45,13 +43,17 @@ class _AccountState extends State<Account> {
                     GFListTile(
                       shadow: const BoxShadow(offset: Offset.infinite),
                       margin: const EdgeInsets.all(20),
-                      avatar: const GFAvatar(
-                        backgroundColor: Colors.black,
-                        child: Icon(
-                          FontAwesomeIcons.userAstronaut,
-                          color: Colors.red,
-                        ),
-                      ),
+                      avatar: GFAvatar(
+                          backgroundColor: Colors.black,
+                          child: CircleAvatar(
+                            backgroundColor: Colors.white,
+                            radius: 47,
+                            child: CircleAvatar(
+                              backgroundImage:
+                                  NetworkImage(adsbox!.get(1000)['image']),
+                              radius: 45,
+                            ),
+                          )),
                       titleText: user.get(0)['Name'],
                       subTitleText: user.get(0)['Email'],
                     ),
@@ -69,7 +71,6 @@ class _AccountState extends State<Account> {
                             fullWidthButton: true,
                             // Within the `FirstRoute` widget
                             onPressed: () {
-         
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
@@ -95,7 +96,8 @@ class _AccountState extends State<Account> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => const AccountSetting()),
+                                    builder: (context) =>
+                                        const AccountSetting()),
                               );
                             },
                             text: "Setting",
@@ -115,7 +117,8 @@ class _AccountState extends State<Account> {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const LeadboadScreen()),
+                  MaterialPageRoute(
+                      builder: (context) => const LeadboadScreen()),
                 );
               },
               child: const Padding(
@@ -124,15 +127,15 @@ class _AccountState extends State<Account> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Icon(
-                      Icons.auto_graph_sharp,
-                      color: MainColor,
+                      FontAwesomeIcons.crown,
+                      color: Colors.black,
                     ),
                     Padding(
                       padding: EdgeInsets.all(8.0),
                       child: SizedBox(
                         width: 200,
                         child: Text(
-                          'Winners',
+                          'LeaderBoard',
                           style: TextStyle(
                               color: Color.fromARGB(255, 16, 16, 16),
                               fontWeight: FontWeight.bold),
@@ -160,8 +163,8 @@ class _AccountState extends State<Account> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Icon(
-                      LineIcons.headset,
-                      color: MainColor,
+                      Icons.headset_mic,
+                      color: Colors.black,
                     ),
                     Padding(
                       padding: EdgeInsets.all(8.0),
@@ -200,8 +203,8 @@ class _AccountState extends State<Account> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Icon(
-                      LineIcons.file,
-                      color: MainColor,
+                      Icons.shield_rounded,
+                      color: Colors.black,
                     ),
                     Padding(
                       padding: EdgeInsets.all(8.0),
@@ -237,8 +240,8 @@ class _AccountState extends State<Account> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Icon(
-                      FontAwesomeIcons.star,
-                      color: MainColor,
+                      Icons.star,
+                      color: Colors.black,
                     ),
                     Padding(
                       padding: EdgeInsets.all(8.0),
@@ -274,7 +277,7 @@ class _AccountState extends State<Account> {
             //       children: [
             //         Icon(
             //           Icons.notification_important_rounded,
-            //           color: MainColor,
+            //           color: Colors.black,
             //         ),
             //         Padding(
             //           padding: const EdgeInsets.all(8.0),
@@ -311,7 +314,7 @@ class _AccountState extends State<Account> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) =>  BottomNavigation()),
+                                  builder: (context) => BottomNavigation()),
                             );
                           },
                         ),
@@ -321,11 +324,12 @@ class _AccountState extends State<Account> {
                             logout();
                             widgets.user.clear();
                             widgets.widrawstaus?.clear();
-                       Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(builder: (context) => LoginScr()),
-            (Route<dynamic> route) => false,
-          );
+                            Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => LoginScr()),
+                              (Route<dynamic> route) => false,
+                            );
                           },
                         ),
                       ],
@@ -340,7 +344,7 @@ class _AccountState extends State<Account> {
                   children: [
                     Icon(
                       Icons.exit_to_app,
-                      color: MainColor,
+                      color: Colors.black,
                     ),
                     Padding(
                       padding: EdgeInsets.all(8.0),
@@ -368,86 +372,71 @@ class _AccountState extends State<Account> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Container(
-                        width: 50,
-                        height: 50,
-                        margin: const EdgeInsets.all(5),
-                        child: GFListTile(
-                          shadow: const BoxShadow(offset: Offset.infinite),
-                          onTap: () async {
-                            var url = 'https://www.facebook.com/nextonebox';
-                            if (await canLaunch(url)) {
-                              await launch(url);
-                            }
-                          },
-                          listItemTextColor: const Color.fromARGB(255, 119, 121, 123),
-                          avatar: const Icon(
-                            FontAwesomeIcons.facebook,
-                            size: 20,
-                            color: Colors.blue,
-                          ),
+                      IconButton(
+                        onPressed: () async {
+                          var url = 'https://www.facebook.com/nextonebox';
+                          if (await canLaunch(url)) {
+                            await launch(url);
+                          }
+                        },
+                        icon: const Icon(
+                          FontAwesomeIcons.facebook,
+                          size: 20,
+                          color: MainColor,
                         ),
                       ),
-                      Container(
-                        width: 50,
-                        height: 50,
-                        margin: const EdgeInsets.all(5),
-                        child: GFListTile(
-                          shadow: const BoxShadow(offset: Offset.infinite),
-                          onTap: () async {
-                            var url = 'https://www.youtube.com/@nextonebox';
-                            if (await canLaunch(url)) {
-                              await launch(url);
-                            }
-                          },
-                          listItemTextColor: const Color.fromARGB(255, 119, 121, 123),
-                          avatar: const Icon(
-                            FontAwesomeIcons.youtube,
-                            size: 20,
-                            color: Colors.red,
-                          ),
+                      IconButton(
+                        onPressed: () async {
+                          var url = 'https://www.youtube.com/@nextonebox';
+                          if (await canLaunch(url)) {
+                            await launch(url);
+                          }
+                        },
+                        icon: const Icon(
+                          FontAwesomeIcons.youtube,
+                          size: 20,
+                          color: Colors.red,
                         ),
                       ),
-                      Container(
-                        width: 50,
-                        height: 50,
-                        margin: const EdgeInsets.all(5),
-                        child: GFListTile(
-                          shadow: const BoxShadow(offset: Offset.infinite),
-                          onTap: () async {
-                            var url = 'https://www.instagram.com/nextonebox/';
-                            if (await canLaunch(url)) {
-                              await launch(url);
-                            }
-                          },
-                          listItemTextColor: const Color.fromARGB(255, 119, 121, 123),
-                          avatar: const Icon(
-                            FontAwesomeIcons.instagram,
-                            size: 20,
-                            color: Colors.red,
-                          ),
+                      IconButton(
+                        onPressed: () async {
+                          var url = 'https://www.instagram.com/NextOneBox';
+                          if (await canLaunch(url)) {
+                            await launch(url);
+                          }
+                        },
+                        icon: const Icon(
+                          FontAwesomeIcons.twitter,
+                          size: 20,
+                          color: Colors.blue,
                         ),
                       ),
-                      Container(
-                        width: 50,
-                        height: 50,
-                        margin: const EdgeInsets.all(5),
-                        child: GFListTile(
-                          shadow: const BoxShadow(offset: Offset.infinite),
-                          onTap: () async {
-                            var url = 'https://twitter.com/NextOneBox';
-                            if (await canLaunch(url)) {
-                              await launch(url);
-                            }
-                          },
-                          listItemTextColor: const Color.fromARGB(255, 119, 121, 123),
-                          avatar: const Icon(
-                            FontAwesomeIcons.twitter,
-                            size: 20,
-                            color: Colors.blue,
-                          ),
+                      IconButton(
+                        onPressed: () async {
+                          var url = 'https://www.instagram.com/nextonebox';
+                          if (await canLaunch(url)) {
+                            await launch(url);
+                          }
+                        },
+                        icon: const Icon(
+                          FontAwesomeIcons.instagram,
+                          size: 20,
+                          color: Colors.red,
+                        ),
+                      ),
+                      IconButton(
+                        onPressed: () async {
+                          var url = 'https://web.telegram.org/k/#@nextonebox';
+                          if (await canLaunch(url)) {
+                            await launch(url);
+                          }
+                        },
+                        icon: const Icon(
+                          FontAwesomeIcons.telegram,
+                          size: 20,
+                          color: Colors.blue,
                         ),
                       ),
                     ],

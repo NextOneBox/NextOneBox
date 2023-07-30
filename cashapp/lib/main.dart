@@ -1,4 +1,3 @@
-
 import 'package:cashapp/ComonScreens/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:upgrader/upgrader.dart';
@@ -23,13 +22,14 @@ void main() async {
   await Hive.openBox('tasks');
   await Hive.openBox('widrawstaus');
   await Hive.openBox('LeaderBoard');
+  await Hive.openBox('videos');
   await Hive.openBox('adsbox');
   await Hive.openBox('localballance');
   await Hive.openBox('contacts');
-  
+
   SendAllData();
+  HowEarnPoster();
   runApp(
-  
     MaterialApp(
         theme: ThemeData(
           useMaterial3: true,
@@ -39,6 +39,6 @@ void main() async {
           fontFamily: 'Proxima Nova',
         ),
         debugShowCheckedModeBanner: false,
-        home:  BottomNavigation()),
+        home: BottomNavigation()),
   );
 }

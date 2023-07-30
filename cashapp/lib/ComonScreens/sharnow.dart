@@ -71,29 +71,7 @@ class _ShareNowState extends State<ShareNow> {
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: SizedBox(
-                  width: 150,
-                  child: GFButton(
-                    fullWidthButton: true,
-                    shape: GFButtonShape.pills,
-                    size: GFSize.LARGE,
-                    color: const Color.fromARGB(255, 245, 245, 245),
-                    onPressed: () async {
-                      Navigator.pushAndRemoveUntil(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => BottomNavigation()),
-                        (Route<dynamic> route) => false,
-                      );
-                                  fallyoutube(context,);
-                    },
-                    textColor: Colors.blueAccent,
-                    text: "Done | Skip",
-                  ),
-                ),
-              ),
+             
               InkWell(
                 onTap: () async {
                  
@@ -105,7 +83,7 @@ class _ShareNowState extends State<ShareNow> {
                   }
                 },
                 child: Card(
-                  color: Colors.blueAccent,
+              
                   child: Container(
                     margin: const EdgeInsets.only(left: 50),
                     width: 150,
@@ -120,6 +98,30 @@ class _ShareNowState extends State<ShareNow> {
                         ),
                       ],
                     ),
+                  ),
+                ),
+              ),
+               Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: SizedBox(
+                  width: 150,
+                       height: 60,
+                  child: GFButton(
+                    fullWidthButton: true,
+                    shape: GFButtonShape.pills,
+                    size: GFSize.LARGE,
+                    color: const Color.fromARGB(255, 245, 245, 245),
+                    onPressed: () async {
+                      Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => BottomNavigation()),
+                        (Route<dynamic> route) => false,
+                      );
+                                
+                    },
+                    textColor: Colors.blueAccent,
+                    text: "Done | Skip ",
                   ),
                 ),
               ),

@@ -33,7 +33,8 @@ class _ScrachCardState extends State<ScrachCard> {
         adsbox!.put(16, {'ScrachLastClickOn': DateTime.now()});
 
         setState(() {
-          showWining(context, '');
+        showMessage.show(context,
+                                    'You won your reward, it take time to update balance');
         });
       },
     );
@@ -145,7 +146,7 @@ class _ScrachCardState extends State<ScrachCard> {
                                   color: MainColor,
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(50)),
-                                  child: const Text('Watch Ad to CLAIM',
+                                  child: const Text('Get Coins',
                                       style: TextStyle(color: Colors.white)))),
                           const SizedBox(
                             height: 10,

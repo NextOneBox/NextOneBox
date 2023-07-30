@@ -31,7 +31,7 @@ class _CosmoFeedState extends State<CosmoFeed> {
 
     if (curl != widget.data.toString()) {
       facebookAppEvents.logPurchase(amount: widget.price, currency: "INR");
-      if (widget.price == 139.0) {
+      if (widget.price == 87.0) {
         http.Response response = await http.put(
             Uri.parse('https://fogcash.nextonebox.com/UpdateAccount'),
             body: {
@@ -71,12 +71,12 @@ class _CosmoFeedState extends State<CosmoFeed> {
 
         setState(() {});
       }
-      if (widget.price == 19.0) {
+      if (widget.price == 39.0) {
         http.Response response = await http.put(
             Uri.parse('https://fogcash.nextonebox.com/UpdateAccount'),
             body: {
               'Email': email.toString(),
-              'SlotMachine': 'true',
+              'MystryScrach': 'true',
             });
         if (response.reasonPhrase == 'OK') {
           SendAllData();
@@ -84,7 +84,22 @@ class _CosmoFeedState extends State<CosmoFeed> {
 
         setState(() {});
       }
+      if (widget.price == 149.0) {
+        http.Response response = await http.put(
+            Uri.parse('https://fogcash.nextonebox.com/UpdateAccount'),
+            body: {
+              'Email': email.toString(),
+              'MystryScrach': 'true',
+              'LuckeySpin': 10,
+              'JackPot': 'true',
+              'Pro': 'true',
+            });
+        if (response.reasonPhrase == 'OK') {
+          SendAllData();
+        }
 
+        setState(() {});
+      }
       setState(() {
         QuickAlert.show(
           context: context,
@@ -96,7 +111,7 @@ class _CosmoFeedState extends State<CosmoFeed> {
         buysuccessfacebook();
       });
     } else {
-      showMessage(context, 'Payment Failed ');
+      showMessage.show(context, 'Payment Failed ');
     }
   }
 

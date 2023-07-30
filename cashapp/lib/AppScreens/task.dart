@@ -17,7 +17,7 @@ unityloadad() async {
     UnityAds.load(
         placementId: 'Rewarded_Android',
         onFailed: (placementId, error, message) =>
-            showMessage(context, 'Failed to load ad.'));
+            showMessage.show(context, 'Failed to load ad.'));
 
 
 
@@ -44,7 +44,7 @@ unityloadad() async {
     UnityAds.load(
         placementId: 'Rewarded_Android',
         onFailed: (placementId, error, message) =>
-            showMessage(context, 'Failed to load ad.'));
+            showMessage.show(context, 'Failed to load ad.'));
   
     if (widget.val == '') {
       newb = task?.values.toList();

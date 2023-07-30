@@ -13,7 +13,6 @@ class Wallet extends StatefulWidget {
 class _WalletState extends State<Wallet> {
   late TabController tabController;
 
-
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -36,8 +35,7 @@ class _WalletState extends State<Wallet> {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) =>  WidthrawHistory()),
+                    MaterialPageRoute(builder: (context) => WidthrawHistory()),
                   );
                 },
                 icon: Icon(Icons.history))
@@ -94,22 +92,6 @@ class _InviteState extends State<Invite> {
                           Column(
                             children: [
                               const Text(
-                                'Coins ',
-                                style: TextStyle(
-                                    fontSize: 20, color: Colors.black),
-                              ),
-                              Text(
-                                '🪙${localballance!.get(0) ?? 0}',
-                                style: const TextStyle(
-                                    fontSize: 20,
-                                    color: MainColor,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            ],
-                          ),
-                          Column(
-                            children: [
-                              const Text(
                                 'Ballance(₹)',
                                 style: TextStyle(
                                     fontSize: 20, color: Colors.black),
@@ -126,7 +108,7 @@ class _InviteState extends State<Invite> {
                           Column(
                             children: [
                               const Text(
-                                'Ballance(\$)',
+                                '(\$)',
                                 style: TextStyle(
                                     fontSize: 20, color: Colors.black),
                               ),
@@ -182,7 +164,7 @@ class _InviteState extends State<Invite> {
                         if (user.get(0)['Account'] == 'UPI id /paytm number' ||
                             user.get(0)['Account'] == null) {
                           {
-                            showMessage(context,
+                            showMessage.show(context,
                                 'Please complete your account information first');
                           }
 
@@ -194,48 +176,55 @@ class _InviteState extends State<Invite> {
                         } else {
                           int ammount = int.parse(amount.text);
                           int ball = (localballance!.get(0));
+                          if (ammount != '') {
+                            if (249 < ammount && ammount < ball) {
+                              if (user.get(0)['Pro'] == 'true') {
+                                if (user.get(0)['TaskCompleted'] == 'true') {
+                                  {
+                                    showMessage.show(
+                                        context, ' Request accepted');
+                                  }
 
-                          if (249 < ammount && ammount < ball) {
-                            if (user.get(0)['Pro'] == 'true') {
-                              if (user.get(0)['TaskCompleted'] == 'true') {
-                                {
-                                  showMessage(context, ' Request accepted');
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            BottomNavigation()),
+                                  );
+                                } else {
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return AlertDialog(
+                                        title: const Text(
+                                            'Restrictions! Controling scam & fake users\n10k+ users already got withdrawal this month 💸 '),
+                                        content: const Text(
+                                            '*Pleace Open app daily and watch ads for atleast 30 days\n*Please complete at least 5 tasks to get instant withdrawal. \n\n Enjoy Earning 😋 \n Feel save to earn and withdrawal 🙂\n Dont panic you get withdrawal after completing this steps🕺🏼.'),
+                                        actions: [
+                                          TextButton(
+                                            onPressed: () {
+                                              Navigator.of(context)
+                                                  .pop(); // Close the dialog
+                                            },
+                                            child: const Text('OK'),
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                  );
                                 }
-
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => BottomNavigation()),
-                                );
                               } else {
-                                showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    return AlertDialog(
-                                      title: const Text(
-                                          'Restrictions! Controling scam & fake users\n10k+ users already got withdrawal this month 💸 '),
-                                      content: const Text(
-                                          '*Pleace Open app daily and watch ads for atleast 30 days\n*Please complete at least 5 tasks to get instant withdrawal. \n\n Enjoy Earning 😋 \n Feel save to earn and withdrawal 🙂\n Dont panic you get withdrawal after completing this steps🕺🏼.'),
-                                      actions: [
-                                        TextButton(
-                                          onPressed: () {
-                                            Navigator.of(context)
-                                                .pop(); // Close the dialog
-                                          },
-                                          child: const Text('OK'),
-                                        ),
-                                      ],
-                                    );
-                                  },
-                                );
+                                buyMessage(context, '');
                               }
                             } else {
-                              buyMessage(context, '');
+                              {
+                                showMessage.show(
+                                    context, "\n* Min Withdrawal ₹250");
+                              }
                             }
                           } else {
                             {
-                              showMessage(
-                                  context, "\n* Min ballance ₹250 or \$25  ");
+                              showMessage.show(context, "\n* Enter amount ");
                             }
                           }
                         }
@@ -245,7 +234,7 @@ class _InviteState extends State<Invite> {
                   const Padding(
                     padding: EdgeInsets.all(8.0),
                     child: Text(
-                      'Minimum ballance ₹250 or \$25',
+                      'Minimum ballance ₹250',
                       style: TextStyle(fontSize: 10),
                     ),
                   ),

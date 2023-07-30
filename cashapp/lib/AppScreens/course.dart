@@ -157,7 +157,7 @@ class _CourseScreenState extends State<CourseScreen> {
                           onTap: () {
                                             Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => const Pay(link: 'https://cosmofeed.com/vp/64b17f103111630020a73905',price: 999.0,)),
+        MaterialPageRoute(builder: (context) => const Pay(link: 'https://cosmofeed.com/vp/64b17f103111630020a73905',price: 999.0,type: 'Course',)),
       );
                           },
                           child: Row(

@@ -15,9 +15,15 @@ class GetPhone extends StatefulWidget {
 }
 
 class _GetPhoneState extends State<GetPhone> {
+
+
+  @override
+  void initState() { 
+    super.initState();
+            SendAllData();
+  }
   final FirebaseAuth _auth = FirebaseAuth.instance;
   var verificationID;
-
 
   @override
   Widget build(BuildContext context) {
@@ -38,82 +44,6 @@ class _GetPhoneState extends State<GetPhone> {
                       children: [
                         const SizedBox(
                           height: 100,
-                        ),
-                        Column(
-                          children: [
-                            Container(
-                              margin: const EdgeInsets.only(
-                                  left: 20, bottom: 3, top: 10),
-                              child: const Row(
-                                children: [
-                                  Text(
-                                    'Phone Number',
-                                    style: TextStyle(
-                                      fontSize: 14,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Container(
-                                margin: const EdgeInsets.symmetric(
-                                    vertical: 1, horizontal: 20),
-                                child: TextFormField(
-                                  keyboardType: TextInputType.number,
-                                  controller: phoneController,
-                               
-                                  decoration: const InputDecoration(
-                                    floatingLabelStyle:
-                                        TextStyle(color: MainColor),
-                                    focusedBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                      color: MainColor,
-                                    )),
-                                    border: OutlineInputBorder(),
-                                    labelText: '',
-                                    prefixIcon: Padding(
-                                      padding: EdgeInsets.all(8),
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                         
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                )),
-                          ],
-                        ),
-                        Container(
-                          margin: const EdgeInsets.only(
-                              left: 20, bottom: 3, top: 10),
-                          child: const Row(
-                            children: [
-                              Text(
-                                'Gender           ',
-                                style: TextStyle(
-                                  fontSize: 14,
-                                ),
-                              ),
-                              DropdownButtonExample(),
-                            ],
-                          ),
-                        ),
-                        Container(
-                          margin: const EdgeInsets.only(
-                              left: 20, bottom: 3, top: 10),
-                          child: const Row(
-                            children: [
-                              Text(
-                                'Date of Birth (Year)     ',
-                                style: TextStyle(
-                                  fontSize: 14,
-                                ),
-                              ),
-                              SlectAge(),
-                            ],
-                          ),
                         ),
                         Container(
                             margin: const EdgeInsets.symmetric(
@@ -148,48 +78,23 @@ class _GetPhoneState extends State<GetPhone> {
                               fontSize: 25,
                             ),
                             onPressed: () async {
-                              var phone = phoneController.text;
-
                               var refercode = refercodegetcontr.text;
-
-                    
-                                if (phone.length >= 10) {
-                                  {
-                                    showMessage(context, 'Please wait');
-                                  }
-
-                                  http.Response response = await http.put(
-                                      Uri.parse(
-                                          'https://fogcash.nextonebox.com/UpdateAccount'),
-                                      body: {
-                                        'Email': email.toString(),
-                                        'PhoneNumber': phone.toString(),
-                                        'Age': agelistdropdownValue.toString(),
-                                      });
-                           
-                             
-                          if (response.reasonPhrase == 'OK') {
-      SendAllData();
-      Timer(const Duration(seconds: 3), () {
-        setState(() {});
-      });
-    }
-        Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(builder: (context) => ShareNow()),
-            (Route<dynamic> route) => false,
-          );
-     
+                              http.Response response = await http.put(
+                                  Uri.parse(
+                                      'https://fogcash.nextonebox.com/referupdate'),
+                                  body: {
                           
-                                 
-                                
-                                } else {
-                                  showMessage(context,
-                                      'Please enter correct Phone number');
-                                }
-                        
+                                    'ReferCode': refercode.toString(),
+                                  });
+
+                              Navigator.pushAndRemoveUntil(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => ShareNow()),
+                                (Route<dynamic> route) => false,
+                              );
                             },
-                            text: "Next",
+                            text: "Next  |   Skip",
                           ),
                         ),
                       ],

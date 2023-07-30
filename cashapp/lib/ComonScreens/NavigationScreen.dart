@@ -3,11 +3,10 @@ import 'package:cashapp/AppScreens/referandearn.dart';
 
 import 'package:flutter/material.dart';
 
-
 class BottomNavigation extends StatefulWidget {
-
-
-   BottomNavigation({super.key, });
+  BottomNavigation({
+    super.key,
+  });
 
   @override
   _BottomNavigationState createState() => _BottomNavigationState();
@@ -19,7 +18,6 @@ class _BottomNavigationState extends State<BottomNavigation> {
       TextStyle(fontSize: 30, fontWeight: FontWeight.w600);
 
   final _widgetOptions = [
- 
     const Task(val: ''),
     const Home(),
     const Referandearn(),
@@ -28,11 +26,9 @@ class _BottomNavigationState extends State<BottomNavigation> {
 
   @override
   Widget build(BuildContext context) {
-    
     if (user.isEmpty) {
       return const LoginScr();
     } else {
-      
       return Scaffold(
         body: Center(
           child: _widgetOptions.elementAt(_selectedIndex),
@@ -57,12 +53,12 @@ class _BottomNavigationState extends State<BottomNavigation> {
                 gap: 8,
                 activeColor: Colors.blueAccent,
                 iconSize: 24,
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
                 duration: const Duration(milliseconds: 400),
                 tabBackgroundColor: Colors.grey[100]!,
                 color: const Color.fromARGB(255, 10, 71, 121),
                 tabs: const [
-              
                   GButton(
                     icon: LineIcons.gifts,
                     text: 'Offer',

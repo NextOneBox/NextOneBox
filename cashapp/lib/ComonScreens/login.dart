@@ -1,4 +1,4 @@
-// ignore_for_file: use_build_context_synchronously
+// ignore_for_file: use_build_context_synchronously, prefer_const_constructors
 
 import 'dart:convert';
 
@@ -8,8 +8,9 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:cashapp/ComonScreens/widgets.dart';
-
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'NavigationScreen.dart';
+import 'local_notification_service.dart';
 
 class LoginScr extends StatefulWidget {
   const LoginScr({super.key});
@@ -19,6 +20,7 @@ class LoginScr extends StatefulWidget {
 }
 
 class _LoginScrState extends State<LoginScr> {
+  bool load = false;
   TextEditingController emaiSecondaryColoront = TextEditingController();
   @override
   @override
@@ -27,13 +29,13 @@ class _LoginScrState extends State<LoginScr> {
   }
 
   Widget build(BuildContext context) {
-    adsbox!.put(11, {'WatchCount': 8});
+    adsbox!.put(11, {'WatchCount': 10});
     adsbox!.put(12, {'WatchLastClickOn': DateTime.now()});
 
-    adsbox!.put(13, {'SpinCount': 8});
+    adsbox!.put(13, {'SpinCount': 10});
     adsbox!.put(14, {'SpinLastClickOn': DateTime.now()});
 
-    adsbox!.put(15, {'ScrachCount': 8});
+    adsbox!.put(15, {'ScrachCount': 10});
     adsbox!.put(16, {'ScrachLastClickOn': DateTime.now()});
     localballance!.put(0, 0);
 
@@ -46,23 +48,27 @@ class _LoginScrState extends State<LoginScr> {
         if (reslut == null) {
           return;
         }
-        {
-          showMessage(context, '\nPlease wait');
-        }
 
+        adsbox!.put(1000, {'image': reslut.photoUrl.toString()});
+
+        print('errr' + reslut.photoUrl.toString());
         http.Response response = await http.post(
             Uri.parse('https://fogcash.nextonebox.com/CreateAccount'),
             body: {'Email': reslut.email, 'Name': reslut.displayName});
-  var da = jsonDecode(response.body);
+
+        var da = jsonDecode(response.body);
         if (da != 'Signup') {
           Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(builder: (context) => BottomNavigation()),
             (Route<dynamic> route) => false,
           );
-        
+
           await user.add(da);
           await localballance!.put(0, da['Ballance']);
+          setState(() {
+            load = !load;
+          });
         }
 
         if (da == 'Signup') {
@@ -71,17 +77,26 @@ class _LoginScrState extends State<LoginScr> {
             'Name': reslut.displayName,
           };
           await user.add(dat);
+          await localballance!.put(0, 0);
           Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(builder: (context) => GetPhone()),
             (Route<dynamic> route) => false,
           );
+
+          setState(() {
+            load = !load;
+          });
         }
       } catch (error) {
+        setState(() {
+          load = !load;
+        });
         {
-          showMessage(context, '$error');
+          showMessage.show(context, 'Error : Please try again after some time');
         }
       }
+      facebookAppEvents.logCompletedRegistration();
     }
 
     return FutureBuilder(
@@ -116,18 +131,28 @@ class _LoginScrState extends State<LoginScr> {
                     child: Row(
                       children: [
                         Text(
-                          'Login or Signup to continue',
+                          'No.1 & Trusted earning app 2023\nLogin or Signup to continue',
                           style: TextStyle(fontSize: 15),
                         ),
                       ],
                     ),
                   ),
                 ),
+                if (load)
+                  SpinKitThreeInOut(
+                    duration: Duration(seconds: 1),
+                    color: Colors.black,
+                    size: 30.0,
+                  ),
                 Container(
                   margin:
                       const EdgeInsets.only(left: 20, bottom: 50, right: 20),
                   child: InkWell(
                     onTap: () {
+                      setState(() {
+                        load = !load;
+                      });
+
                       googleLogin();
                     },
                     child: Card(

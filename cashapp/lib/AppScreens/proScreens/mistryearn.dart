@@ -21,8 +21,8 @@ class _MysteryScrachState extends State<MysteryScrach> {
     UnityAds.showVideoAd(
       placementId: 'Rewarded_Android',
       onComplete: (placementId) async {
-       ;
-        http.Response resp = await http.post(
+        ;
+        await http.post(
             Uri.parse('https://fogcash.nextonebox.com/UpdateBallance'),
             body: {
               'Email': email.toString(),
@@ -43,7 +43,8 @@ class _MysteryScrachState extends State<MysteryScrach> {
         localballance!.put(0, localballance!.get(0) + getammount);
 
         setState(() {
-          showWining(context, '');
+          showMessage.show(
+              context, 'You won your reward, it take time to update balance');
         });
       },
     );
@@ -68,7 +69,7 @@ class _MysteryScrachState extends State<MysteryScrach> {
 
   @override
   Widget build(BuildContext context) {
-    var RandomNumber = (Random().nextInt(200) + 120);
+    var RandomNumber = (Random().nextInt(800) + 400);
     return Scaffold(
       body: Center(
         child: Scratcher(
@@ -136,7 +137,7 @@ class _MysteryScrachState extends State<MysteryScrach> {
                                   color: MainColor,
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(50)),
-                                  child: const Text('Watch Ad to CLAIM',
+                                  child: const Text('Get Coins',
                                       style: TextStyle(color: Colors.white)))),
                           const SizedBox(
                             height: 10,
