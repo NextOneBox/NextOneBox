@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "77734768821",
+    "project_id": "chatai-f0eea",
+    "storage_bucket": "chatai-f0eea.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:77734768821:android:cd9415027c1be04abf4efc",
+        "android_client_info": {
+          "package_name": "com.nextonebox.chatgpt"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "77734768821-cml436udgtj9l9ob7e66s6p59lu5opo7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDmihXZhr7LIYVh5tMsNjRM2RkPDHiErJk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "77734768821-cml436udgtj9l9ob7e66s6p59lu5opo7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

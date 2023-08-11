@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "217097921254",
+    "project_id": "fintrade-b174d",
+    "storage_bucket": "fintrade-b174d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:217097921254:android:455c2c3c86847dc802d127",
+        "android_client_info": {
+          "package_name": "com.trading.figtrade"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "217097921254-phh319trr98n4g8mpfanab5epp46cm72.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAZnq2n1fpPM2wvZBw4fmsRKfQjQgpm2-Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "217097921254-phh319trr98n4g8mpfanab5epp46cm72.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

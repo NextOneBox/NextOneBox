@@ -1,0 +1,207 @@
+{
+  "project_info": {
+    "project_number": "644783585713",
+    "firebase_url": "https://nextonebox-d7c0a-default-rtdb.firebaseio.com",
+    "project_id": "nextonebox-d7c0a",
+    "storage_bucket": "nextonebox-d7c0a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:644783585713:android:ec335933dc89bf98fd6590",
+        "android_client_info": {
+          "package_name": "com.binarytrade.fogtrade"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "644783585713-crdq39pc1pck6r4tjpf5n6g5k40hfiiu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCFDIAxlFate1T62SCYQQGHONPrvJ1--20"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "644783585713-crdq39pc1pck6r4tjpf5n6g5k40hfiiu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:644783585713:android:9075b7997198dcb9fd6590",
+        "android_client_info": {
+          "package_name": "com.earnmoney.realcash"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "644783585713-53cjfejhaehfuk95132tjqb5o8hqhish.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.earnmoney.realcash",
+            "certificate_hash": "8928c4a335acf9daf8542720dd9b36e1de57925c"
+          }
+        },
+        {
+          "client_id": "644783585713-fg380o568tujer3huvctd1f6r5c0hheb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.earnmoney.realcash",
+            "certificate_hash": "5fb589edcfd49cb04075838a821326411c0e9d2e"
+          }
+        },
+        {
+          "client_id": "644783585713-u9gm8adt5n83ak6tiqk6v9cc54lsvgff.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.earnmoney.realcash",
+            "certificate_hash": "904018f45751224149bea0dacb498bb6454167b8"
+          }
+        },
+        {
+          "client_id": "644783585713-crdq39pc1pck6r4tjpf5n6g5k40hfiiu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCFDIAxlFate1T62SCYQQGHONPrvJ1--20"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "644783585713-crdq39pc1pck6r4tjpf5n6g5k40hfiiu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:644783585713:android:14d236d49602da6ffd6590",
+        "android_client_info": {
+          "package_name": "com.nextonebox.cashapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "644783585713-f0cck0mhe28vk7um8vr4hoi27mb08fs8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.nextonebox.cashapp",
+            "certificate_hash": "f95a3497010f6e8f4f03861273c4d4685226b7b3"
+          }
+        },
+        {
+          "client_id": "644783585713-h0sa6s60bd2cs6cuv8klp4022lt7b27k.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.nextonebox.cashapp",
+            "certificate_hash": "ce653a69780229702922819745e3841aed5a6b65"
+          }
+        },
+        {
+          "client_id": "644783585713-l4kdak22dmb83vjsuv7dvdb5nrda5trd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.nextonebox.cashapp",
+            "certificate_hash": "5fb589edcfd49cb04075838a821326411c0e9d2e"
+          }
+        },
+        {
+          "client_id": "644783585713-o2if8ts2oup7hfbejef0bjosnovrj35j.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.nextonebox.cashapp",
+            "certificate_hash": "904018f45751224149bea0dacb498bb6454167b8"
+          }
+        },
+        {
+          "client_id": "644783585713-crdq39pc1pck6r4tjpf5n6g5k40hfiiu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCFDIAxlFate1T62SCYQQGHONPrvJ1--20"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "644783585713-crdq39pc1pck6r4tjpf5n6g5k40hfiiu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:644783585713:android:834c913d3e1bcc46fd6590",
+        "android_client_info": {
+          "package_name": "com.nextonebox.chatgpt"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "644783585713-pvn7n4ammte33h210seirnjjuaedes71.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.nextonebox.chatgpt",
+            "certificate_hash": "a394ce81d42e976ca7e72906df6d3fc81a3e8a94"
+          }
+        },
+        {
+          "client_id": "644783585713-va8vcq0agnc41d55drh0gnr6p2p7jd9a.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.nextonebox.chatgpt",
+            "certificate_hash": "f95a3497010f6e8f4f03861273c4d4685226b7b3"
+          }
+        },
+        {
+          "client_id": "644783585713-vek9feehag667c2nj2lf9am0fupjoepp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.nextonebox.chatgpt",
+            "certificate_hash": "ce653a69780229702922819745e3841aed5a6b65"
+          }
+        },
+        {
+          "client_id": "644783585713-crdq39pc1pck6r4tjpf5n6g5k40hfiiu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCFDIAxlFate1T62SCYQQGHONPrvJ1--20"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "644783585713-crdq39pc1pck6r4tjpf5n6g5k40hfiiu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
