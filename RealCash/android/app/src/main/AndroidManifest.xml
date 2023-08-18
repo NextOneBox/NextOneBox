@@ -1,13 +1,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.earnmoney.realcash">
+    package="com.earn.lovecash">
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
    <application
         
     
-        android:label="RealCash"
+        android:label="LoveCash"
         android:name="${applicationName}"
         android:icon="@mipmap/launcher_icon"> 
     

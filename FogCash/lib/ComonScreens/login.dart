@@ -2,12 +2,12 @@
 
 import 'dart:convert';
 
-import 'package:cashapp/ComonScreens/getphone.dart';
+import 'package:mugcash/ComonScreens/getphone.dart';
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:cashapp/ComonScreens/widgets.dart';
+import 'package:mugcash/ComonScreens/widgets.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'NavigationScreen.dart';
 import 'local_notification_service.dart';
@@ -44,7 +44,7 @@ class _LoginScrState extends State<LoginScr> {
     adsbox!.put(20, {'logintime': DateTime.now()});
 
     adsbox!.put(21, {'vip': 'false'});
-    // adsbox!.put(22, {'youtube': 'false'});
+    adsbox!.put(22, {'teligram': false});
 
 
 
@@ -128,7 +128,7 @@ class _LoginScrState extends State<LoginScr> {
                         height: 50,
                       ),
                       const Text(
-                        'FogCash',
+                        'MugCash',
                         style: TextStyle(
                             fontSize: 30, fontWeight: FontWeight.bold),
                       )
@@ -203,7 +203,7 @@ class _LoginScrState extends State<LoginScr> {
                     child: RichText(
                         text: TextSpan(children: [
                       const TextSpan(
-                          text: "By continuing, you agree to FogCash ",
+                          text: "By continuing, you agree to MugCash ",
                           style: TextStyle(color: Colors.black)),
                       TextSpan(
                           style: const TextStyle(

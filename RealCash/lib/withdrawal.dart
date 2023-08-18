@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:quantupi/quantupi.dart';
-import 'package:test1/SuperSpin.dart';
-import 'package:test1/withdrawalhistory.dart';
+import 'package:cash/SuperSpin.dart';
+import 'package:cash/withdrawalhistory.dart';
 import 'HomePage.dart';
 import 'Colors.dart';
 import 'package:http/http.dart' as http;
@@ -108,7 +108,7 @@ class _withdrawalState extends State<withdrawal> {
       receiverName: 'NextOneBox CEO',
       transactionRefId: '',
       transactionNote: '${account!.get(0)['name']}',
-      amount: 149,
+      amount: 129,
     );
     final response = await zupi.startTransaction();
 
@@ -126,6 +126,7 @@ class _withdrawalState extends State<withdrawal> {
       if (key == "Status") {
         if (value == 'SUCCESS') {
           setState(() {
+            VIP?.put('VIP', true);
             superspin?.put('superunlocked', true);
             superspin?.put('luckspinbalance', 50);
             adsbox?.put(40, {'clicks': 0});
@@ -244,12 +245,12 @@ class _withdrawalState extends State<withdrawal> {
                             dialogType: DialogType.success,
                             animType: AnimType.bottomSlide,
                             btnCancelText: "Cancel",
-                            btnOkText: "pay ₹149",
+                            btnOkText: "pay ₹129",
                             body: Center(
                                 child: Column(
                               children: [
                                 Text(
-                                  'Became VIP at just ₹149\n',
+                                  'Became VIP at just ₹129\n',
                                   style: TextStyle(fontWeight: FontWeight.bold),
                                 ),
                                 Text(

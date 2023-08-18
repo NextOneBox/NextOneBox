@@ -11,10 +11,10 @@ import 'package:flutter/widgets.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
-import 'package:test1/navbar.dart';
+import 'package:cash/navbar.dart';
 
-import 'package:test1/Authentication.dart';
-import 'package:test1/SpinWheel.dart';
+import 'package:cash/Authentication.dart';
+import 'package:cash/SpinWheel.dart';
 import 'Colors.dart';
 
 Box? account = Hive.box('account');

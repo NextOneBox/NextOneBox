@@ -1,4 +1,4 @@
-import 'package:cashapp/ComonScreens/widgets.dart';
+import 'package:mugcash/ComonScreens/widgets.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:fast_contacts/fast_contacts.dart';
 import 'package:flutter/material.dart';
@@ -31,9 +31,9 @@ Color dc = Color.fromARGB(255, 125, 157, 238);
 
 class _ReferandearnState extends State<Referandearn> {
   var urlapp =
-      'https://play.google.com/store/apps/details?id=com.nextonebox.cashapp';
+      'https://play.google.com/store/apps/details?id=com.moneyearn.mugcash';
   final String _content =
-      '✅ Download FogCash and Earn upto daily ₹5000 use My Refferal Code =  ✅ ${user.get(0)['ReferCode']}'
+      '✅ Download MugCash and Earn upto daily ₹5000 use My Refferal Code =  ✅ ${user.get(0)['ReferCode']}'
       ' You can EarnUpto daily ₹5000 To ₹10000 by Completing some easy task , You Can also Earn By spin and scratch '
       'Download Now EarnKash on PlayStore ';
 
@@ -339,9 +339,9 @@ class _ReferandearnState extends State<Referandearn> {
 //                       color: MainColor,
 //                       onPressed: () async {
 //                         await Share.share(
-//                             '\n \n Hey, Do you want to earn \n \n 📲💰 ₹10,000 per/day without any investment.\n \n ✅ Then what are you waiting for Download now FogCash \n✅ And use my refer code\n✅ Thousands of users are already earning.💰💥💥  '
+//                             '\n \n Hey, Do you want to earn \n \n 📲💰 ₹10,000 per/day without any investment.\n \n ✅ Then what are you waiting for Download now MugCash \n✅ And use my refer code\n✅ Thousands of users are already earning.💰💥💥  '
 //                             '"${user.get(0)['ReferCode']}". \n \n  💰💥💥  '
-//                             '\n✅ FogCash \n➡️ https://play.google.com/store/apps/details?id=com.nextonebox.cashapp \n✅ ChatGpt App \n➡️ https://play.google.com/store/apps/details?id=com.nextonebox.chatgpt');
+//                             '\n✅ MugCash \n➡️ https://play.google.com/store/apps/details?id=com.moneyearn.mugcash \n✅ ChatGpt App \n➡️ https://play.google.com/store/apps/details?id=com.nextonebox.chatgpt');
 //                       },
 //                       text: "Refer Now ",
 //                     ),
@@ -352,7 +352,7 @@ class _ReferandearnState extends State<Referandearn> {
 //                   child: InkWell(
 //                     onTap: () async {
 //                       var url =
-//                           'https://wa.me/?text=%0AHey%2C%20Do%20you%20want%20to%20earn%20%0A%0A%F0%9F%93%B2%F0%9F%92%B0%20%E2%82%B910%2C000%20per%2Fday%20without%20any%20investment%F0%9F%98%83.%0A%0A%E2%9C%85%20Then%20what%20are%20you%20waiting%20for%20Download%20now%20FogCash%0A%E2%9C%85%20And%20use%20my%20refer%20code%20${user.get(0)['ReferCode']}%20%0A%E2%9C%85%20Thousands%20of%20users%20are%20already%20earning.%F0%9F%92%B0%F0%9F%92%A5%F0%9F%92%A5%20%0A%0A%E2%9C%85%20FogCash%20%0A%E2%9E%A1%EF%B8%8F%20https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdetails%3Fid%3Dcom.nextonebox.cashapp%0A%0A%E2%9C%85%20ChatGpt%20App%20%0A%E2%9E%A1%EF%B8%8F%20https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdetails%3Fid%3Dcom.nextonebox.chatgpt';
+//                           'https://wa.me/?text=%0AHey%2C%20Do%20you%20want%20to%20earn%20%0A%0A%F0%9F%93%B2%F0%9F%92%B0%20%E2%82%B910%2C000%20per%2Fday%20without%20any%20investment%F0%9F%98%83.%0A%0A%E2%9C%85%20Then%20what%20are%20you%20waiting%20for%20Download%20now%20MugCash%0A%E2%9C%85%20And%20use%20my%20refer%20code%20${user.get(0)['ReferCode']}%20%0A%E2%9C%85%20Thousands%20of%20users%20are%20already%20earning.%F0%9F%92%B0%F0%9F%92%A5%F0%9F%92%A5%20%0A%0A%E2%9C%85%20MugCash%20%0A%E2%9E%A1%EF%B8%8F%20https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdetails%3Fid%3Dcom.moneyearn.mugcash%0A%0A%E2%9C%85%20ChatGpt%20App%20%0A%E2%9E%A1%EF%B8%8F%20https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdetails%3Fid%3Dcom.nextonebox.chatgpt';
 //                       if (await canLaunch(url)) {
 //                         await launch(url);
 //                       }
@@ -508,7 +508,7 @@ class _ReferandearnState extends State<Referandearn> {
 //                             var v = contact[index].phones[0].number;
 
 //                             var url =
-//                                 'https://wa.me/${v.toString()}?text=%0AHey%2C%20Do%20you%20want%20to%20earn%20%0A%0A%F0%9F%93%B2%F0%9F%92%B0%20%E2%82%B910%2C000%20per%2Fday%20without%20any%20investment%F0%9F%98%83.%0A%0A%E2%9C%85%20Then%20what%20are%20you%20waiting%20for%20Download%20now%20FogCash%0A%E2%9C%85%20And%20use%20my%20refer%20code%20${user.get(0)['ReferCode']}%20%0A%E2%9C%85%20Thousands%20of%20users%20are%20already%20earning.%F0%9F%92%B0%F0%9F%92%A5%F0%9F%92%A5%20%0A%0A%E2%9C%85%20FogCash%20%0A%E2%9E%A1%EF%B8%8F%20https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdetails%3Fid%3Dcom.nextonebox.cashapp%0A%0A%E2%9C%85%20ChatGpt%20App%20%0A%E2%9E%A1%EF%B8%8F%20https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdetails%3Fid%3Dcom.nextonebox.chatgpt';
+//                                 'https://wa.me/${v.toString()}?text=%0AHey%2C%20Do%20you%20want%20to%20earn%20%0A%0A%F0%9F%93%B2%F0%9F%92%B0%20%E2%82%B910%2C000%20per%2Fday%20without%20any%20investment%F0%9F%98%83.%0A%0A%E2%9C%85%20Then%20what%20are%20you%20waiting%20for%20Download%20now%20MugCash%0A%E2%9C%85%20And%20use%20my%20refer%20code%20${user.get(0)['ReferCode']}%20%0A%E2%9C%85%20Thousands%20of%20users%20are%20already%20earning.%F0%9F%92%B0%F0%9F%92%A5%F0%9F%92%A5%20%0A%0A%E2%9C%85%20MugCash%20%0A%E2%9E%A1%EF%B8%8F%20https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdetails%3Fid%3Dcom.moneyearn.mugcash%0A%0A%E2%9C%85%20ChatGpt%20App%20%0A%E2%9E%A1%EF%B8%8F%20https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdetails%3Fid%3Dcom.nextonebox.chatgpt';
 //                             if (await canLaunch(url)) {
 //                               await launch(url);
 //                             }

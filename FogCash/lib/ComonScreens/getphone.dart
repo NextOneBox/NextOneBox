@@ -2,9 +2,9 @@
 
 import 'dart:async';
 
-import 'package:cashapp/ComonScreens/sharnow.dart';
+import 'package:mugcash/ComonScreens/sharnow.dart';
 import 'package:http/http.dart' as http;
-import 'package:cashapp/ComonScreens/widgets.dart';
+import 'package:mugcash/ComonScreens/widgets.dart';
 import 'package:flutter/material.dart';
 
 class GetPhone extends StatefulWidget {

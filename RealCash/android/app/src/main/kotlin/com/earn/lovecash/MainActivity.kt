@@ -1,4 +1,4 @@
-package com.nextonebox.cashapp
+package com.earn.lovecash
 
 import io.flutter.embedding.android.FlutterActivity
 

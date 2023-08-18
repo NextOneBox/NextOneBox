@@ -1,4 +1,4 @@
-import 'package:cashapp/ComonScreens/widgets.dart';
+import 'package:mugcash/ComonScreens/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -169,8 +169,8 @@ class _TasksDetailsState extends State<TasksDetails> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              Text('Tracking : 3days'),
-                              Text('Confirm  : 7days'),
+                              Text('Tracking : 7days'),
+                              Text('Confirm  : 60days'),
                             ],
                           ),
                         )

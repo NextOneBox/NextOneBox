@@ -1,4 +1,4 @@
-import 'package:cashapp/ComonScreens/widgets.dart';
+import 'package:mugcash/ComonScreens/widgets.dart';
 import 'package:flutter/material.dart';
 
 class WebPage extends StatefulWidget {

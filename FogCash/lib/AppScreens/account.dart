@@ -1,6 +1,6 @@
-import 'package:cashapp/ComonScreens/WebView.dart';
-import 'package:cashapp/ComonScreens/widgets.dart';
-import 'package:cashapp/ComonScreens/widgets.dart' as widgets;
+import 'package:mugcash/ComonScreens/WebView.dart';
+import 'package:mugcash/ComonScreens/widgets.dart';
+import 'package:mugcash/ComonScreens/widgets.dart' as widgets;
 import 'package:flutter/material.dart';
 
 Future<void> logout() async {
@@ -228,44 +228,6 @@ class _AccountState extends State<Account> {
               ),
             ),
             InkWell(
-              onTap: () async {
-                var url =
-                    'https://play.google.com/store/apps/details?id=com.nextonebox.cashapp';
-                if (await canLaunch(url)) {
-                  await launch(url);
-                }
-              },
-              child: const Padding(
-                padding: EdgeInsets.all(10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Icon(
-                      Icons.star,
-                      color: Colors.black,
-                    ),
-                    Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: SizedBox(
-                        width: 200,
-                        child: Text(
-                          'Rate Us',
-                          style: TextStyle(
-                              color: Color.fromARGB(255, 16, 16, 16),
-                              fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                    ),
-                    Icon(
-                      Icons.navigate_next_rounded,
-                      color: Colors.black,
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          
-            InkWell(
               onTap: () {
                 showDialog(
                   context: context,
@@ -290,7 +252,6 @@ class _AccountState extends State<Account> {
                             logout();
                             await user.clear();
 
-                         
                             Navigator.pushAndRemoveUntil(
                               context,
                               MaterialPageRoute(
@@ -342,12 +303,7 @@ class _AccountState extends State<Account> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       IconButton(
-                        onPressed: () async {
-                          var url = 'https://www.facebook.com/nextonebox';
-                          if (await canLaunch(url)) {
-                            await launch(url);
-                          }
-                        },
+                        onPressed: () async {},
                         icon: const Icon(
                           FontAwesomeIcons.facebook,
                           size: 20,
@@ -355,12 +311,7 @@ class _AccountState extends State<Account> {
                         ),
                       ),
                       IconButton(
-                        onPressed: () async {
-                          var url = 'https://www.youtube.com/@nextonebox';
-                          if (await canLaunch(url)) {
-                            await launch(url);
-                          }
-                        },
+                        onPressed: () async {},
                         icon: const Icon(
                           FontAwesomeIcons.youtube,
                           size: 20,
@@ -368,12 +319,7 @@ class _AccountState extends State<Account> {
                         ),
                       ),
                       IconButton(
-                        onPressed: () async {
-                          var url = 'https://www.twitter.com/NextOneBox';
-                          if (await canLaunch(url)) {
-                            await launch(url);
-                          }
-                        },
+                        onPressed: () async {},
                         icon: const Icon(
                           FontAwesomeIcons.twitter,
                           size: 20,
@@ -381,12 +327,7 @@ class _AccountState extends State<Account> {
                         ),
                       ),
                       IconButton(
-                        onPressed: () async {
-                          var url = 'https://www.instagram.com/nextonebox';
-                          if (await canLaunch(url)) {
-                            await launch(url);
-                          }
-                        },
+                        onPressed: () async {},
                         icon: const Icon(
                           FontAwesomeIcons.instagram,
                           size: 20,
@@ -394,12 +335,7 @@ class _AccountState extends State<Account> {
                         ),
                       ),
                       IconButton(
-                        onPressed: () async {
-                          var url = 'https://web.telegram.org/k/#@nextonebox';
-                          if (await canLaunch(url)) {
-                            await launch(url);
-                          }
-                        },
+                        onPressed: () async {},
                         icon: const Icon(
                           FontAwesomeIcons.telegram,
                           size: 20,

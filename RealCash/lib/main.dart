@@ -154,7 +154,7 @@ class _MyappState extends State<Myapp> {
     return MaterialApp(
       theme: ThemeData(useMaterial3: false),
       debugShowCheckedModeBanner: false,
-      title: 'RealCash',
+      title: 'LoveCash',
 
       // home: notificationn(),
       home: AuthService().handleAuthState(),

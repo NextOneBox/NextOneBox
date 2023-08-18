@@ -2,8 +2,8 @@ import 'dart:async';
 import 'dart:ffi';
 
 import 'package:audioplayers/audioplayers.dart';
-import 'package:cashapp/ComonScreens/local_notification_service.dart';
-import 'package:cashapp/ComonScreens/widgets.dart';
+import 'package:mugcash/ComonScreens/local_notification_service.dart';
+import 'package:mugcash/ComonScreens/widgets.dart';
 import 'package:quantupi/quantupi.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:http/http.dart' as http;

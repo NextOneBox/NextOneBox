@@ -1,4 +1,4 @@
-import 'package:cashapp/ComonScreens/widgets.dart';
+import 'package:mugcash/ComonScreens/widgets.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 
@@ -80,10 +80,10 @@ class _ContactUsState extends State<ContactUs> {
                             onPressed: () async {
                               if (problem.text.length > 30) {
                                 {
-                                  var subject = 'FogCash';
+                                  var subject = 'MugCash';
                                   var message = problem.text.toString();
                                   var data =
-                                      "          Email: $email ,Name: $name ,Phone:$phonenumber ,Date: ${DateTime.now().toString()} App:FogCash";
+                                      "          \n\nEmail: $email \nName: $name \nApp:MugCash";
                                   launch(
                                       'mailto:nextoneboxcheck@gmail.com?subject=$subject&body=$message$data');
                                 }
@@ -111,81 +111,6 @@ class _ContactUsState extends State<ContactUs> {
                             },
                             text: "Send",
                           ),
-                        ),
-                        const Text(
-                            '\n\n\n\n Email : info@nextonebox.com \n\n Social media  : nextonebox \n'),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            IconButton(
-                              onPressed: () async {
-                                var url = 'https://www.facebook.com/nextonebox';
-                                if (await canLaunch(url)) {
-                                  await launch(url);
-                                }
-                              },
-                              icon: const Icon(
-                                FontAwesomeIcons.facebook,
-                                size: 20,
-                                color: MainColor,
-                              ),
-                            ),
-                            IconButton(
-                              onPressed: () async {
-                                var url = 'https://www.youtube.com/@nextonebox';
-                                if (await canLaunch(url)) {
-                                  await launch(url);
-                                }
-                              },
-                              icon: const Icon(
-                                FontAwesomeIcons.youtube,
-                                size: 20,
-                                color: Colors.red,
-                              ),
-                            ),
-                            IconButton(
-                              onPressed: () async {
-                                var url =
-                                    'https://www.instagram.com/NextOneBox';
-                                if (await canLaunch(url)) {
-                                  await launch(url);
-                                }
-                              },
-                              icon: const Icon(
-                                FontAwesomeIcons.twitter,
-                                size: 20,
-                                color: Colors.blue,
-                              ),
-                            ),
-                            IconButton(
-                              onPressed: () async {
-                                var url =
-                                    'https://www.instagram.com/nextonebox';
-                                if (await canLaunch(url)) {
-                                  await launch(url);
-                                }
-                              },
-                              icon: const Icon(
-                                FontAwesomeIcons.instagram,
-                                size: 20,
-                                color: Colors.red,
-                              ),
-                            ),
-                            IconButton(
-                              onPressed: () async {
-                                var url =
-                                    'https://web.telegram.org/k/#@nextonebox';
-                                if (await canLaunch(url)) {
-                                  await launch(url);
-                                }
-                              },
-                              icon: const Icon(
-                                FontAwesomeIcons.telegram,
-                                size: 20,
-                                color: Colors.blue,
-                              ),
-                            ),
-                          ],
                         ),
                       ],
                     ),

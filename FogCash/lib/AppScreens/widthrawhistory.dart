@@ -1,4 +1,4 @@
-import 'package:cashapp/ComonScreens/widgets.dart';
+import 'package:mugcash/ComonScreens/widgets.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 class WidthrawHistory extends StatefulWidget {

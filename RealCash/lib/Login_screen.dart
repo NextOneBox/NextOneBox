@@ -7,9 +7,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
-import 'package:test1/navbar.dart';
+import 'package:cash/navbar.dart';
 import 'package:facebook_app_events/facebook_app_events.dart';
-import 'package:test1/webview.dart';
+import 'package:cash/webview.dart';
 import 'Widget.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/gestures.dart';
@@ -83,7 +83,7 @@ class _LoginscreenState extends State<Loginscreen> {
               child: Container(
                 child: Center(
                   child: Text(
-                    "RealCash",
+                    "LoveCash",
                     style: TextStyle(fontSize: 25, color: Colors.white),
                   ),
                 ),
@@ -164,7 +164,7 @@ class _LoginscreenState extends State<Loginscreen> {
                       child: RichText(
                           text: TextSpan(children: [
                         const TextSpan(
-                            text: "By continuing, you agree to RealCash ",
+                            text: "By continuing, you agree to LoveCash ",
                             style: TextStyle(color: Colors.black)),
                         TextSpan(
                             style: const TextStyle(

@@ -1,4 +1,4 @@
-package com.earnmoney.realcash
+package com.moneyearn.mugcash
 
 import io.flutter.embedding.android.FlutterActivity
 

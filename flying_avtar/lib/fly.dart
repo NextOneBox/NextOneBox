@@ -1,10 +1,10 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 
-import 'dart:async';
-import 'dart:math';
-
-import 'package:flutter/material.dart';
+void main() {
+  runApp(CrashGameApp());
+}
 
 class CrashGameApp extends StatelessWidget {
   @override
@@ -25,45 +25,46 @@ class CrashGameScreen extends StatefulWidget {
 }
 
 class _CrashGameScreenState extends State<CrashGameScreen> {
-  double currentMultiplier = 1.0;
-  double currentCrashPoint = 1.0;
+  List<FlSpot> lineChartSpots = [];
+  double crashPoint = 20.0; // Set the crash point for the game
   bool isCrashed = false;
   bool isPlaying = false;
+  double userMoney = 500.0; // Initial user money
 
   void startGame() {
     setState(() {
-      currentMultiplier = 1.0;
-      currentCrashPoint = _generateRandomCrashPoint();
-      isCrashed = false;
+      lineChartSpots.clear();
+      userMoney = 500.0; // Reset user money
       isPlaying = true;
-      _startCountdown();
+      isCrashed = false;
+      _startGrowingLine();
     });
   }
 
-  void _startCountdown() {
+  void _startGrowingLine() {
+    const double increment = 0.1;
+    double xValue = 0.0;
+    double yValue = 0.0;
     Timer.periodic(Duration(milliseconds: 100), (timer) {
-      if (isCrashed) {
-        timer.cancel();
-      } else {
+      if (xValue <= 10) {
         setState(() {
-          currentMultiplier += 0.01;
+          xValue += increment;
+          yValue = 0.5 * xValue * xValue;
+          lineChartSpots.add(FlSpot(xValue, yValue));
+          userMoney += 5.0; // Increment user money
         });
+
+        if (yValue >= crashPoint) {
+          setState(() {
+            isCrashed = true;
+            isPlaying = false;
+          });
+          timer.cancel();
+        }
+      } else {
+        timer.cancel();
       }
     });
-  }
-
-  void cashOut() {
-    setState(() {
-      isCrashed = true;
-      isPlaying = false;
-    });
-  }
-
-  double _generateRandomCrashPoint() {
-    final random = Random();
-    return 1.0 +
-        random.nextDouble() *
-            4.0; // Generate a random crash point between 1.0 and 5.0
   }
 
   @override
@@ -76,26 +77,62 @@ class _CrashGameScreenState extends State<CrashGameScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(
-              'Multiplier: ${currentMultiplier.toStringAsFixed(2)}x',
-              style: TextStyle(fontSize: 24),
+            Container(
+              width: 300,
+              height: 300,
+              decoration: BoxDecoration(
+                border: Border(
+                  bottom: BorderSide(color: Colors.black, width: 2.0),
+                  left: BorderSide(color: Colors.black, width: 2.0),
+                ),
+              ),
+              child: Stack(
+                children: [
+                  LineChart(
+                    LineChartData(
+                      minX: 0,
+                      maxX: 10,
+                      minY: 0,
+                      maxY: 60,
+                      gridData: FlGridData(show: false),
+                      titlesData: FlTitlesData(show: false),
+                      borderData: FlBorderData(show: false),
+                      lineBarsData: [
+                        LineChartBarData(
+                          spots: lineChartSpots,
+                          isCurved: true,
+                          color: Colors.blue,
+                          dotData: FlDotData(show: false),
+                          belowBarData: BarAreaData(show: false),
+                        ),
+                      ],
+                    ),
+                  ),
+                  if (lineChartSpots.isNotEmpty && !isCrashed)
+                    Positioned(
+                      bottom: lineChartSpots.last.y * 5,
+                      left: lineChartSpots.last.x * 30,
+                      child: Icon(
+                        Icons.star,
+                        color: Colors.red,
+                        size: 30,
+                      ),
+                    ),
+                ],
+              ),
             ),
             SizedBox(height: 20),
-            if (isPlaying)
-              ElevatedButton(
-                onPressed: cashOut,
-                child: Text('Cash Out'),
-              )
-            else
+            if (!isPlaying)
               ElevatedButton(
                 onPressed: startGame,
-                child: Text('Start Game'),
+                child: Text('Start Crash Game'),
               ),
-            SizedBox(height: 20),
             if (isCrashed)
               Text(
-                'Crash point: ${currentCrashPoint.toStringAsFixed(2)}',
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                'Game Crashed at ${lineChartSpots.last.x.toStringAsFixed(2)}x!\n'
+                'You had \$${userMoney.toStringAsFixed(2)}!',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                textAlign: TextAlign.center,
               ),
           ],
         ),

@@ -1,6 +1,6 @@
 import 'dart:convert';
-import 'package:cashapp/ComonScreens/sharnow.dart';
-import 'package:cashapp/ComonScreens/widgets.dart';
+import 'package:mugcash/ComonScreens/sharnow.dart';
+import 'package:mugcash/ComonScreens/widgets.dart';
 export 'dart:io';
 export 'package:hive/hive.dart';
 export 'package:flutter/services.dart';
@@ -25,19 +25,19 @@ export 'package:unity_ads_plugin/unity_ads_plugin.dart';
 export 'package:connectivity_plus/connectivity_plus.dart';
 export 'package:getwidget/getwidget.dart';
 export 'package:font_awesome_flutter/font_awesome_flutter.dart';
-export 'package:cashapp/AppScreens/accountsetting.dart';
-export 'package:cashapp/AppScreens/account.dart';
-export 'package:cashapp/AppScreens/task.dart';
-export 'package:cashapp/AppScreens/proScreens/JackPot.dart';
-export 'package:cashapp/AppScreens/contactus.dart';
-export 'package:cashapp/AppScreens/home.dart';
-export 'package:cashapp/AppScreens/leadboard.dart';
+export 'package:mugcash/AppScreens/accountsetting.dart';
+export 'package:mugcash/AppScreens/account.dart';
+export 'package:mugcash/AppScreens/task.dart';
+export 'package:mugcash/AppScreens/proScreens/JackPot.dart';
+export 'package:mugcash/AppScreens/contactus.dart';
+export 'package:mugcash/AppScreens/home.dart';
+export 'package:mugcash/AppScreens/leadboard.dart';
 export 'package:awesome_notifications/awesome_notifications.dart';
 
-export 'package:cashapp/AppScreens/proScreens/spin.dart';
-export 'package:cashapp/AppScreens/wallet.dart';
-export 'package:cashapp/ComonScreens/NavigationScreen.dart';
-export 'package:cashapp/ComonScreens/login.dart';
+export 'package:mugcash/AppScreens/proScreens/spin.dart';
+export 'package:mugcash/AppScreens/wallet.dart';
+export 'package:mugcash/ComonScreens/NavigationScreen.dart';
+export 'package:mugcash/ComonScreens/login.dart';
 
 export 'package:facebook_app_events/facebook_app_events.dart';
 
@@ -127,7 +127,7 @@ void vipMessage(BuildContext context, String MYmessage) {
       String value = keyValuePair[1];
       if (key == "Status") {
         if (value == 'SUCCESS') {
-            adsbox!.put(21, {'vip': 'true'});
+          adsbox!.put(21, {'vip': 'true'});
           http.Response response = await http.put(
               Uri.parse('https://fogcash.nextonebox.com/UpdateAccount'),
               body: {
@@ -167,7 +167,7 @@ void vipMessage(BuildContext context, String MYmessage) {
     title: '✅Become VIP at jsut ₹129 \n ',
     type: QuickAlertType.confirm,
     text: '✅ Instant withdraw Your money\n'
-        '✅ 50 watch ads per day\n'
+        '✅ Unlimted watch ads per day\n'
         '✅ Super Spin Unlocked\n'
         '✅ Lucky Spin Unlocked\n'
         '✅ 24/7 Costumer Support\n'
@@ -247,19 +247,10 @@ void buyMessage(BuildContext context, String MYmessage) {
     context: context,
     title: '✅Try pro to earn 10x faster now \n ',
     type: QuickAlertType.confirm,
-    text:
-                   'Current plan\n'
-        '*5 watch ads per day\n'
-        '*15 Spin per day\n'
-        '*15 Scratch per day\n'
-        '*Withdraw within 5 days\n'
-        '*Super Spin locked\n\n'
-        'Upgrade Pro at just ₹69\n'
-        '✅ 30 watch ads per day\n'
+    text: 'Upgrade Pro at just ₹69\n'
+        '✅ Unlimted watch ads per day\n'
         '✅ Unlimted Spin \n'
-        '✅ Unlimted Scratch \n'
-        '✅ No Ads\n'
-        '✅ Daily withdraw',
+        '✅ Unlimted Scratch \n',
     confirmBtnText: '₹69 only',
     onConfirmBtnTap: () {
       paymentkro();

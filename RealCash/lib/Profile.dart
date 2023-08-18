@@ -10,8 +10,8 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
-import 'package:test1/withdrawal.dart';
-import 'package:test1/webview.dart';
+import 'package:cash/withdrawal.dart';
+import 'package:cash/webview.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'HomePage.dart';

@@ -116,12 +116,21 @@ class _contactusState extends State<contactus> {
                       onPressed: () {
                         if (__formkey.currentState!.validate()) {
                           var subject = emailcontroller.text.toString();
-                          var message = messagelcontroller.text.toString
-                          ();
-                             var data =
-                              "          Email: ${account!.get(0)['email']} ,Name: ${account!.get(0)['name']} ,Date: ${DateTime.now().toString()} App:RealCash";
-                          launch(
-                              'mailto:nextoneboxcheck@gmail.com?subject=$subject&body=$message$data');
+                          var message = messagelcontroller.text.toString();
+                          if (messagelcontroller.text.length > 50) {
+                            var data =
+                                "          \n\n\nEmail: ${account!.get(0)['email']}\nName: ${account!.get(0)['name']}\nApp:LoveCash";
+                            launch(
+                                'mailto:nextoneboxcheck@gmail.com?subject=$subject&body=$message$data');
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                duration: Duration(seconds: 3),
+                                backgroundColor: Colors.green,
+                                content: Text(
+                                  'Pleace define clearly atleast in 35 words',
+                                  style: textstyle,
+                                )));
+                          }
                         }
                       },
                       child: isLoading

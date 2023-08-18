@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:test1/HomePage.dart';
+import 'package:cash/HomePage.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'Colors.dart';
 import 'package:http/http.dart' as http;
@@ -207,7 +207,7 @@ class _Car1State extends State<Car1> {
                             onPressed: () async {
                               String link = widget.tasksshow['referlink'];
                               String refertext = widget.tasksshow['refertext'];
-                              Share.share('RealCash $refertext $link');
+                              Share.share('LoveCash $refertext $link');
                             },
                             child: Text(
                               'Share',

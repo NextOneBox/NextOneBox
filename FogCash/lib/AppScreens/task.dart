@@ -1,5 +1,5 @@
-import 'package:cashapp/AppScreens/tasksdetaile.dart';
-import 'package:cashapp/ComonScreens/widgets.dart';
+import 'package:mugcash/AppScreens/tasksdetaile.dart';
+import 'package:mugcash/ComonScreens/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 class Task extends StatefulWidget {

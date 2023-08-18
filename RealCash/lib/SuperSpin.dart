@@ -9,7 +9,7 @@ import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:quantupi/quantupi.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:audioplayers/audioplayers.dart';
-import 'package:test1/HomePage.dart';
+import 'package:cash/HomePage.dart';
 
 import 'Colors.dart';
 import 'package:http/http.dart' as http;

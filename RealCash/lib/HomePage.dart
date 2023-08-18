@@ -5,7 +5,7 @@ import 'dailyreward.dart';
 import 'luckyspin.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:test1/welcome.dart';
+import 'package:cash/welcome.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
@@ -16,7 +16,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:test1/TaskDetails.dart';
+import 'package:cash/TaskDetails.dart';
 import 'package:hive/hive.dart';
 import 'main.dart';
 import 'sacratch_win.dart';
@@ -94,6 +94,50 @@ class _homepageState extends State<homepage> {
       gameId: '5366239',
     );
 
+if (socialmedia?.get('yt') == false) {
+      Future.delayed(Duration(seconds: 2), () {
+        AwesomeDialog(
+          context: context,
+          keyboardAware: true,
+          dismissOnBackKeyPress: false,
+          dialogType: DialogType.success,
+          animType: AnimType.bottomSlide,
+
+          btnCancelText: "Skip",
+          btnOkText: " Join now",
+          //  title:               '✅ Make Daily ₹500 use lucky spin. Many users are daily Earning ₹500 using lucky spin , Do not miss the big earning opportunity',
+          title: 'Join Telegram',
+          desc:
+              'Get Daily Update In our Telegram channel join our Telegram family',
+          btnCancelOnPress: () {
+            setState(() {
+              socialmedia?.put('yt', true);
+              socialmedia?.put('notjoin', true);
+            });
+
+            Fluttertoast.showToast(
+                msg: "You missed the big earning opportunity",
+                toastLength: Toast.LENGTH_SHORT,
+                backgroundColor: Colors.white,
+                textColor: Colors.black,
+                fontSize: 16.0);
+          },
+          btnOkOnPress: () async {
+            setState(() {
+              socialmedia?.put('yt', true);
+            });
+
+            String youtube = 'https://t.me/nextonebox';
+            if (await canLaunch(youtube)) {
+              await launch(youtube);
+            } else {
+              throw "Error occured trying to call that number.";
+            }
+          },
+        ).show();
+      });
+    }
+    ;
     getConnectivity();
     super.initState();
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
@@ -163,7 +207,7 @@ class _homepageState extends State<homepage> {
     print('object');
     var email = account!.get(0)['email'];
     http.Response data = await http.get(Uri.parse(
-        'https://realcash.nextonebox.com/ShowAccountData?shahidmir8082@gmail.com'));
+        'https://realcash.nextonebox.com/ShowAccountData?$email'));
     if (data.reasonPhrase == 'OK') {
       await account!.clear();
       var da = jsonDecode(data.body);
@@ -288,7 +332,7 @@ class _homepageState extends State<homepage> {
       receiverName: 'NextOneBox CEO',
       transactionRefId: '',
       transactionNote: '${account!.get(0)['name']}',
-      amount: 149,
+      amount: 129,
     );
     final response = await zupi.startTransaction();
 
@@ -306,6 +350,7 @@ class _homepageState extends State<homepage> {
       if (key == "Status") {
         if (value == 'SUCCESS') {
           setState(() {
+            VIP?.put('VIP', true);
             superspin?.put('superunlocked', true);
             superspin?.put('luckspinbalance', 50);
             adsbox?.put(40, {'clicks': 0});
@@ -439,7 +484,7 @@ class _homepageState extends State<homepage> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'RealCash',
+                'LoveCash',
                 style: TextStyle(color: c6, fontWeight: FontWeight.w700),
               ),
               Column(
@@ -859,12 +904,12 @@ class _homepageState extends State<homepage> {
                                             dialogType: DialogType.success,
                                             animType: AnimType.bottomSlide,
                                             btnCancelText: "Cancel",
-                                            btnOkText: "pay ₹149",
+                                            btnOkText: "pay ₹129",
                                             body: Center(
                                                 child: Column(
                                               children: [
                                                 Text(
-                                                  'Became VIP at just ₹149\n',
+                                                  'Became VIP at just ₹129\n',
                                                   style: TextStyle(
                                                       fontWeight:
                                                           FontWeight.bold),

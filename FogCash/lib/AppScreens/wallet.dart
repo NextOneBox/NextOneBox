@@ -1,7 +1,7 @@
-import 'package:cashapp/AppScreens/widthrawhistory.dart';
+import 'package:mugcash/AppScreens/widthrawhistory.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:cashapp/ComonScreens/widgets.dart';
+import 'package:mugcash/ComonScreens/widgets.dart';
 import 'package:quantupi/quantupi.dart';
 
 class Wallet extends StatefulWidget {

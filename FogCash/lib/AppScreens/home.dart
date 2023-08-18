@@ -1,10 +1,10 @@
-import 'package:cashapp/AppScreens/proScreens/education.dart';
-import 'package:cashapp/AppScreens/proScreens/scrachcard.dart';
-import 'package:cashapp/AppScreens/tasksdetaile.dart';
-import 'package:cashapp/ComonScreens/local_notification_service.dart';
+import 'package:mugcash/AppScreens/proScreens/education.dart';
+import 'package:mugcash/AppScreens/proScreens/scrachcard.dart';
+import 'package:mugcash/AppScreens/tasksdetaile.dart';
+import 'package:mugcash/ComonScreens/local_notification_service.dart';
 import 'package:confetti/confetti.dart';
 import 'package:http/http.dart' as http;
-import 'package:cashapp/ComonScreens/widgets.dart';
+import 'package:mugcash/ComonScreens/widgets.dart';
 import 'package:flutter/material.dart';
 import 'proScreens/luckeyspin.dart';
 
@@ -16,6 +16,8 @@ class Home extends StatefulWidget {
     return Screehome();
   }
 }
+
+var socialmedia = adsbox!.get(22)['teligram'];
 
 class Screehome extends State<Home> {
   bool isLoaded = false;
@@ -76,7 +78,42 @@ class Screehome extends State<Home> {
     Ceckinternet();
 
     controller.play();
+    if (socialmedia == false) {
+      print('object');
+      Future.delayed(Duration(seconds: 2), () {
+        QuickAlert.show(
+          context: context,
+          title: '✅Join Teligram \n ',
+          type: QuickAlertType.confirm,
+          text:
+              'Get Daily Update In our Telegram channel join our Telegram family',
+          confirmBtnText: ' Join now',
+          onConfirmBtnTap: () async {
+            Navigator.of(
+              context,
+            ).pop('dialog');
+            setState(() {
+              adsbox!.put(22, {'teligram': true});
+            });
 
+            String youtube = 'https://t.me/nextonebox';
+            if (await canLaunch(youtube)) {
+              await launch(youtube);
+            } else {
+              throw "Error occured trying to call that number.";
+            }
+          },
+          cancelBtnText: 'Skip',
+          onCancelBtnTap: () {
+            Navigator.of(
+              context,
+            ).pop('dialog');
+          },
+          confirmBtnColor: Colors.green,
+        );
+      });
+    }
+    ;
     FirebaseMessaging.instance.getInitialMessage().then(
       (message) {
         if (message != null) {

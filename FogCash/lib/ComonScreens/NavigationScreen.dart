@@ -1,5 +1,5 @@
-import 'package:cashapp/ComonScreens/widgets.dart';
-import 'package:cashapp/AppScreens/referandearn.dart';
+import 'package:mugcash/ComonScreens/widgets.dart';
+import 'package:mugcash/AppScreens/referandearn.dart';
 
 import 'package:flutter/material.dart';
 

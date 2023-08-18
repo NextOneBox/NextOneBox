@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:test1/HomePage.dart';
+import 'package:cash/HomePage.dart';
 
 import 'Tasksoffer.dart';
 import 'Profile.dart';

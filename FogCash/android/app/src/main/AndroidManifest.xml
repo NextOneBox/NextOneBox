@@ -13,7 +13,7 @@
     <uses-permission android:name="android.permission.WRITE_CONTACTS" />  
     <application
 
-        android:label="FogCash"
+        android:label="MugCash"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <meta-data

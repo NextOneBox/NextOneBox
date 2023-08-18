@@ -9,7 +9,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
-import 'package:test1/welcome.dart';
+import 'package:cash/welcome.dart';
 import 'package:unity_ads_plugin/unity_ads_plugin.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'Colors.dart';
@@ -27,11 +27,11 @@ class Taskoffers extends StatefulWidget {
 class _TaskoffersState extends State<Taskoffers> {
   unityloadad() async {
     UnityAds.load(
-      placementId: 'Rewarded_Android',
+      placementId: 'intrestial_ad_',
     );
 
     UnityAds.showVideoAd(
-      placementId: 'Rewarded_Android',
+      placementId: 'intrestial_ad_',
       onStart: (placementId) => print('Video Ad $placementId started'),
       onClick: (placementId) => print('Video Ad $placementId click'),
       onSkipped: (placementId) => print('Video Ad $placementId skipped'),
@@ -58,7 +58,7 @@ class _TaskoffersState extends State<Taskoffers> {
       gameId: '5366239',
     );
     UnityAds.load(
-      placementId: 'Rewarded_Android',
+      placementId: 'intrestial_ad_',
     );
     if (socialmedia?.get('notjoin') == true) {
       Future.delayed(Duration(seconds: 3), () {

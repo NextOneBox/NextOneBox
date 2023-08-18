@@ -79,7 +79,7 @@ class _termcondationState extends State<termcondation> {
           text: TextSpan(
             children: [
               TextSpan(
-                  text: 'Real',
+                  text: 'Love',
                   style: TextStyle(
                       fontSize: 25,
                       fontWeight: FontWeight.bold,
@@ -132,7 +132,7 @@ class _privacyState extends State<privacy> {
           text: TextSpan(
             children: [
               TextSpan(
-                  text: 'Real',
+                  text: 'Love',
                   style: TextStyle(
                       fontSize: 25,
                       fontWeight: FontWeight.bold,
