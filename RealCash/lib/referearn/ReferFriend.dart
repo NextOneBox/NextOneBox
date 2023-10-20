@@ -19,11 +19,11 @@ class ReferFriend extends StatefulWidget {
 class _ReferFriendState extends State<ReferFriend> {
   Box? tasks = Hive.box('tasks');
   var urlapp =
-      'https://play.google.com/store/apps/details?id=com.earn.lovecash';
+      'https://realcash.nextonebox.com/';
   final String _content =
-      '✅ Download LoveCash and Earn upto daily ₹5000 use My Refferal Code =  ✅ ${account!.get(0)['Refercode']}'
+      '✅ Download RealCash and Earn upto daily ₹5000 use My Refferal Code =  ✅ ${account!.get(0)['Refercode']}'
       ' You can EarnUpto daily ₹5000 To ₹10000 by Completing some easy task , You Can also Earn By spin and scratch '
-      'Download Now LoveCash on PlayStore ';
+      'Download Now RealCash on PlayStore ';
 
   void _shareContent() {
     Share.share('$_content $urlapp ');

@@ -194,7 +194,7 @@ class _AccountState extends State<Account> {
                   MaterialPageRoute(
                       builder: (context) => const WebPage(
                             data:
-                                'https://aitoolsnext.blogspot.com/2023/08/term.html',
+                                'https://mugcash.blogspot.com/2023/08/terms.html',
                           )),
                 );
               },

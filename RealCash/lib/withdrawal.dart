@@ -42,11 +42,12 @@ class _withdrawalState extends State<withdrawal> {
   var paytm = true;
   bool upgraded = limits?.get('pro');
   paymentkro() async {
+    try{
     Quantupi zupi = Quantupi(
       receiverUpiId: 'nextonebox.51084093@sbi',
       receiverName: 'NextOneBox CEO',
       transactionRefId: '',
-      transactionNote: '${account!.get(0)['name']}',
+      transactionNote: '${account!.get(0)['name']}.',
       amount: 89,
     );
     final response = await zupi.startTransaction();
@@ -97,17 +98,22 @@ class _withdrawalState extends State<withdrawal> {
         break; // Exit the loop since we have found the Status key
       }
     }
+        } catch (error) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          backgroundColor: c1, content: Text('Please select a UPI app for payment. \n Or no UPI app found in device .')));
+    }
   }
 
   bool superlocked = superspin?.get('superunlocked');
   bool vip = VIP?.get('VIP');
 
   VipPaymentkro() async {
+    try{
     Quantupi zupi = Quantupi(
       receiverUpiId: 'nextonebox.51084093@sbi',
       receiverName: 'NextOneBox CEO',
       transactionRefId: '',
-      transactionNote: '${account!.get(0)['name']}',
+      transactionNote: '${account!.get(0)['name']}.',
       amount: 129,
     );
     final response = await zupi.startTransaction();
@@ -168,6 +174,10 @@ class _withdrawalState extends State<withdrawal> {
         }
         break; // Exit the loop since we have found the Status key
       }
+    }
+        } catch (error) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          backgroundColor: c1, content: Text('Please select a UPI app for payment. \n Or no UPI app found in device .')));
     }
   }
 

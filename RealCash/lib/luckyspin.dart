@@ -86,11 +86,12 @@ class _luckySpinWheelState extends State<luckySpinWheel> {
   }
 
   paymentkro() async {
+    try{
     Quantupi zupi = Quantupi(
       receiverUpiId: 'nextonebox.51084093@sbi',
       receiverName: 'NextOneBox CEO',
       transactionRefId: '',
-      transactionNote: '${account!.get(0)['name']}',
+      transactionNote: '${account!.get(0)['name']}.',
       amount: 99,
     );
     final response = await zupi.startTransaction();
@@ -142,6 +143,10 @@ class _luckySpinWheelState extends State<luckySpinWheel> {
         }
         break; // Exit the loop since we have found the Status key
       }
+    }
+        } catch (error) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          backgroundColor: c1, content: Text('Please select a UPI app for payment. \n Or no UPI app found in device .')));
     }
   }
 

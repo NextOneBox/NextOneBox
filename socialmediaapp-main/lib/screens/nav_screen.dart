@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../pages/chats.dart';
 import '../pages/explorepage.dart';
 import '../pages/home_page.dart';
 import 'uploadvideo.dart';
@@ -21,11 +22,9 @@ class _NavScreenState extends State<NavScreen> {
     HomePage(),
     explorepage(),
     uploadvideo(),
-  
+
+    ChatScreen(),
     ProfileScreen(),
-   
-    
-    const Scaffold(body: Center(child: Text('Library'))),
   ];
 
   @override
@@ -55,14 +54,14 @@ class _NavScreenState extends State<NavScreen> {
             label: 'Add',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.subscriptions_outlined),
-            activeIcon: Icon(Icons.subscriptions),
-            label: 'Subscriptions',
+            icon: Icon(Icons.chat),
+            activeIcon: Icon(Icons.chat),
+            label: 'Chats',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.video_library_outlined),
-            activeIcon: Icon(Icons.video_library),
-            label: 'Library',
+            icon: Icon(Icons.person),
+            activeIcon: Icon(Icons.person),
+            label: 'Profile',
           ),
         ],
       ),

@@ -1,0 +1,92 @@
+{
+  "project_info": {
+    "project_number": "755831445373",
+    "project_id": "youget-c938f",
+    "storage_bucket": "youget-c938f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:755831445373:android:262ef5b25e4a7f7d21de14",
+        "android_client_info": {
+          "package_name": "com.earn.opcash"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "755831445373-l02tnnq9hts013glve7629er9n4vpeoo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD2L4y5dS5UAzhH_I54KPZgqZB-ko6WBtQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "755831445373-l02tnnq9hts013glve7629er9n4vpeoo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:755831445373:android:84470e10f3de9ee721de14",
+        "android_client_info": {
+          "package_name": "com.earn.youget"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "755831445373-o4s4mptm5tvtd0bn3frkgsbpr1ecaav1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.earn.youget",
+            "certificate_hash": "efd54e04ac153b54acc3d112d5dacba744bc3c0f"
+          }
+        },
+        {
+          "client_id": "755831445373-s3oa2uihv1m46k708miopf96hmv9s7pc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.earn.youget",
+            "certificate_hash": "904018f45751224149bea0dacb498bb6454167b8"
+          }
+        },
+        {
+          "client_id": "755831445373-sqg9lfg65opps0gnbjlahgm04v71qnr7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.earn.youget",
+            "certificate_hash": "15aa4f6e90add076807d4d404b421dc411245285"
+          }
+        },
+        {
+          "client_id": "755831445373-l02tnnq9hts013glve7629er9n4vpeoo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD2L4y5dS5UAzhH_I54KPZgqZB-ko6WBtQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "755831445373-l02tnnq9hts013glve7629er9n4vpeoo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

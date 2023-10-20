@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:share_plus/share_plus.dart';
@@ -41,8 +42,8 @@ class _Car1State extends State<Car1> {
   bool isLoadin = false;
   getuserdata() async {
     var email = account!.get(0)['email'];
-    http.Response data = await http
-        .get(Uri.parse('https://realcash.nextonebox.com/ShowAccountData?$email'));
+    http.Response data = await http.get(
+        Uri.parse('https://realcash.nextonebox.com/ShowAccountData?$email'));
     if (data.reasonPhrase == 'OK') {
       await account!.clear();
       var da = jsonDecode(data.body);
@@ -148,66 +149,63 @@ class _Car1State extends State<Car1> {
                   child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
+                        // Container(
+                        //   decoration: BoxDecoration(
+                        //       borderRadius: BorderRadius.circular(10)),
+                        //   width: MediaQuery.of(context).size.width / 3.3,
+                        //   height: 55,
+                        //   child: MaterialButton(
+                        //     onPressed: () async {
+                        //       bool result = await InternetConnectionChecker()
+                        //           .hasConnection;
+                        //       if (result == true) {
+                        //         String link = widget.tasksshow['referlink'];
+                        //         if (await canLaunch(link)) {
+                        //           await launch(link, forceWebView: false);
+                        //         } else {
+                        //           String link = widget.tasksshow['referlink'];
+                        //           String refertext =
+                        //               widget.tasksshow['refertext'];
+                        //           Share.share('$link');
+                        //         }
+                        //       } else {
+                        //         Fluttertoast.showToast(
+                        //             msg: "No Iternet Connection",
+                        //             toastLength: Toast.LENGTH_SHORT,
+                        //             backgroundColor: c6,
+                        //             textColor: c3,
+                        //             fontSize: 16.0);
+                        //       }
+                        //     },
+                        //     child: Text(
+                        //       'Redeem',
+                        //       style: TextStyle(
+                        //           fontSize: 18,
+                        //           fontWeight: FontWeight.w500,
+                        //           color: Colors.white),
+                        //     ),
+                        //     color: c1,
+                        //     shape: RoundedRectangleBorder(
+                        //         borderRadius: BorderRadius.circular(10)),
+                        //   ),
+                        // ),
                         Container(
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10)),
-                          width: MediaQuery.of(context).size.width / 3.3,
+                          width: MediaQuery.of(context).size.width / 1.3,
                           height: 55,
                           child: MaterialButton(
                             onPressed: () async {
-                              bool result = await InternetConnectionChecker()
-                                  .hasConnection;
-                              if (result == true) {
-                                if (account?.get(0)['phonenumber'] ==
-                                    'Phone Number') {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => editprofile()));
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                       SnackBar(
-                                          backgroundColor: c6,
-                                          content: Text(
-                                              'Please update your profile',style: textstyle,)));
-                                } else {
-                                  String link = widget.tasksshow['referlink'];
-                                  if (await canLaunch(link)) {
-                                    await launch(link, forceWebView: false);
-                                  } else {
-                                    throw "Error occured trying to call that number.";
-                                  }
-                                }
-                              } else {
-                                Fluttertoast.showToast(
-                                    msg: "No Iternet Connection",
-                                    toastLength: Toast.LENGTH_SHORT,
-                                    backgroundColor: c6,
-                                    textColor: c3,
-                                    fontSize: 16.0);
-                              }
-                            },
-                            child: Text(
-                              'Redeem',
-                              style: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.white),
-                            ),
-                            color: c1,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10)),
-                          ),
-                        ),
-                        Container(
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10)),
-                          width: MediaQuery.of(context).size.width / 3.3,
-                          height: 55,
-                          child: MaterialButton(
-                            onPressed: () async {
-                              String link = widget.tasksshow['referlink'];
                               String refertext = widget.tasksshow['refertext'];
-                              Share.share('LoveCash $refertext $link');
+                              Share.share('$refertext');
+                              Clipboard.setData(ClipboardData(
+                                  text: '${account!.get(0)['Refercode']}'));
+                              Fluttertoast.showToast(
+                                  msg: "Link Copied",
+                                  toastLength: Toast.LENGTH_SHORT,
+                                  backgroundColor: c6,
+                                  textColor: c3,
+                                  fontSize: 16.0);
                             },
                             child: Text(
                               'Share',

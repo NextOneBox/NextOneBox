@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'package:cash/Tasksoffer.dart';
+import 'package:cash/quiz_file.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:hive/hive.dart';
 import 'package:http/http.dart' as http;
@@ -83,7 +85,7 @@ class _LoginscreenState extends State<Loginscreen> {
               child: Container(
                 child: Center(
                   child: Text(
-                    "LoveCash",
+                    "RealCash",
                     style: TextStyle(fontSize: 25, color: Colors.white),
                   ),
                 ),
@@ -164,7 +166,7 @@ class _LoginscreenState extends State<Loginscreen> {
                       child: RichText(
                           text: TextSpan(children: [
                         const TextSpan(
-                            text: "By continuing, you agree to LoveCash ",
+                            text: "By continuing, you agree to Real cash ",
                             style: TextStyle(color: Colors.black)),
                         TextSpan(
                             style: const TextStyle(
@@ -177,10 +179,11 @@ class _LoginscreenState extends State<Loginscreen> {
                                 if (await canLaunch(url)) {
                                   await launch(url);
                                 } else {
-                                   Navigator.push(
+                                  Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) => termcondation()));
+                                          builder: (context) =>
+                                              termcondation()));
                                 }
                               }),
                         const TextSpan(
@@ -196,7 +199,7 @@ class _LoginscreenState extends State<Loginscreen> {
                                 if (await canLaunch(url)) {
                                   await launch(url);
                                 } else {
-                                 Navigator.push(
+                                  Navigator.push(
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) => privacy()));
@@ -245,11 +248,19 @@ class _LoginscreenState extends State<Loginscreen> {
           'Refercode': '....',
         };
         await account!.add(dat);
-        Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(builder: (context) => Bottomapp()),
-          (Route<dynamic> route) => false,
-        );
+        if (adsbox!.get(200) == true) {
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (context) => Bottomapp()),
+            (Route<dynamic> route) => false,
+          );
+        } else {
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (context) => Taskoffers()),
+            (Route<dynamic> route) => false,
+          );
+        }
       }
 
       if (response.body == 'account created') {
@@ -262,11 +273,19 @@ class _LoginscreenState extends State<Loginscreen> {
 
         await account!.add(dat);
 
-        Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(builder: (context) => Bottomapp()),
-          (Route<dynamic> route) => false,
-        );
+        if (adsbox!.get(200) == true) {
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (context) => Bottomapp()),
+            (Route<dynamic> route) => false,
+          );
+        } else {
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (context) => Taskoffers()),
+            (Route<dynamic> route) => false,
+          );
+        }
       }
 
       Fluttertoast.showToast(

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:cash/HomePage.dart';
 import 'package:flutter/services.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +12,8 @@ import 'package:unity_ads_plugin/unity_ads_plugin.dart';
 import 'Authentication.dart';
 import 'notification.dart';
 import 'package:facebook_app_events/facebook_app_events.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 
 final FacebookAppEvents facebookAppEvents = FacebookAppEvents();
 Box? promotionlinks = Hive.box('promotionlinks');
@@ -149,12 +152,23 @@ class Myapp extends StatefulWidget {
 class _MyappState extends State<Myapp> {
   DateTime pre_backpress = DateTime.now();
 
+  getd() async {
+    http.Response taskget =
+        await http.get(Uri.parse('https://realcash.nextonebox.com/what'));
+    if (taskget.reasonPhrase == 'OK') {
+      adsbox!.put(200, taskget.body);
+
+
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    getd();
     return MaterialApp(
       theme: ThemeData(useMaterial3: false),
       debugShowCheckedModeBanner: false,
-      title: 'LoveCash',
+      title: 'RealCash',
 
       // home: notificationn(),
       home: AuthService().handleAuthState(),

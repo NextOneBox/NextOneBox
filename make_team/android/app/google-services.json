@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "221014010616",
+    "project_id": "maketeam-9e794",
+    "storage_bucket": "maketeam-9e794.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:221014010616:android:b2b7560182cdbfa141a90d",
+        "android_client_info": {
+          "package_name": "com.nextdream.team"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "221014010616-lnhg33s38snmr866ephvhfemho5ee4fi.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.nextdream.team",
+            "certificate_hash": "904018f45751224149bea0dacb498bb6454167b8"
+          }
+        },
+        {
+          "client_id": "221014010616-95unsnllcqc2p526pee52sntp1mtfhg4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCcAk2zcENQ9B2vUOtKz7Jl5x3vibT4NLk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "221014010616-95unsnllcqc2p526pee52sntp1mtfhg4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

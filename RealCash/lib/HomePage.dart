@@ -94,7 +94,7 @@ class _homepageState extends State<homepage> {
       gameId: '5366239',
     );
 
-if (socialmedia?.get('yt') == false) {
+    if (socialmedia?.get('yt') == false) {
       Future.delayed(Duration(seconds: 2), () {
         AwesomeDialog(
           context: context,
@@ -206,8 +206,8 @@ if (socialmedia?.get('yt') == false) {
   getuserdata() async {
     print('object');
     var email = account!.get(0)['email'];
-    http.Response data = await http.get(Uri.parse(
-        'https://realcash.nextonebox.com/ShowAccountData?$email'));
+    http.Response data = await http.get(
+        Uri.parse('https://realcash.nextonebox.com/ShowAccountData?$email'));
     if (data.reasonPhrase == 'OK') {
       await account!.clear();
       var da = jsonDecode(data.body);
@@ -270,127 +270,141 @@ if (socialmedia?.get('yt') == false) {
 
   var repeescolor = c1;
   paymentkro() async {
-    Quantupi zupi = Quantupi(
-      receiverUpiId: 'nextonebox.51084093@sbi',
-      receiverName: 'NextOneBox CEO',
-      transactionRefId: '',
-      transactionNote: '${account!.get(0)['name']}',
-      amount: 89,
-    );
-    final response = await zupi.startTransaction();
+    try {
+      Quantupi zupi = Quantupi(
+        receiverUpiId: 'nextonebox.51084093@sbi',
+        receiverName: 'NextOneBox CEO',
+        transactionRefId: '',
+        transactionNote: '${account!.get(0)['name']}.',
+        amount: 89,
+      );
+      final response = await zupi.startTransaction();
 
-    // Split the response string into individual key-value pairs
-    List<String> keyValuePairs = response.split('&');
+      // Split the response string into individual key-value pairs
+      List<String> keyValuePairs = response.split('&');
 
-    // Iterate over each key-value pair
-    for (String pair in keyValuePairs) {
-      // Split the pair into key and value
-      List<String> keyValuePair = pair.split('=');
-      String key = keyValuePair[0];
-      String value = keyValuePair[1];
+      // Iterate over each key-value pair
+      for (String pair in keyValuePairs) {
+        // Split the pair into key and value
+        List<String> keyValuePair = pair.split('=');
+        String key = keyValuePair[0];
+        String value = keyValuePair[1];
 
-      // Check if the key is "Status"
-      if (key == "Status") {
-        if (value == 'SUCCESS') {
-          setState(() {
-            limits?.put('pro', true);
-            limits?.put('watchad', 20);
-            AwesomeDialog(
-              context: context,
-              animType: AnimType.leftSlide,
-              headerAnimationLoop: false,
-              dialogType: DialogType.success,
-              showCloseIcon: true,
-              title: 'Succes',
-              desc: 'Congratulation you are upgraded please restart the app',
-              btnOkOnPress: () {
-                debugPrint('OnClcik');
-              },
-              btnOkIcon: Icons.check_circle,
-              onDismissCallback: (type) {},
-            ).show();
-          });
+        // Check if the key is "Status"
+        if (key == "Status") {
+          if (value == 'SUCCESS') {
+            setState(() {
+              limits?.put('pro', true);
+              limits?.put('watchad', 20);
+              AwesomeDialog(
+                context: context,
+                animType: AnimType.leftSlide,
+                headerAnimationLoop: false,
+                dialogType: DialogType.success,
+                showCloseIcon: true,
+                title: 'Succes',
+                desc: 'Congratulation you are upgraded please restart the app',
+                btnOkOnPress: () {
+                  debugPrint('OnClcik');
+                },
+                btnOkIcon: Icons.check_circle,
+                onDismissCallback: (type) {},
+              ).show();
+            });
 
-          http.Response response = await http
-              .put(Uri.parse('https://realcash.nextonebox.com/pro'), body: {
-            'email': account!.get(0)['email'].toString(),
-            'Pro': 'true',
-          });
-          await http.post(Uri.parse('https://fogcash.nextonebox.com/ContactUs'),
-              body: {
-                'message': "${account!.get(0)['email']}",
-              });
+            http.Response response = await http
+                .put(Uri.parse('https://realcash.nextonebox.com/pro'), body: {
+              'email': account!.get(0)['email'].toString(),
+              'Pro': 'true',
+            });
+            await http.post(
+                Uri.parse('https://fogcash.nextonebox.com/ContactUs'),
+                body: {
+                  'message': "${account!.get(0)['email']}",
+                });
+          }
+          break;
         }
-        break;
       }
+    } catch (error) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          backgroundColor: c1, content: Text('Please select a UPI app for payment. \n Or no UPI app found in device .')));
     }
   }
 
   VipPaymentkro() async {
-    Quantupi zupi = Quantupi(
-      receiverUpiId: 'nextonebox.51084093@sbi',
-      receiverName: 'NextOneBox CEO',
-      transactionRefId: '',
-      transactionNote: '${account!.get(0)['name']}',
-      amount: 129,
-    );
-    final response = await zupi.startTransaction();
+    try {
+      Quantupi zupi = Quantupi(
+        receiverUpiId: 'nextonebox.51084093@sbi',
+        receiverName: 'NextOneBox CEO',
+        transactionRefId: '',
+        transactionNote: '${account!.get(0)['name']}.',
+        amount: 129,
+      );
+      final response = await zupi.startTransaction();
 
-    // Split the response string into individual key-value pairs
-    List<String> keyValuePairs = response.split('&');
+      // Split the response string into individual key-value pairs
+      List<String> keyValuePairs = response.split('&');
 
-    // Iterate over each key-value pair
-    for (String pair in keyValuePairs) {
-      // Split the pair into key and value
-      List<String> keyValuePair = pair.split('=');
-      String key = keyValuePair[0];
-      String value = keyValuePair[1];
+      // Iterate over each key-value pair
+      for (String pair in keyValuePairs) {
+        // Split the pair into key and value
+        List<String> keyValuePair = pair.split('=');
+        String key = keyValuePair[0];
+        String value = keyValuePair[1];
 
-      // Check if the key is "Status"
-      if (key == "Status") {
-        if (value == 'SUCCESS') {
-          setState(() {
-            VIP?.put('VIP', true);
-            superspin?.put('superunlocked', true);
-            superspin?.put('luckspinbalance', 50);
-            adsbox?.put(40, {'clicks': 0});
-            superspin?.put('click', 0);
-            limits?.put('watchad', 35);
+        // Check if the key is "Status"
+        if (key == "Status") {
+          if (value == 'SUCCESS') {
+            setState(() {
+              VIP?.put('VIP', true);
+              superspin?.put('superunlocked', true);
+              superspin?.put('luckspinbalance', 50);
+              adsbox?.put(40, {'clicks': 0});
+              superspin?.put('click', 0);
+              limits?.put('watchad', 35);
 
-            AwesomeDialog(
-              context: context,
-              animType: AnimType.leftSlide,
-              headerAnimationLoop: false,
-              dialogType: DialogType.success,
-              showCloseIcon: true,
-              title: 'Succes',
-              desc: 'Congratulation you are upgraded please restart the app',
-              btnOkOnPress: () {
-                debugPrint('OnClcik');
-              },
-              btnOkIcon: Icons.check_circle,
-              onDismissCallback: (type) {},
-            ).show();
-          });
-          await http.put(Uri.parse('https://realcash.nextonebox.com/superSpin'),
-              body: {
-                'email': account!.get(0)['email'].toString(),
-                'SuperSpin': 'true',
-              });
+              AwesomeDialog(
+                context: context,
+                animType: AnimType.leftSlide,
+                headerAnimationLoop: false,
+                dialogType: DialogType.success,
+                showCloseIcon: true,
+                title: 'Succes',
+                desc: 'Congratulation you are upgraded please restart the app',
+                btnOkOnPress: () {
+                  debugPrint('OnClcik');
+                },
+                btnOkIcon: Icons.check_circle,
+                onDismissCallback: (type) {},
+              ).show();
+            });
+            await http.put(
+                Uri.parse('https://realcash.nextonebox.com/superSpin'),
+                body: {
+                  'email': account!.get(0)['email'].toString(),
+                  'SuperSpin': 'true',
+                });
 
-          await http.put(Uri.parse('https://realcash.nextonebox.com/luckySpin'),
-              body: {
-                'email': account!.get(0)['email'].toString(),
-                'LuckySpin': '100',
-              });
+            await http.put(
+                Uri.parse('https://realcash.nextonebox.com/luckySpin'),
+                body: {
+                  'email': account!.get(0)['email'].toString(),
+                  'LuckySpin': '100',
+                });
 
-          await http.post(Uri.parse('https://fogcash.nextonebox.com/ContactUs'),
-              body: {
-                'message': "${account!.get(0)['email']}",
-              });
+            await http.post(
+                Uri.parse('https://fogcash.nextonebox.com/ContactUs'),
+                body: {
+                  'message': "${account!.get(0)['email']}",
+                });
+          }
+          break; // Exit the loop since we have found the Status key
         }
-        break; // Exit the loop since we have found the Status key
       }
+    } catch (error) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          backgroundColor: c1, content: Text('Please select a UPI app for payment. \n Or no UPI app found in device .')));
     }
   }
 
@@ -484,7 +498,7 @@ if (socialmedia?.get('yt') == false) {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'LoveCash',
+                'RealCash',
                 style: TextStyle(color: c6, fontWeight: FontWeight.w700),
               ),
               Column(

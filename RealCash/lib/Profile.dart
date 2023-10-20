@@ -325,16 +325,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     child:
                         listTile(icon: Icons.telegram, title: "Join Telegram"),
                   ),
-                  GestureDetector(
-                    onTap: () async {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => LeaderBoard()));
-                    },
-                    child: listTile(
-                        icon: FontAwesomeIcons.trophy, title: "LeaderBord"),
-                  ),
+                  
 
                   // !listTiles------------------------------------------------
                   GestureDetector(

@@ -14,12 +14,15 @@ import 'package:unity_ads_plugin/unity_ads_plugin.dart';
 import 'Colors.dart';
 import 'package:http/http.dart' as http;
 import 'Widget.dart';
+
 Box? boo = Hive.box('boo');
+
 class SpinWheel extends StatefulWidget {
   SpinWheel({Key? key}) : super(key: key);
   @override
   State<SpinWheel> createState() => _SpinWheelState();
 }
+
 Box? wallet = Hive.box('wallet');
 
 class _SpinWheelState extends State<SpinWheel> {
@@ -69,40 +72,37 @@ class _SpinWheelState extends State<SpinWheel> {
     int clicks = adsbox!.get(1)['clicks'];
     if (clicks == limits?.get('spin')) {
       Future.delayed(Duration(seconds: 2), () {
-        
-          AwesomeDialog(
-            context: context,
-            keyboardAware: true,
-            dismissOnBackKeyPress: false,
-            dialogType: DialogType.success,
-            animType: AnimType.bottomSlide,
-            btnCancelText: "Cancel",
-            btnOkText: "Use Now",
+        AwesomeDialog(
+          context: context,
+          keyboardAware: true,
+          dismissOnBackKeyPress: false,
+          dialogType: DialogType.success,
+          animType: AnimType.bottomSlide,
+          btnCancelText: "Cancel",
+          btnOkText: "Use Now",
           //  title:               '✅ Make Daily ₹500 use lucky spin. Many users are daily Earning ₹500 using lucky spin , Do not miss the big earning opportunity',
-           title: 'Earn Daily ₹500',
-            desc:
-             
+          title: 'Earn Daily ₹500',
+          desc:
               'Make Daily ₹500 use lucky spin. Many users are daily Earning ₹500 using lucky spin , Do not miss the big earning opportunity',
-            
-            // body: Center(
-            //     child: Text(
-             
-            //   '✅ Make Daily ₹500 use lucky spin. Many users are daily Earning ₹500 using lucky spin , Do not miss the big earning opportunity',
-            // )),
-            btnCancelOnPress: () {
-              Fluttertoast.showToast(
-                  msg: "You missed the big earning opportunity",
-                  toastLength: Toast.LENGTH_SHORT,
-                  backgroundColor: Colors.white,
-                  textColor: Colors.black,
-                  fontSize: 16.0);
-            },
-            btnOkOnPress: () {
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => luckySpinWheel()));
-            },
-          ).show();
-       
+
+          // body: Center(
+          //     child: Text(
+
+          //   '✅ Make Daily ₹500 use lucky spin. Many users are daily Earning ₹500 using lucky spin , Do not miss the big earning opportunity',
+          // )),
+          btnCancelOnPress: () {
+            Fluttertoast.showToast(
+                msg: "You missed the big earning opportunity",
+                toastLength: Toast.LENGTH_SHORT,
+                backgroundColor: Colors.white,
+                textColor: Colors.black,
+                fontSize: 16.0);
+          },
+          btnOkOnPress: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => luckySpinWheel()));
+          },
+        ).show();
       }); //hghgfhh
 
       if (difference.inHours > 10) {

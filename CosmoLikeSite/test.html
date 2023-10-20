@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Design you Landing Page</title>
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+
+    <style>
+        #editor {
+            overflow-y: auto;
+            max-height: 800px;
+        }
+
+        .button {
+            font-weight: bold;
+            font-size: x-large;
+            background-color: #007BFF;
+            color: #FFFFFF;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+            width: 80%;
+            height: 70px;
+
+
+
+        }
+
+        .button:hover {
+            background-color: #0056b3;
+        }
+
+        .preview-section .button {
+            position: absolute;
+            bottom: 20px;
+            /* Adjust this value as needed */
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .upload-box {
+            width: 100%;
+            border: 2px dashed #ccc;
+            padding: 10px;
+            text-align: center;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        img#preview {
+            max-width: 100%;
+            display: none;
+        }
+
+        .container {
+            display: flex;
+            justify-content: space-between;
+            padding: 50px;
+        }
+
+        .edit-section,
+        .preview-section {
+            position: relative;
+            width: 45%;
+            padding: 20px;
+            border: 1px solid #e0e0e0;
+        }
+
+        .preview-section {
+            background-color: #f7f7f7;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+
+        .ql-container .ql-editor .ql-size-huge {
+            font-size: 2.5em !important;
+        }
+
+        .ql-container .ql-editor .ql-size-small {
+            font-size: 0.75em;
+        }
+
+        .ql-container .ql-editor .ql-size-large {
+            font-size: 1.5em;
+        }
+
+        .ql-container .ql-editor .ql-size-huge {
+            font-size: 2.5em;
+        }
+
+        .ql-align-center {
+            text-align: center;
+        }
+
+        .ql-align-right {
+            text-align: right;
+        }
+
+        .ql-align-justify {
+            text-align: justify;
+        }
+
+        .ql-snow .ql-picker.ql-size .ql-picker-label[data-value="small"]::before,
+        .ql-snow .ql-picker.ql-size .ql-picker-item[data-value="small"]::before {
+            content: 'Small';
+            font-size: 0.75em;
+        }
+
+        .ql-snow .ql-picker.ql-size .ql-picker-label[data-value="large"]::before,
+        .ql-snow .ql-picker.ql-size .ql-picker-item[data-value="large"]::before {
+            content: 'Large';
+            font-size: 1.5em;
+        }
+
+        .ql-snow .ql-picker.ql-size .ql-picker-label[data-value="huge"]::before,
+        .ql-snow .ql-picker.ql-size .ql-picker-item[data-value="huge"]::before {
+            content: 'Huge';
+            font-size: 2.5em;
+        }
+
+        .ql-size-small {
+            font-size: 0.75em;
+        }
+
+        .ql-size-large {
+            font-size: 1.5em;
+        }
+
+        .ql-size-huge {
+            font-size: 2.5em;
+        }
+
+        .ql-editor img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .ql-container {
+            overflow: visible;
+        }
+    </style>
+</head>
+
+<body>
+    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+
+    <script src="https://cdn.rawgit.com/kensnyder/quill-image-resize-module/3411c9a7/image-resize.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/quill-image-resize-module/3.0.0/image-resize.min.js"></script>
+    <div class="container">
+        <div class="edit-section">
+            <h3>Design your Landing Page</h3>
+            <label>Page Title:</label><br>
+            <input type="text" id="pageTitle" onkeyup="updatePreview('pageTitle', 'previewTitle')"><br><br>
+            <label>Price :</label><br>
+            <input type="text" id="pagePrice" onkeyup="updatePreview('pagePrice', 'previewPrice')"><br><br>
+            <label>Redirect URL :</label><br>
+            <input type="text" id="pageUrl" onkeyup="updatePreview('pageUrl', 'previewUrl')"><br><br>
+            <label>Pixel ID :</label><br>
+            <input type="text" id="pagePixel" onkeyup="updatePreview('pagePixel', 'previewPixel')"><br><br>
+            <label>Analytic ID :</label><br>
+            <input type="text" id="pageAnalytic" onkeyup="updatePreview('pageAnalytic', 'previewAnalytic')"><br><br>
+
+            <label>Category:</label><br>
+            <select id="pageCategory" onchange="updatePreview('pageCategory', 'previewCategory')">
+                <option value="Finance">Finance</option>
+                <option value="Tech">Tech</option>
+            </select><br><br>
+
+            <div class="upload-box">
+                <img id="preview" src="" alt="">
+                <p>Browse files from your system</p>
+                <small>1280 x 720 (16:9) recommended</small>
+                <input type="file" name="coverImage" id="coverImage" style="display:none">
+                <label for="coverImage">Upload Cover</label>
+            </div>
+
+            <label>Description:</label>
+            <div id="editor"></div>
+
+            <label>Button Text:</label><br>
+            <input type="text" id="buttonText" onkeyup="updatePreview('buttonText', 'previewButton')">
+        </div>
+
+        <div class="preview-section">
+
+            <h1 id="previewTitle"></h1>
+            <p id="previewCategory"></p>
+            <img id="previewLeft" style="max-width: 100%; margin-bottom: 10px;" alt="">
+            <p id="previewDescription"></p>
+            <center> <button class="button" id="previewButton"></button></center>
+        </div>
+    </div>
+
+
+    <script>
+        const ImageResize = Quill.import('modules/imageResize');
+        class CustomImageResize extends ImageResize {
+            constructor(quill, options) {
+                super(quill, options);
+                this.onImageClick = (e) => {
+                    if (e.target.tagName === 'IMG') {
+                        const img = e.target;
+                        const width = prompt('Enter width:', img.width);
+                        const height = prompt('Enter height:', img.height);
+                        if (width) img.width = width;
+                        if (height) img.height = height;
+                    }
+                };
+                quill.root.addEventListener('click', this.onImageClick);
+            }
+        }
+        Quill.register('modules/imageResize', ImageResize);
+
+
+        var toolbarOptions = [
+
+
+            [{ 'font': [] }],
+            ['bold', 'italic', 'underline'],
+            [{ 'size': ['small', false, 'large', 'huge'] }],
+            [{ 'color': [] }, { 'background': [] }],
+            [{ 'align': [] }],
+            [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+            ['undo', 'redo'],
+            ['link', 'image', 'video']
+        ];
+
+
+        var quill = new Quill('#editor', {
+            theme: 'snow',
+            modules: {
+                toolbar: toolbarOptions,
+                imageResize: {}
+            }
+        });
+
+
+        quill.deleteText(0, quill.getLength());
+        document.getElementById("coverImage").onchange = function () {
+            let reader = new FileReader();
+            reader.onload = function (e) {
+                document.getElementById("preview").src = e.target.result;
+                document.getElementById("preview").style.display = "block";
+                document.getElementById("previewLeft").src = e.target.result;
+            };
+            reader.readAsDataURL(this.files[0]);
+        };
+
+        function updatePreview(editElementId, previewElementId) {
+            document.getElementById(previewElementId).textContent = document.getElementById(editElementId).value;
+        }
+
+
+
+        quill.on('text-change', function () {
+            var htmlContent = quill.root.innerHTML;
+            document.getElementById('previewDescription').innerHTML = htmlContent;
+        });
+
+        quill.getModule('toolbar').addHandler('image', function () {
+            // Create an input to select an image from the computer
+            var input = document.createElement('input');
+            input.setAttribute('type', 'file');
+            input.setAttribute('accept', 'image/*');
+            input.click();
+
+            // Listen for the image selection event
+            input.onchange = function () {
+                var file = input.files[0];
+                if (file) {
+                    // Convert the image to a data URL
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        var range = quill.getSelection();
+                        quill.insertEmbed(range.index, 'image', e.target.result, 'user');
+
+                        // After inserting the image, prompt the user to specify dimensions
+                        setTimeout(function () {
+                            var img = quill.root.querySelector('img[src="' + e.target.result + '"]');
+                            if (img) {
+                                var width = prompt("Enter image width:", img.width);
+                                var height = prompt("Enter image height:", img.height);
+                                resizeImage(img, width, height);
+                            }
+                        }, 1);
+                    };
+                    reader.readAsDataURL(file);
+                }
+            };
+        });
+
+        function resizeImage(imgElement, width, height) {
+            imgElement.width = width;
+            imgElement.height = height;
+        }
+        function adjustEditorHeight() {
+            const editorContent = document.querySelector('.ql-editor');
+            const editorContainer = document.querySelector('#editor');
+            editorContainer.style.height = `${editorContent.scrollHeight}px`;
+        }
+
+        // Listen for text change and adjust the height
+        quill.on('text-change', adjustEditorHeight);
+
+        // Adjust height initially in case there's default content
+        adjustEditorHeight();
+    </script>
+</body>
+
+</html>

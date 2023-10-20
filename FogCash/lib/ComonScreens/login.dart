@@ -212,7 +212,7 @@ class _LoginScrState extends State<LoginScr> {
                           recognizer: TapGestureRecognizer()
                             ..onTap = () async {
                               var url =
-                                  "https://aitoolsnext.blogspot.com/2023/08/term.html";
+                                  "https://mugcash.blogspot.com/2023/08/terms.html";
                               if (await canLaunch(url)) {
                                 await launch(url);
                               } else {
@@ -226,7 +226,7 @@ class _LoginScrState extends State<LoginScr> {
                           text: "Privacy Policy",
                           recognizer: TapGestureRecognizer()
                             ..onTap = () async {
-                              var url = "https://aitoolsnext.blogspot.com/2023/08/privacypoclicy.html";
+                              var url = "https://mugcash.blogspot.com/2023/08/privacypolicy.html";
                               if (await canLaunch(url)) {
                                 await launch(url);
                               } else {

@@ -1,3 +1,5 @@
+import 'package:cash/Tasksoffer.dart';
+import 'package:cash/quiz_file.dart';
 
 import 'Login_screen.dart';
 import 'navbar.dart';
@@ -5,12 +7,15 @@ import 'navbar.dart';
 import 'welcome.dart';
 
 class AuthService {
-  handleAuthState()  {
+  handleAuthState() {
     if (account!.isNotEmpty) {
-      return Bottomapp();
+      if (adsbox!.get(200) == true) {
+        return Bottomapp();
+      } else {
+        return Taskoffers();
+      }
     } else {
       return Loginscreen();
     }
-   
   }
 }

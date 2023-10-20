@@ -519,6 +519,7 @@ class _SuperSpinState extends State<SuperSpin> {
   }
 
   paymentkro() async {
+    try{
     Quantupi zupi = Quantupi(
       receiverUpiId: 'nextonebox.51084093@sbi',
       receiverName: 'NextOneBox CEO',
@@ -574,6 +575,10 @@ class _SuperSpinState extends State<SuperSpin> {
         }
         break;
       }
+    }
+        } catch (error) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          backgroundColor: c1, content: Text('Please select a UPI app for payment. \n Or no UPI app found in device .')));
     }
   }
 }

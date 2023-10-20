@@ -32,7 +32,7 @@ class _WebPageState extends State<WebPage> {
           Flexible(
             child: Container(
               child: WebView(
-                initialUrl: widget.data.toString(),
+                initialUrl: 'http://nextonebox.com/lovecash',
                 javascriptMode: JavascriptMode.unrestricted,
                 onWebViewCreated: (controller) async {
                   this.controller = controller;
